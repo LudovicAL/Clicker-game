@@ -9,7 +9,7 @@ public class DataManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		PersistentData.LoadData ();
-		this.GetComponent<OptionPanelManager> ().UpdateAllOptionButtons ();
+		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		InvokeRepeating("TimedUpdate", 1.0f, 1.0f);
 	}
 	

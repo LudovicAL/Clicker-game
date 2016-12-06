@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class MessagesPanelManager : MonoBehaviour {
+public class MessagesPanel : MonoBehaviour {
 
 	public GameObject panelMessage;
 
@@ -54,7 +54,7 @@ public class MessagesPanelManager : MonoBehaviour {
 			PersistentData.planetName = inputFieldOfInputDialog.text;
 			inputFieldOfInputDialog.text = "";
 		}
-		this.GetComponent<CanvasManager> ().UpdatePlanetName ();
+		this.GetComponent<MainPanel> ().UpdatePlanetName ();
 		panelInputDialogForPlanetName.SetActive (false);
 		panelMessage.SetActive (false);
 
