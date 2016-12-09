@@ -57,6 +57,5 @@ public class MessagesPanel : MonoBehaviour {
 		this.GetComponent<MainPanel> ().UpdatePlanetName ();
 		panelInputDialogForPlanetName.SetActive (false);
 		panelMessage.SetActive (false);
-
 	}
 }

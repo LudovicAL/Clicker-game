@@ -4,23 +4,23 @@ using System.Collections;
 
 public class OptionPanel : MonoBehaviour {
 
+	/*
 	public enum AvailablePanelStates {
 		Paused,	//Player is paused
 		Playing,	//Game is playing
 	};
+	*/
 
 	public GameObject thisPanel;
-	private AvailablePanelStates panelState;
-	public Text currentMoneyText;
-	public Text currentFarmingText;
+	//private AvailablePanelStates panelState;
 	public Toggle buttonOptionShortNumberNotation;
 	public Toggle buttonOptionPlanetNamePromt;
 
 	// Use this for initialization
 	void Start () {
-		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
-		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		//this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
+		//this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
+		//SetPanelState (AvailablePanelStates.Playing);
 	}
 	
 	/*
@@ -29,7 +29,6 @@ public class OptionPanel : MonoBehaviour {
 			
 		//}
 	}
-	*/
 
 	protected void OnPlaying() {
 		SetPanelState (AvailablePanelStates.Playing);
@@ -42,6 +41,7 @@ public class OptionPanel : MonoBehaviour {
 	public void SetPanelState(AvailablePanelStates state) {
 		panelState = state;
 	}
+	*/
 
 	//When the player clicks the short number notation option button
 	public void OnDisplayShortNumberNotationButtonClic(Toggle tButton) {

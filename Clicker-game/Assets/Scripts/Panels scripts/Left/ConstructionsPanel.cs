@@ -23,6 +23,7 @@ public class ConstructionsPanel : MonoBehaviour {
 			PersistentData.listOfConstructions [i].ConstructionButton = constructionsButtonList [i];
 		}
 		foreach (Construction c in PersistentData.listOfConstructions) {
+			c.IsUnlocked = c.IsUnlocked; //Activate or deactivate the button. It works because this specific mutator has more to it then only a change of value. Go see the Construction class for yourself, you'll see.
 			c.UpdateButtonDisplayedName ();
 			c.UpdateButtonDisplayedCost ();
 			c.UpdateButtonDisplayedQuantity ();
