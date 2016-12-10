@@ -53,5 +53,6 @@ public class CanvasManager : MonoBehaviour {
 		if (PersistentData.timeSinceLastSave != System.TimeSpan.Zero) {
 			this.GetComponent<MessagesPanel> ().ShowRewardAfterAbsence ();
 		}
+		this.GetComponent<MainPanel> ().UpdatePlanet ();
 	}
 }

@@ -11,6 +11,10 @@ public class DataManager : MonoBehaviour {
 		PersistentData.LoadData ();
 		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		InvokeRepeating("TimedUpdate", 1.0f, 1.0f);
+		if (PersistentData.planetName.Length == 0) {
+			this.GetComponent<MainPanel> ().RandomizePlanet ();
+		}
+		this.GetComponent<MainPanel> ().UpdatePlanet ();
 	}
 	
 	// Update is called once per frame

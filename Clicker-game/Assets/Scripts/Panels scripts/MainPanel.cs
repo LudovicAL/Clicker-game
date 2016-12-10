@@ -20,7 +20,6 @@ public class MainPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		RandomizePlanet ();
 	}
 	
 	// Update is called once per frame
@@ -44,23 +43,24 @@ public class MainPanel : MonoBehaviour {
 
 	//Generates a random planet
 	public void RandomizePlanet() {
-		float scale = Random.Range (1.0f, 2.0f);
-		planetImage.GetComponent<RectTransform> ().localScale = new Vector3(scale, scale, 1.0f);
+		PersistentData.planetScale = Random.Range (1.0f, 2.0f);
 		Sprite[] planetIcons = Resources.LoadAll<Sprite> ("PlanetIcons");
 		if (planetIcons.Length > 0) {
-			int iconId = Random.Range (0, planetIcons.Length - 1);
-			planetImage.GetComponent<Image> ().sprite = planetIcons[iconId];
+			PersistentData.planetIconId = Random.Range (0, planetIcons.Length - 1);
 		}
-		if (PersistentData.promtForPlanetName) {
+		if (PersistentData.promptForPlanetName) {
 			this.GetComponent<MessagesPanel>().PromptForPlanetName ();
 		} else {
-			planetName.text = CommonTools.GeneratePlanetName ();
-			PersistentData.planetName = planetName.text;
+			PersistentData.planetName = CommonTools.GeneratePlanetName ();
 		}
+		UpdatePlanet ();
 	}
 
-	public void UpdatePlanetName() {
+	public void UpdatePlanet() {
 		planetName.text = PersistentData.planetName;
+		planetImage.GetComponent<RectTransform> ().localScale = new Vector3(PersistentData.planetScale, PersistentData.planetScale, 1.0f);
+		Sprite[] planetIcons = Resources.LoadAll<Sprite> ("PlanetIcons");
+		planetImage.GetComponent<Image> ().sprite = planetIcons[PersistentData.planetIconId];
 	}
 
 	//Whenever the player clics the main button

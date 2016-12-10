@@ -14,9 +14,7 @@ public class MessagesPanel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		panelMessage.SetActive (false);
-		panelRewardAfterAbsence.SetActive (false);
-		panelInputDialogForPlanetName.SetActive (false);
+		
 	}
 	
 	/*
@@ -54,8 +52,9 @@ public class MessagesPanel : MonoBehaviour {
 			PersistentData.planetName = inputFieldOfInputDialog.text;
 			inputFieldOfInputDialog.text = "";
 		}
-		this.GetComponent<MainPanel> ().UpdatePlanetName ();
+		this.GetComponent<MainPanel> ().UpdatePlanet ();
 		panelInputDialogForPlanetName.SetActive (false);
 		panelMessage.SetActive (false);
+		PersistentData.SaveData ();
 	}
 }

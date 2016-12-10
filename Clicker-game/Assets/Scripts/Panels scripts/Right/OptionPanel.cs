@@ -52,7 +52,7 @@ public class OptionPanel : MonoBehaviour {
 
 	//When the player clicks the prompt for planet name option button
 	public void OnPromptForPlanetNameButtonClic(Toggle tButton) {
-		PersistentData.promtForPlanetName = tButton.isOn;		
+		PersistentData.promptForPlanetName = tButton.isOn;		
 	}
 
 	public void UpdateAllOptionButtons() {
@@ -66,6 +66,6 @@ public class OptionPanel : MonoBehaviour {
 	}
 
 	public void UpdateButtonPlanetNamePrompt() {
-		buttonOptionPlanetNamePromt.isOn = PersistentData.promtForPlanetName;
+		buttonOptionPlanetNamePromt.isOn = PersistentData.promptForPlanetName;
 	}
 }
