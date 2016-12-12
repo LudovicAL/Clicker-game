@@ -236,6 +236,14 @@ public static class PersistentData {
 		storage.timeSpentPayingEmployees = timeSpentPayingEmployees;
 		storage.timeSpentEnslavingEmployees = timeSpentEnslavingEmployees;
 
+		//Constructions
+		storage.constructionsQuantity = new int[listOfConstructions.Length];
+		storage.constructionsUpgradeLevel = new int[listOfConstructions.Length];
+		for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
+			storage.constructionsQuantity[i] = listOfConstructions [i].Quantity;
+			storage.constructionsUpgradeLevel[i] = listOfConstructions [i].UpgradeLevel;
+		}
+
 		//---
 		bf.Serialize (file, storage);
 		file.Close ();
@@ -315,8 +323,8 @@ public static class PersistentData {
 			numberOfCompanyRestarts = storage.numberOfCompanyRestarts;
 
 			//ABILITIES
-			currentNumberOfAbilitiesUsed = //In the current session onlystorage.currentNumberOfAbilitiesUsed;//In the current session only
-				totalNumberOfAbilitiesUsed = storage.totalNumberOfAbilitiesUsed;
+			currentNumberOfAbilitiesUsed = storage.currentNumberOfAbilitiesUsed;	//In the current session only
+			totalNumberOfAbilitiesUsed = storage.totalNumberOfAbilitiesUsed;
 
 			//RACES
 			numberOfMarsiansAlliance = storage.numberOfMarsiansAlliance;
@@ -356,6 +364,12 @@ public static class PersistentData {
 			//Classes
 			timeSpentPayingEmployees = storage.timeSpentPayingEmployees;
 			timeSpentEnslavingEmployees = storage.timeSpentEnslavingEmployees;
+
+			//Constructions
+			for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
+				listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].Quantity);
+				listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].UpgradeLevel);
+			}
 
 			//---
 			CommonTools.updateNumbersNotations ();

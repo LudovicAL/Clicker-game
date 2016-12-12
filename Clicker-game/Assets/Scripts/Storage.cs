@@ -109,4 +109,8 @@ class Storage {
 	//Classes
 	public TimeSpan timeSpentPayingEmployees;
 	public TimeSpan timeSpentEnslavingEmployees;
+
+	//Constructions
+	public int[] constructionsQuantity;
+	public int[] constructionsUpgradeLevel;
 }
