@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Achievement : MonoBehaviour {
-
-	public GameObject toolTipPanel;
+	
 	public Image progressBar;
+	public GameObject scriptBucket;
 
 	private string aName;
 	private string aDescription;
@@ -31,11 +31,11 @@ public class Achievement : MonoBehaviour {
 	*/
 
 	public void OnMouseOver() {
-		toolTipPanel.GetComponent<ToolTip> ().TurnToolTipOn (this.gameObject, aName, currentProgress.ToString("P0"), aDescription);
+		scriptBucket.GetComponent<ToolTip> ().TurnToolTipOn (this.gameObject, aName, currentProgress.ToString("P0"), aDescription);
 	}
 
 	public void OnMouseExit() {
-		toolTipPanel.SetActive (false);
+		scriptBucket.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}
 
 	public void AddNLevels(int numberOfLevelsToAdd) {

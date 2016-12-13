@@ -9,6 +9,7 @@ public class ToolTip : MonoBehaviour {
 		Playing,	//Game is playing
 	};
 
+	public GameObject ttPanel;
 	public Text ttTitle;
 	public Text ttProgress;
 	public Text ttDescription;
@@ -18,6 +19,7 @@ public class ToolTip : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
+		TurnToolTipOff ();
 	}
 	
 	/*
@@ -50,16 +52,16 @@ public class ToolTip : MonoBehaviour {
 			ttProgress.text = progress;
 			ttDescription.text = description;
 			if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
-				this.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
+				ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
 			} else {
-				this.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
+				ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
 			}
-			this.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
-			this.gameObject.SetActive (true);
+			ttPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+			ttPanel.gameObject.SetActive (true);
 		}
 	}
 
 	public void TurnToolTipOff() {
-		this.gameObject.SetActive (false);
+		ttPanel.gameObject.SetActive (false);
 	}
 }

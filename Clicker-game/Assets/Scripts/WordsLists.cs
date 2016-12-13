@@ -149,7 +149,7 @@ public static class WordsLists {
 	};
 
 	public static string[,] constructionsNames = new string[6, 10] {
-		{ "Shovels", "Pickaxes", "Jackhammers", "Metal detectors", "Excavators", "Loader trucks", "Conveyors", "Refineries", "Explosives", "Tunnel borers" },
+		{ "Shovels", "Pickaxes", "Jackhammers", "Metal detectors", "Excavators", "Dump trucks", "Conveyors", "Refineries", "Explosives", "Tunnel borers" },
 		{ "Shovels", "Pickaxes", "Jackhammers", "Cave dwellers", "Solar panels", "Air filters", "Incinerators", "Motherships", "Alpha canons", "Cyborgs" },
 		{ "Shovels", "Pickaxes", "Jackhammers", "Troglodytes", "Water turbines", "Dust collectors", "Compressors", "Cargo vessels", "Gamma canons", "Space escalators" },
 		{ "Shovels", "Pickaxes", "Jackhammers", "Fusion reactors", "", "", "", "Quantic excavators", "Pulse canons", "Tractor beams" },

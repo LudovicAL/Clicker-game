@@ -49,6 +49,7 @@ public class Construction {
 		//Not all required calculations are performed here, but rather only those that effect this construction alone
 		CalculateNextUpgradeCost ();
 		CalculateProduction ();
+		UpdateUpgradeButtonColor ();
 	}
 
 	//Calculates the cost to build one copy of this construction
@@ -115,7 +116,38 @@ public class Construction {
 
 	//Updates the upgrade button image color
 	public void UpdateUpgradeButtonColor() {
-		upgradeButton.GetComponent<Image> ().color = WordsLists.upgradesColors [upgradeLevel];
+		if (upgradeButton != null) {
+			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Plus")) {
+					i.GetComponent<Image> ().color = WordsLists.upgradesColors [upgradeLevel];
+					break;
+				}
+			}
+		}
+	}
+
+	//Updates both the construction button's and the upgrade button's image
+	public void UpdateButtonsImage(Sprite s) {
+		Component[] imageComponentsArray;
+		if (constructionButton != null) {
+			imageComponentsArray = constructionButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Image")) {
+					i.GetComponent<Image> ().sprite = s;
+					break;
+				}
+			}
+		}
+		if (upgradeButton != null) {
+			imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Image")) {
+					i.GetComponent<Image> ().sprite = s;
+					break;
+				}
+			}
+		}
 	}
 
 	//Updates the button displaying the cost of the next copies of this construction
@@ -264,9 +296,6 @@ public class Construction {
 			return upgradeButton.gameObject.activeSelf;
 		}
 		set {
-			if (value) {
-				UpdateUpgradeButtonColor ();
-			}
 			upgradeButton.gameObject.SetActive(value);
 		}
 	}

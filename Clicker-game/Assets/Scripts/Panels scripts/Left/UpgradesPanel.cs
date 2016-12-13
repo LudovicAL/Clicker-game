@@ -54,21 +54,23 @@ public class UpgradesPanel : MonoBehaviour {
 			if (this.GetComponent<DataManager> ().CanAffordUpgrade (PersistentData.listOfConstructions[buttonNo])) {
 				this.GetComponent<DataManager> ().BuyUpgrade (PersistentData.listOfConstructions[buttonNo]);
 				Update ();
-				this.GetComponent<CanvasManager> ().toolTipPanel.GetComponent<ToolTip> ().TurnToolTipOff ();
+				this.GetComponent<ToolTip> ().TurnToolTipOff ();
 			}
 		}
 	}
 
 	public void OnMouseOverUpgradeButton(int buttonNo) {
-		this.GetComponent<CanvasManager> ().toolTipPanel.GetComponent<ToolTip> ().TurnToolTipOn (
-			PersistentData.listOfConstructions[buttonNo].UpgradeButton.gameObject,
-			WordsLists.upgradesAdjectives[PersistentData.listOfConstructions[buttonNo].UpgradeLevel] + PersistentData.listOfConstructions[buttonNo].Name,
-			"",
-			PersistentData.listOfConstructions[buttonNo].Name + " production is doubled."
-		);
+		if (panelState == AvailablePanelStates.Playing) {
+			this.GetComponent<ToolTip> ().TurnToolTipOn (
+				PersistentData.listOfConstructions[buttonNo].UpgradeButton.gameObject,
+				WordsLists.upgradesAdjectives[PersistentData.listOfConstructions[buttonNo].UpgradeLevel] + PersistentData.listOfConstructions[buttonNo].Name,
+				"",
+				PersistentData.listOfConstructions[buttonNo].Name + " production is doubled."
+			);
+		}
 	}
 
 	public void OnMouseExitUpgradeButton(int buttonNo) {
-		this.GetComponent<CanvasManager> ().toolTipPanel.SetActive (false);
+		this.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}
 }
