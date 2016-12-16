@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class DataManager : MonoBehaviour {
 
 	public int constructionUpgradesInterval;
+	public float pointerUpgradesCostModifier;
 
 	// Use this for initialization
 	void Start () {
 		this.GetComponent<CanvasManager> ().OnLoadButtonClic ();
-		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		InvokeRepeating("TimedUpdate", 1.0f, 1.0f);
 		if (PersistentData.planetName.Length == 0) {
 			this.GetComponent<MainPanel> ().RandomizePlanet ();
@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour {
 	}
 
 	//Returns true if the player can afford the construction upgrade
-	public bool CanAffordUpgrade(Construction c) {
+	public bool CanAffordConstructionUpgrade(Construction c) {
 		return (PersistentData.currentMoney >= c.NextUpgradeCost);
 	}
 
@@ -63,7 +63,8 @@ public class DataManager : MonoBehaviour {
 			PersistentData.currentMoney -= c.Cost;
 			c.AddNConstructions(c.NumberOfConstructionsToBuild);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
-			calculateTotalFarmingReward ();
+			CalculateTotalFarmingReward ();
+			CalculateCurrentTotalNumberOfConstruction ();
 			foreach (Construction cons in PersistentData.listOfConstructions) {
 				cons.CalculateContribution ();
 				cons.UpdateButtonDisplayedContribution ();
@@ -73,12 +74,12 @@ public class DataManager : MonoBehaviour {
 	}
 
 	//Buys an upgrade
-	public void BuyUpgrade(Construction c) {
-		if (CanAffordUpgrade(c)) {
+	public void BuyConstructionUpgrade(Construction c) {
+		if (CanAffordConstructionUpgrade(c)) {
 			PersistentData.currentMoney -= c.NextUpgradeCost;
 			c.AddNUpgrades(1);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
-			calculateTotalFarmingReward ();
+			CalculateTotalFarmingReward ();
 			foreach (Construction cons in PersistentData.listOfConstructions) {
 				cons.CalculateContribution ();
 				cons.UpdateButtonDisplayedContribution ();
@@ -87,7 +88,7 @@ public class DataManager : MonoBehaviour {
 		}
 	}
 
-	public void calculateTotalFarmingReward() {
+	public void CalculateTotalFarmingReward() {
 		PersistentData.farmingRewardFromConstructions = 0;
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			PersistentData.farmingRewardFromConstructions += c.Production; 
@@ -98,5 +99,24 @@ public class DataManager : MonoBehaviour {
 	//Return the reward the player is entitled to after
 	public int CalculateRewardAfterAbsence() {
 		return (int)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.totalFarmingReward);
+	}
+
+	//Calculates the current total number of construction
+	public void CalculateCurrentTotalNumberOfConstruction() {
+		int total = 0;
+		foreach (Construction c in PersistentData.listOfConstructions) {
+			total += c.Quantity;
+		}
+		PersistentData.currentTotalNumberOfConstruction = total;
+		if (PersistentData.highestTotalNumberOfConstructionAchieved < PersistentData.currentTotalNumberOfConstruction) {
+			PersistentData.highestTotalNumberOfConstructionAchieved = PersistentData.currentTotalNumberOfConstruction;
+		}
+	}
+
+	//Calculates the total clicking reward (and the base clicking reward and clicking multiplier in the process)
+	public void CalculateTotalClickingReward() {
+		PersistentData.baseClickingReward = Mathf.Exp(PersistentData.baseClickingRewardUpgradeLevel);
+		PersistentData.clickingMultiplier = (PersistentData.clickingMultiplierUpgradeLevel + 1);
+		PersistentData.totalClickingReward = PersistentData.baseClickingReward * PersistentData.clickingMultiplier;
 	}
 }

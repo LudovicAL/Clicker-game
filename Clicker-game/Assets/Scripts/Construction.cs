@@ -204,6 +204,15 @@ public class Construction {
 		} 
 	}
 
+	public void OnMouseOverUpgradeButton(ToolTip tt) {
+		tt.TurnToolTipOn (
+			upgradeButton.gameObject,
+			WordsLists.upgradesAdjectives[UpgradeLevel] + Name,
+			CommonTools.DoubleToString(nextUpgradeCost) + " $",
+			Name + " production is doubled."
+		);
+	}
+
 	//Properties
 	public string Name {
 		get {

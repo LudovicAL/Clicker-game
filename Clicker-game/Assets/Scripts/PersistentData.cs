@@ -16,6 +16,8 @@ public static class PersistentData {
 	//CLICKING
 	public static double baseClickingReward = 1;
 	public static int clickingMultiplier = 1;
+	public static int baseClickingRewardUpgradeLevel = 0;
+	public static int clickingMultiplierUpgradeLevel = 0;
 	public static double totalClickingReward = 1;
 	public static double highestTotalClickingRewardAchieved = 1;
 	public static double currentNumberOfClicks = 0;
@@ -85,14 +87,6 @@ public static class PersistentData {
 	public static double currentNumberOfEmployees = 0;
 	public static double highestAchievedNumberOfEmployees = 0;
 
-	//CONSTRUCTIONS
-	public static int currentNumberOfConstruction1 = 0;
-	public static int highestNumberOfConstruction1Achieved = 0;
-	public static int currentNumberOfConstruction2 = 0;
-	public static int highestNumberOfConstruction2Achieved = 0;
-	public static int currentNumberOfConstruction3 = 0;
-	public static int highestNumberOfConstruction4Achieved = 0;
-
 	//TIME
 		//Game
 	public static DateTime timeAtLastsave = System.DateTime.Now;
@@ -112,7 +106,13 @@ public static class PersistentData {
 	public static TimeSpan timeSpentEnslavingEmployees = System.TimeSpan.Zero;
 
 	//CONSTRUCTIONS
+	public static int currentTotalNumberOfConstruction = 0;
+	public static int highestTotalNumberOfConstructionAchieved = 0;
+	public static int[] highestNumberOfConstructionAchieved = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	public static Construction[] listOfConstructions = new Construction[10];
+
+	//UPGRADES
+	public static Upgrade[] listOfPointerUpgrades = new Upgrade[2];
 
 	//BULKBUYER
 	public static RouletteButton bulkBuyer = new RouletteButton (new string[]{ "Buy 1", "Buy 10", "Buy 100", "Buy Max" }, new int[]{ 1, 10, 100, 0 });
@@ -125,6 +125,18 @@ public static class PersistentData {
 			unlocked = (i < 3) ? true : false;
 			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked);
 		}
+		for (int i = 0; i < listOfPointerUpgrades.Length; i++) {
+			switch(i) {
+				case 0:
+					listOfPointerUpgrades [i] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[i], WordsLists.pointerUpgradesDescriptions[i]);
+					break;
+				case 1:
+					listOfPointerUpgrades [i] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[i], WordsLists.pointerUpgradesDescriptions[i]);
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
 	public static void SaveData() {
@@ -135,16 +147,17 @@ public static class PersistentData {
 		//OPTIONS
 		storage.shortNumbers = shortNumbers;
 		storage.promptForPlanetName = promptForPlanetName;
+
 		//PLANET
 		storage.planetName = planetName;
 		storage.planetScale = planetScale;
 		storage.planetIconId = planetIconId;
+
 		//CLICKING
-		storage.baseClickingReward = baseClickingReward;
-		storage.clickingMultiplier = clickingMultiplier;
+		storage.baseClickingRewardUpgradeLevel = baseClickingRewardUpgradeLevel;
+		storage.clickingMultiplierUpgradeLevel = clickingMultiplierUpgradeLevel;
 		storage.totalClickingReward = totalClickingReward;
 		storage.highestTotalClickingRewardAchieved = highestTotalClickingRewardAchieved;
-		storage.currentNumberOfClicks = currentNumberOfClicks;
 		storage.highestNumberOfClicsAchived = highestNumberOfClicsAchived;
 		storage.totalNumberOfClicks = totalNumberOfClicks;
 
@@ -211,14 +224,6 @@ public static class PersistentData {
 		storage.currentNumberOfEmployees = currentNumberOfEmployees;
 		storage.highestAchievedNumberOfEmployees = highestAchievedNumberOfEmployees;
 
-		//CONSTRUCTIONS
-		storage.currentNumberOfConstruction1 = currentNumberOfConstruction1;
-		storage.highestNumberOfConstruction1Achieved = highestNumberOfConstruction1Achieved;
-		storage.currentNumberOfConstruction2 = currentNumberOfConstruction2;
-		storage.highestNumberOfConstruction2Achieved = highestNumberOfConstruction2Achieved;
-		storage.currentNumberOfConstruction3 = currentNumberOfConstruction3;
-		storage.highestNumberOfConstruction4Achieved = highestNumberOfConstruction4Achieved;
-
 		//TIME
 		//Game
 		storage.timeAtLastsave = System.DateTime.Now;
@@ -236,7 +241,9 @@ public static class PersistentData {
 		storage.timeSpentPayingEmployees = timeSpentPayingEmployees;
 		storage.timeSpentEnslavingEmployees = timeSpentEnslavingEmployees;
 
-		//Constructions
+		//CONSTRUCTION
+		storage.highestTotalNumberOfConstructionAchieved = highestTotalNumberOfConstructionAchieved;
+		storage.highestNumberOfConstructionAchieved = highestNumberOfConstructionAchieved;
 		storage.constructionsQuantity = new int[listOfConstructions.Length];
 		storage.constructionsUpgradeLevel = new int[listOfConstructions.Length];
 		for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
@@ -268,11 +275,10 @@ public static class PersistentData {
 			planetIconId = storage.planetIconId;
 
 			//CLICKING
-			baseClickingReward = storage.baseClickingReward;
-			clickingMultiplier = storage.clickingMultiplier;
+			baseClickingRewardUpgradeLevel = storage.baseClickingRewardUpgradeLevel;
+			clickingMultiplierUpgradeLevel = storage.clickingMultiplierUpgradeLevel;
 			totalClickingReward = storage.totalClickingReward;
 			highestTotalClickingRewardAchieved = storage.highestTotalClickingRewardAchieved;
-			currentNumberOfClicks = storage.currentNumberOfClicks;
 			highestNumberOfClicsAchived = storage.highestNumberOfClicsAchived;
 			totalNumberOfClicks = storage.totalNumberOfClicks;
 
@@ -339,14 +345,6 @@ public static class PersistentData {
 			currentNumberOfEmployees = storage.currentNumberOfEmployees;
 			highestAchievedNumberOfEmployees = storage.highestAchievedNumberOfEmployees;
 
-			//CONSTRUCTIONS
-			currentNumberOfConstruction1 = storage.currentNumberOfConstruction1;
-			highestNumberOfConstruction1Achieved = storage.highestNumberOfConstruction1Achieved;
-			currentNumberOfConstruction2 = storage.currentNumberOfConstruction2;
-			highestNumberOfConstruction2Achieved = storage.highestNumberOfConstruction2Achieved;
-			currentNumberOfConstruction3 = storage.currentNumberOfConstruction3;
-			highestNumberOfConstruction4Achieved = storage.highestNumberOfConstruction4Achieved;
-
 			//TIME
 			//Game
 			timeAtLastsave = storage.timeAtLastsave;
@@ -365,7 +363,9 @@ public static class PersistentData {
 			timeSpentPayingEmployees = storage.timeSpentPayingEmployees;
 			timeSpentEnslavingEmployees = storage.timeSpentEnslavingEmployees;
 
-			//Constructions
+			//CONSTRUCTION
+			highestTotalNumberOfConstructionAchieved = storage.highestTotalNumberOfConstructionAchieved;
+			highestNumberOfConstructionAchieved = storage.highestNumberOfConstructionAchieved;
 			for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
 				listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].Quantity);
 				listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].UpgradeLevel);

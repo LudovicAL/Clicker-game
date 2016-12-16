@@ -50,9 +50,13 @@ public class CanvasManager : MonoBehaviour {
 
 	public void OnLoadButtonClic() {
 		PersistentData.LoadData ();
+		this.GetComponent<MainPanel> ().UpdatePlanet ();
+		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
+		this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
+		this.GetComponent<DataManager> ().CalculateTotalFarmingReward ();
+		this.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfConstruction ();
 		if (PersistentData.timeSinceLastSave != System.TimeSpan.Zero) {
 			this.GetComponent<MessagesPanel> ().ShowRewardAfterAbsence ();
 		}
-		this.GetComponent<MainPanel> ().UpdatePlanet ();
 	}
 }

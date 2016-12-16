@@ -13,11 +13,10 @@ class Storage {
 	public int planetIconId;
 
 	//CLICKING
-	public double baseClickingReward;
-	public int clickingMultiplier;
+	public int baseClickingRewardUpgradeLevel;
+	public int clickingMultiplierUpgradeLevel;
 	public double totalClickingReward;
 	public double highestTotalClickingRewardAchieved;
-	public double currentNumberOfClicks;
 	public double highestNumberOfClicsAchived;
 	public double totalNumberOfClicks;
 
@@ -84,14 +83,6 @@ class Storage {
 	public double currentNumberOfEmployees;
 	public double highestAchievedNumberOfEmployees;
 
-	//CONSTRUCTIONS
-	public int currentNumberOfConstruction1;
-	public int highestNumberOfConstruction1Achieved;
-	public int currentNumberOfConstruction2;
-	public int highestNumberOfConstruction2Achieved;
-	public int currentNumberOfConstruction3;
-	public int highestNumberOfConstruction4Achieved;
-
 	//TIME
 	//Game
 	public DateTime timeAtLastsave;
@@ -110,7 +101,9 @@ class Storage {
 	public TimeSpan timeSpentPayingEmployees;
 	public TimeSpan timeSpentEnslavingEmployees;
 
-	//Constructions
+	//CONSTRUCTION
+	public int highestTotalNumberOfConstructionAchieved;
+	public int[] highestNumberOfConstructionAchieved;
 	public int[] constructionsQuantity;
 	public int[] constructionsUpgradeLevel;
 }

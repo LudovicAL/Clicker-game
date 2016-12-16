@@ -11,7 +11,8 @@ public class UpgradesPanel : MonoBehaviour {
 	};
 
 	public GameObject thisPanel;
-	public Button[] upgradesButtonList;
+	public Button[] constructionsUpgradesButtonList;
+	public Button[] pointersUpgradesButtonList;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -19,8 +20,11 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < upgradesButtonList.Length; i++) {
-			PersistentData.listOfConstructions [i].UpgradeButton = upgradesButtonList [i];
+		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < constructionsUpgradesButtonList.Length; i++) {
+			PersistentData.listOfConstructions [i].UpgradeButton = constructionsUpgradesButtonList [i];
+		}
+		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
+			PersistentData.listOfPointerUpgrades [i].upgradeButton = pointersUpgradesButtonList[i];
 		}
 	}
 	
@@ -30,8 +34,12 @@ public class UpgradesPanel : MonoBehaviour {
 			foreach (Construction c in PersistentData.listOfConstructions) {
 				if (c.IsUnlocked) {
 					c.UpgradeButtonIsActive = this.GetComponent<DataManager> ().IsUpgradeAvailable (c);
-					c.UpgradeButtonIsInterractable = this.GetComponent<DataManager> ().CanAffordUpgrade (c);
+					c.UpgradeButtonIsInterractable = this.GetComponent<DataManager> ().CanAffordConstructionUpgrade (c);
 				}
+			}
+			foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+				u.UpdateButtonAvailability ();
+				u.UpdateButtonAccessibility ();
 			}
 		}
 	}
@@ -49,28 +57,39 @@ public class UpgradesPanel : MonoBehaviour {
 	}
 
 	//When the player clicks on a construction upgrade button
-	public void OnButtonClic(int buttonNo) {
+	public void OnButtonClicConstructionUpgrade(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
-			if (this.GetComponent<DataManager> ().CanAffordUpgrade (PersistentData.listOfConstructions[buttonNo])) {
-				this.GetComponent<DataManager> ().BuyUpgrade (PersistentData.listOfConstructions[buttonNo]);
+			if (this.GetComponent<DataManager> ().CanAffordConstructionUpgrade (PersistentData.listOfConstructions[buttonNo])) {
+				this.GetComponent<DataManager> ().BuyConstructionUpgrade (PersistentData.listOfConstructions[buttonNo]);
 				Update ();
 				this.GetComponent<ToolTip> ().TurnToolTipOff ();
 			}
 		}
 	}
 
-	public void OnMouseOverUpgradeButton(int buttonNo) {
+	//When the mouse hover over a construction upgrade button
+	public void OnMouseOverConstructionUpgradeButton(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
-			this.GetComponent<ToolTip> ().TurnToolTipOn (
-				PersistentData.listOfConstructions[buttonNo].UpgradeButton.gameObject,
-				WordsLists.upgradesAdjectives[PersistentData.listOfConstructions[buttonNo].UpgradeLevel] + PersistentData.listOfConstructions[buttonNo].Name,
-				"",
-				PersistentData.listOfConstructions[buttonNo].Name + " production is doubled."
-			);
+			PersistentData.listOfConstructions [buttonNo].OnMouseOverUpgradeButton (this.GetComponent<ToolTip> ());
 		}
 	}
 
-	public void OnMouseExitUpgradeButton(int buttonNo) {
+
+	//When the player clicks on a pointer upgrade button
+	public void OnButtonClicPointerUpgrade(int buttonNo) {
+		if (panelState == AvailablePanelStates.Playing) {
+			PersistentData.listOfPointerUpgrades [buttonNo].BuyNextLevel ();
+		}
+	}
+
+	//When the mouse hover over a pointer upgrade button
+	public void OnMouseOverPointerUpgradeButton(int buttonNo) {
+		if (panelState == AvailablePanelStates.Playing) {			
+			PersistentData.listOfPointerUpgrades [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
+		}
+	}
+
+	public void OnMouseExitUpgradeButton() {
 		this.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}
 }

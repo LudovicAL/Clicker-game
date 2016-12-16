@@ -314,4 +314,14 @@ public static class WordsLists {
 		"Picturesque",
 		"Touristy"
 	};
+
+	public static string[] pointerUpgradesNames = new string[] {
+		"Pointer base reward",
+		"Pointer reward multiplier"
+	};
+
+	public static string[] pointerUpgradesDescriptions = new string[] {
+		"Doubles each click base reward.",
+		"Double the click reward multiplier."
+	};
 }
