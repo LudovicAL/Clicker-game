@@ -20,10 +20,10 @@ public class ConstructionsPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
 		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < constructionsButtonList.Length; i++) {
-			PersistentData.listOfConstructions [i].ConstructionButton = constructionsButtonList [i];
+			PersistentData.listOfConstructions [i].constructionButton = constructionsButtonList [i];
 		}
 		foreach (Construction c in PersistentData.listOfConstructions) {
-			c.IsUnlocked = c.IsUnlocked; //Activate or deactivate the button. It works because this specific mutator has more to it then only a change of value. Go see the Construction class for yourself, you'll see.
+			c.UpdateConstructionButtonAvailability ();
 			c.UpdateButtonDisplayedName ();
 			c.UpdateButtonDisplayedCost ();
 			c.UpdateButtonDisplayedQuantity ();
@@ -35,10 +35,10 @@ public class ConstructionsPanel : MonoBehaviour {
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			foreach (Construction c in PersistentData.listOfConstructions) {
-				if (c.IsUnlocked) {
+				if (c.constructionAvailability) {
 					c.CalculateNumberOfConstructionsToBuild ();
 					c.UpdateButtonDisplayedCost ();
-					c.ConstructionButtonIsInterractable = this.GetComponent<DataManager> ().CanAffordConstruction(c);
+					c.constructionButton.interactable = c.CanAffordConstruction();
 				}
 			}
 		}
@@ -59,8 +59,8 @@ public class ConstructionsPanel : MonoBehaviour {
 	//When the player clicks on a construction button
 	public void OnButtonClic(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
-			if (this.GetComponent<DataManager> ().CanAffordConstruction (PersistentData.listOfConstructions[buttonNo])) {
-				this.GetComponent<DataManager> ().BuyConstruction (PersistentData.listOfConstructions[buttonNo]);
+			if (PersistentData.listOfConstructions[buttonNo].CanAffordConstruction()) {
+				PersistentData.listOfConstructions[buttonNo].BuyConstruction (this.GetComponent<DataManager>());
 				Update ();
 			}
 		}

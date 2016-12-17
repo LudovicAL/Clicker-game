@@ -13,8 +13,6 @@ class Storage {
 	public int planetIconId;
 
 	//CLICKING
-	public int baseClickingRewardUpgradeLevel;
-	public int clickingMultiplierUpgradeLevel;
 	public double totalClickingReward;
 	public double highestTotalClickingRewardAchieved;
 	public double highestNumberOfClicsAchived;
@@ -86,7 +84,6 @@ class Storage {
 	//TIME
 	//Game
 	public DateTime timeAtLastsave;
-	public TimeSpan timeSinceLastSave;
 	public TimeSpan timeSpentPlayingWithCurrentSession;
 	public TimeSpan longestPlayingSession;
 	public TimeSpan totalTimeSpentPlaying;

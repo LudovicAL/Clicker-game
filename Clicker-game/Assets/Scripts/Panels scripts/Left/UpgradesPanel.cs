@@ -21,7 +21,8 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
 		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < constructionsUpgradesButtonList.Length; i++) {
-			PersistentData.listOfConstructions [i].UpgradeButton = constructionsUpgradesButtonList [i];
+			PersistentData.listOfConstructions [i].upgradeButton = constructionsUpgradesButtonList [i];
+			PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
 		}
 		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
 			PersistentData.listOfPointerUpgrades [i].upgradeButton = pointersUpgradesButtonList[i];
@@ -32,9 +33,8 @@ public class UpgradesPanel : MonoBehaviour {
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			foreach (Construction c in PersistentData.listOfConstructions) {
-				if (c.IsUnlocked) {
-					c.UpgradeButtonIsActive = this.GetComponent<DataManager> ().IsUpgradeAvailable (c);
-					c.UpgradeButtonIsInterractable = this.GetComponent<DataManager> ().CanAffordConstructionUpgrade (c);
+				if (c.constructionAvailability) {
+					c.upgradeButton.interactable = c.CanAffordUpgrade ();
 				}
 			}
 			foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
@@ -59,8 +59,8 @@ public class UpgradesPanel : MonoBehaviour {
 	//When the player clicks on a construction upgrade button
 	public void OnButtonClicConstructionUpgrade(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
-			if (this.GetComponent<DataManager> ().CanAffordConstructionUpgrade (PersistentData.listOfConstructions[buttonNo])) {
-				this.GetComponent<DataManager> ().BuyConstructionUpgrade (PersistentData.listOfConstructions[buttonNo]);
+			if (PersistentData.listOfConstructions[buttonNo].CanAffordUpgrade()) {
+				PersistentData.listOfConstructions[buttonNo].BuyUpgrade(this.GetComponent<DataManager>());
 				Update ();
 				this.GetComponent<ToolTip> ().TurnToolTipOff ();
 			}

@@ -4,6 +4,9 @@ using System;
 using UnityEngine;
 
 public static class PersistentData {
+	//INTERNALS
+	public static int constructionUpgradesIntervals = 1;
+
 	//OPTIONS
 	public static bool shortNumbers = true;
 	public static bool promptForPlanetName = true;
@@ -16,8 +19,6 @@ public static class PersistentData {
 	//CLICKING
 	public static double baseClickingReward = 1;
 	public static int clickingMultiplier = 1;
-	public static int baseClickingRewardUpgradeLevel = 0;
-	public static int clickingMultiplierUpgradeLevel = 0;
 	public static double totalClickingReward = 1;
 	public static double highestTotalClickingRewardAchieved = 1;
 	public static double currentNumberOfClicks = 0;
@@ -123,7 +124,7 @@ public static class PersistentData {
 		bool unlocked;
 		for (int i = 0; i < listOfConstructions.Length; i++) {
 			unlocked = (i < 3) ? true : false;
-			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked);
+			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked, constructionUpgradesIntervals);
 		}
 		for (int i = 0; i < listOfPointerUpgrades.Length; i++) {
 			switch(i) {
@@ -154,8 +155,6 @@ public static class PersistentData {
 		storage.planetIconId = planetIconId;
 
 		//CLICKING
-		storage.baseClickingRewardUpgradeLevel = baseClickingRewardUpgradeLevel;
-		storage.clickingMultiplierUpgradeLevel = clickingMultiplierUpgradeLevel;
 		storage.totalClickingReward = totalClickingReward;
 		storage.highestTotalClickingRewardAchieved = highestTotalClickingRewardAchieved;
 		storage.highestNumberOfClicsAchived = highestNumberOfClicsAchived;
@@ -247,8 +246,8 @@ public static class PersistentData {
 		storage.constructionsQuantity = new int[listOfConstructions.Length];
 		storage.constructionsUpgradeLevel = new int[listOfConstructions.Length];
 		for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
-			storage.constructionsQuantity[i] = listOfConstructions [i].Quantity;
-			storage.constructionsUpgradeLevel[i] = listOfConstructions [i].UpgradeLevel;
+			storage.constructionsQuantity[i] = listOfConstructions [i].quantity;
+			storage.constructionsUpgradeLevel[i] = listOfConstructions [i].upgradeLevel;
 		}
 
 		//---
@@ -275,8 +274,6 @@ public static class PersistentData {
 			planetIconId = storage.planetIconId;
 
 			//CLICKING
-			baseClickingRewardUpgradeLevel = storage.baseClickingRewardUpgradeLevel;
-			clickingMultiplierUpgradeLevel = storage.clickingMultiplierUpgradeLevel;
 			totalClickingReward = storage.totalClickingReward;
 			highestTotalClickingRewardAchieved = storage.highestTotalClickingRewardAchieved;
 			highestNumberOfClicsAchived = storage.highestNumberOfClicsAchived;
@@ -367,8 +364,8 @@ public static class PersistentData {
 			highestTotalNumberOfConstructionAchieved = storage.highestTotalNumberOfConstructionAchieved;
 			highestNumberOfConstructionAchieved = storage.highestNumberOfConstructionAchieved;
 			for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
-				listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].Quantity);
-				listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].UpgradeLevel);
+				listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].quantity);
+				listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].upgradeLevel);
 			}
 
 			//---

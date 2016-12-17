@@ -2,10 +2,10 @@
 using UnityEngine.UI;
 
 public abstract class Upgrade {
-	string name { get; set; }
-	string description { get; set; }
-	int currentLevel { get; set; }
-	double costOfNextLevel { get; }
+	public string name { get; protected set; }
+	public string description { get; protected set; }
+	public int currentLevel { get; protected  set; }
+	public double costOfNextLevel { get; protected set; }
 	public Button upgradeButton { get; set; }
 
 	public Upgrade(Button upgradeButton, string name, string description) {
