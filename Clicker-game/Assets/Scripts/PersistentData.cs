@@ -115,6 +115,10 @@ public static class PersistentData {
 	//UPGRADES
 	public static Upgrade[] listOfPointerUpgrades = new Upgrade[2];
 
+	//ACHIEVEMENTS
+	public static Achievement[] listOfWealthAchievements = new Achievement[2];
+	public static Achievement[] listOfTimeAchievements = new Achievement[2];
+
 	//BULKBUYER
 	public static RouletteButton bulkBuyer = new RouletteButton (new string[]{ "Buy 1", "Buy 10", "Buy 100", "Buy Max" }, new int[]{ 1, 10, 100, 0 });
 
@@ -122,22 +126,20 @@ public static class PersistentData {
 	static PersistentData() {
 		string[] names = new string[]{ "Shovels", "Pickaxes", "Jackhammer", "???", "???", "???", "???", "???", "???", "???" };
 		bool unlocked;
+		//Constructions
 		for (int i = 0; i < listOfConstructions.Length; i++) {
 			unlocked = (i < 3) ? true : false;
 			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked, constructionUpgradesIntervals);
 		}
-		for (int i = 0; i < listOfPointerUpgrades.Length; i++) {
-			switch(i) {
-				case 0:
-					listOfPointerUpgrades [i] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[i], WordsLists.pointerUpgradesDescriptions[i]);
-					break;
-				case 1:
-					listOfPointerUpgrades [i] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[i], WordsLists.pointerUpgradesDescriptions[i]);
-					break;
-				default:
-					break;
-			}
-		}
+		//Upgrades
+		listOfPointerUpgrades [0] = new PointerBase (null, WordsLists.pointerUpgradesNames[0], WordsLists.pointerUpgradesDescriptions[0]);
+		listOfPointerUpgrades [1] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[1], WordsLists.pointerUpgradesDescriptions[1]);
+		//Wealth Achievements
+		listOfWealthAchievements[0] = new AMoneyPerSecond(0, WordsLists.wealthAchievementsNames[0], WordsLists.wealthAchievementsDescriptions[0], true, null, null);
+		listOfWealthAchievements[1] = new ATotalMoney(1, WordsLists.wealthAchievementsNames[1], WordsLists.wealthAchievementsDescriptions[1], true, null, null);
+		//Time Achievements
+		listOfTimeAchievements[0] = new ALongestSession(0, WordsLists.timeAchievementsNames[0], WordsLists.timeAchievementsDescriptions[0], true, null, null);
+		listOfTimeAchievements[1] = new ATotalTime(1, WordsLists.timeAchievementsNames[1], WordsLists.timeAchievementsDescriptions[1], true, null, null);
 	}
 
 	public static void SaveData() {

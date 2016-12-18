@@ -54,6 +54,9 @@ public class DataManager : MonoBehaviour {
 			PersistentData.farmingRewardFromConstructions += c.production; 
 		}
 		PersistentData.totalFarmingReward = PersistentData.farmingRewardFromConstructions;
+		if (PersistentData.totalFarmingReward > PersistentData.highestTotalFarmingReward) {
+			PersistentData.highestTotalFarmingReward = PersistentData.totalFarmingReward;
+		}
 	}
 
 	//Calculates the current total number of construction

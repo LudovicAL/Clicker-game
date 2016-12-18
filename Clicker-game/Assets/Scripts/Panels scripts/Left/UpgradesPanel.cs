@@ -25,7 +25,7 @@ public class UpgradesPanel : MonoBehaviour {
 			PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
 		}
 		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
-			PersistentData.listOfPointerUpgrades [i].upgradeButton = pointersUpgradesButtonList[i];
+			PersistentData.listOfPointerUpgrades [i].uButton = pointersUpgradesButtonList[i];
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class UpgradesPanel : MonoBehaviour {
 			}
 			foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
 				u.UpdateButtonAvailability ();
-				u.UpdateButtonAccessibility ();
+				u.UpdateButtonInteractivity ();
 			}
 		}
 	}
@@ -79,6 +79,7 @@ public class UpgradesPanel : MonoBehaviour {
 	public void OnButtonClicPointerUpgrade(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
 			PersistentData.listOfPointerUpgrades [buttonNo].BuyNextLevel ();
+			this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
 		}
 	}
 

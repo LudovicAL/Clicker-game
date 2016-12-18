@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class PointerMultiplier : Upgrade {
 
@@ -10,7 +7,7 @@ public class PointerMultiplier : Upgrade {
 	}
 
 	public override void ApplyUpgradeEffect() {
-		
+		PersistentData.clickingMultiplier = currentLevel;
 	}
 
 	public override void CalculateCostOfNextLevel() {

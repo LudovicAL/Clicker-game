@@ -27,8 +27,8 @@ public class GameStatesManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (gameState == AvailableGameStates.Playing) {
-			
+		if (Input.GetKeyDown("escape")) {
+			OnEscapeKeyPressed ();
 		}
 	}
 
@@ -52,6 +52,7 @@ public class GameStatesManager : MonoBehaviour {
 		} else if (gameState == AvailableGameStates.Paused) {
 			ChangeGameState (AvailableGameStates.Playing);
 		}
+		Debug.Log (gameState.ToString ());
 	}
 
 	//Properties

@@ -324,4 +324,34 @@ public static class WordsLists {
 		"Doubles each click base reward.",
 		"Double the click reward multiplier."
 	};
+
+	public static string[] wealthAchievementsNames = new string[] {
+		"Money per second",
+		"Total wealth"
+	};
+
+	public static string[] wealthAchievementsDescriptions = new string[] {
+		"Your highest achieved income.",
+		"Your highest achieved wealth."
+	};
+
+	public static double[,] wealthAchievementsValuesTable = new double[2, 5] {
+		{ 10, 30, 100, 200, 1000 },
+		{ 10, 50, 500, 5000, 50000 }
+	};
+
+	public static string[] timeAchievementsNames = new string[] {
+		"Longest playing session",
+		"Total time"
+	};
+
+	public static string[] timeAchievementsDescriptions = new string[] {
+		"Your longest achieved playing session.",
+		"Your total time spent playing the game."
+	};
+
+	public static double[,] timeAchievementsValuesTable = new double[2, 5] {
+		{ 10, 30, 100, 200, 1000 },
+		{ 10, 50, 500, 5000, 50000 }
+	};
 }

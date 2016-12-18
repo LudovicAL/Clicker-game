@@ -1,15 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public abstract class Upgrade {
 	public string name { get; protected set; }
 	public string description { get; protected set; }
 	public int currentLevel { get; protected  set; }
 	public double costOfNextLevel { get; protected set; }
-	public Button upgradeButton { get; set; }
+	public Button uButton { get; set; }
 
 	public Upgrade(Button upgradeButton, string name, string description) {
-		this.upgradeButton = upgradeButton;
+		this.uButton = upgradeButton;
 		this.name = name;
 		this.description = description;
 		this.currentLevel = 0;
@@ -26,7 +25,7 @@ public abstract class Upgrade {
 		ApplyUpgradeEffect ();
 		CalculateCostOfNextLevel ();
 		UpdateButtonAvailability ();
-		UpdateButtonAccessibility ();
+		UpdateButtonInteractivity ();
 		UpdateButtonDisplayedCost ();
 		UpdateButtonColor ();
 	}
@@ -40,13 +39,13 @@ public abstract class Upgrade {
 	}
 
 	//Updates the enabled status of the button
-	public void UpdateButtonAccessibility() {
-		upgradeButton.enabled = CanAffordUpgrade ();
+	public void UpdateButtonInteractivity() {
+		uButton.enabled = CanAffordUpgrade ();
 	}
 
 	//Updates the active status of the button
 	public void UpdateButtonAvailability() {
-		upgradeButton.gameObject.SetActive(IsUpgradeAvailable());
+		uButton.gameObject.SetActive(IsUpgradeAvailable());
 	}
 
 	//Updates the displayed cost for the upgrade's next level
@@ -61,7 +60,7 @@ public abstract class Upgrade {
 
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
-			upgradeButton.gameObject,
+			uButton.gameObject,
 			name,
 			CommonTools.DoubleToString(costOfNextLevel) + " $",
 			description
