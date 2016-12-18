@@ -34,13 +34,11 @@ public class AchievementsPanel : MonoBehaviour {
 	}
 
 	void TimedUpdate() {
-		if (thisPanel.activeSelf) {
-			foreach(Achievement a in PersistentData.listOfWealthAchievements) {
-				a.UpdateAchievement ();
-			}
-			foreach(Achievement a in PersistentData.listOfTimeAchievements) {
-				a.UpdateAchievement ();
-			}
+		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
+			a.UpdateAchievement ();
+		}
+		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
+			a.UpdateAchievement ();
 		}
 	}
 
