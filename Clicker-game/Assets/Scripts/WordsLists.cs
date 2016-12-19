@@ -336,7 +336,7 @@ public static class WordsLists {
 	};
 
 	public static double[,] wealthAchievementsValuesTable = new double[2, 5] {
-		{ 10, 30, 100, 200, 1000 },
+		{ 5, 30, 100, 200, 1000 },
 		{ 10, 50, 500, 5000, 50000 }
 	};
 

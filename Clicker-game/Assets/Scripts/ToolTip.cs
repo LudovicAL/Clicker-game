@@ -40,12 +40,6 @@ public class ToolTip : MonoBehaviour {
 		panelState = state;
 	}
 
-	public void UpdateToolTipContent(string title, string progress, string description) {
-		ttTitle.text = title;
-		ttProgress.text = progress;
-		ttDescription.text = description;
-	}
-
 	public void TurnToolTipOn(GameObject go, string title, string progress, string description) {
 		if (panelState == AvailablePanelStates.Playing) {
 			ttTitle.text = title;

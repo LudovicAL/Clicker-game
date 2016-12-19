@@ -11,9 +11,10 @@ public class Notification : MonoBehaviour {
 	};
 
 	private AvailablePanelStates panelState;
-	private List<Achievement> achievementList;
 	public GameObject thisPanel;
-	public bool showing;
+	public Text thisText;
+	private bool showing;
+	private Task tTask;
 
 
 
@@ -22,19 +23,18 @@ public class Notification : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		achievementList = new List<Achievement> ();
 		showing = false;
+		tTask = null;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing) {
 			if (!showing) {
-				if (achievementList.Count > 0) {
-					//TODO
+				if (PersistentData.notificationList.Count > 0) {
+					showing = true;
+					tTask = new Task(showNextNotification ());
 				}
-			} else {
-				//TODO
 			}
 		}
 	}
@@ -51,13 +51,30 @@ public class Notification : MonoBehaviour {
 		panelState = state;
 	}
 
-	public void AddNotification(Achievement a) {
-		achievementList.Add (a);
+	private IEnumerator showNextNotification() {
+		thisText.text = "New achievement completed: " + PersistentData.notificationList[0].name + " lvl " + PersistentData.notificationList[0].currentLevel + ".";
+		PersistentData.notificationList.RemoveAt(0);
+		thisPanel.GetComponent<Animator> ().SetBool("isHidden", false);
+		yield return new WaitForSeconds(5);
+		thisPanel.GetComponent<Animator> ().SetBool("isHidden", true);
+		yield return new WaitForSeconds(1);
+		showing = false;
+	}
+
+	private IEnumerator hideNotification() {
+		thisPanel.GetComponent<Animator> ().SetBool("isHidden", true);
+		yield return new WaitForSeconds(1);
+		showing = false;
 	}
 
 	public void OnButtonClick() {
 		if (panelState == AvailablePanelStates.Playing) {
-			thisPanel.GetComponent<Animator> ().SetBool("isHidden", true);
+			if (tTask != null) {
+				if (tTask.Running) {
+					tTask.Stop ();
+					StartCoroutine (hideNotification ());
+				}
+			}
 		}
 	}
 }

@@ -63,7 +63,7 @@ public class AchievementsPanel : MonoBehaviour {
 
 	//When the mouse hover over a Wealth achieveent
 	public void OnMouseOverWealthAchievement(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {			
+		if (panelState == AvailablePanelStates.Playing) {
 			PersistentData.listOfWealthAchievements [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
 		}
 	}

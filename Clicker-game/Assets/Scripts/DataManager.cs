@@ -22,21 +22,29 @@ public class DataManager : MonoBehaviour {
 	}
 
 	void TimedUpdate() {
-		PersistentData.currentMoney += PersistentData.totalFarmingReward;
+		AddMoney(PersistentData.totalFarmingReward);
 	}
 
 	//POINTER------------------------------------------------------------
 
+	public void AddMoney(double moneyToAdd) {
+		PersistentData.currentMoney += moneyToAdd;
+		if (PersistentData.currentMoney > PersistentData.highestMoneyAchieved) {
+			PersistentData.highestMoneyAchieved = PersistentData.currentMoney;
+		}
+	}
+
+
 	public void AddClick() {
 		PersistentData.currentNumberOfClicks += 1;
 		PersistentData.totalNumberOfClicks += 1;
-		PersistentData.currentMoney += PersistentData.totalClickingReward;
+		AddMoney(PersistentData.totalClickingReward);
 	}
 
 	public void AddClicks(int numberOfClicks) {
 		PersistentData.currentNumberOfClicks += numberOfClicks;
 		PersistentData.totalNumberOfClicks += numberOfClicks;
-		PersistentData.currentMoney += (PersistentData.totalClickingReward * numberOfClicks);
+		AddMoney(PersistentData.totalClickingReward * numberOfClicks);
 	}
 
 	//Calculates the total clicking reward (and the base clicking reward and clicking multiplier in the process)

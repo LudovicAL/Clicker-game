@@ -12,16 +12,16 @@ public abstract class Achievement {
 	public GameObject aPanel { get; set; }
 	public Image aProgressBar { get; set; }
 
-	public Achievement(int id, string name, string description, bool revealed, GameObject aPanel, Image aProgressBar) {
+	public Achievement(string name, string description, bool revealed, GameObject aPanel, Image aProgressBar) {
 		this.name = name;
 		this.description = description;
 		this.currentLevel = 0;
 		this.currentValue = 0;
-		this.valuesTable = valuesTable;
 		this.progress = 0.0f;
 		this.revealed = revealed;
 		this.aPanel = aPanel;
 		this.aProgressBar = aProgressBar;
+		//valuesTable must be assigned in the children class.
 	}
 
 	public void OnMouseOver(ToolTip tt) {
@@ -34,13 +34,18 @@ public abstract class Achievement {
 	}
 
 	public void CalculateCurrentLevel() {
-		int i = 0;
+		int i = currentLevel;
 		for (; i < valuesTable.Length; i++) {
 			if (currentValue < valuesTable[i]) {
 				break;
 			}
 		}
-		currentLevel = i;
+		if (i > currentLevel) {
+			currentLevel = i;
+			if (!PersistentData.notificationList.Contains(this)) {
+				PersistentData.notificationList.Add (this);
+			}
+		}
 	}
 
 	public void CalculateProgress() {

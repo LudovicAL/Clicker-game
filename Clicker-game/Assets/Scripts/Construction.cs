@@ -76,19 +76,19 @@ public class Construction {
 
 	//Calculates the cost to build one copy of this construction
 	//A * C ^ B  ... Where A = id, B = quantity, C = costModifier
-	public double CalculateCostForOne() {
+	private double CalculateCostForOne() {
 		return System.Math.Pow(id + 1, constructionCostModifier + 4) * System.Math.Pow(constructionCostModifier, quantity);
 	}
 
 	//Calculates the cost to build N copies of this construction
 	//((costForOne * ((C ^ N) - 1)) / (C - 1) ... Where C = costModifier, N = N
-	public void CalculateCostForNCopiesOfThisConstruction() {
+	private void CalculateCostForNCopiesOfThisConstruction() {
 		constructionCost = (CalculateCostForOne() * ((System.Math.Pow(constructionCostModifier, numberOfConstructionsToBuild)) - 1))/(constructionCostModifier - 1);
 	}
 
 	//Returns the maximum number of copies of this construction the player can afford at the moment with his current money
 	//Floor(ln((availableMoney / costForOne) * (C - 1) + 1) / ln(c))
-	public int CalculateMaxBuyable(double availableMoney) {
+	private int CalculateMaxBuyable(double availableMoney) {
 		return (int)System.Math.Floor (
 			System.Math.Log (
 				(
@@ -133,7 +133,7 @@ public class Construction {
 	}
 		
 	//Calculates the cost of the next upgrade
-	public void CalculateNextUpgradeCost() {
+	private void CalculateNextUpgradeCost() {
 		upgradeCost = (double)((upgradeLevel + 1) * id);
 	}
 
@@ -235,7 +235,7 @@ public class Construction {
 	}
 
 	//Updates the upgrade button image color
-	public void UpdateUpgradeButtonColor() {
+	private void UpdateUpgradeButtonColor() {
 		if (upgradeButton != null) {
 			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
 			foreach (Image i in imageComponentsArray) {
@@ -248,7 +248,7 @@ public class Construction {
 	}
 
 	//Updates the upgrade button's image
-	public void UpdateUpgradeButtonsImage(Sprite s) {
+	private void UpdateUpgradeButtonsImage(Sprite s) {
 		if (upgradeButton != null) {
 			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
 			foreach (Image i in imageComponentsArray) {
@@ -273,12 +273,12 @@ public class Construction {
 	//OTHER CALCULATIONS--------------------------------------------------------------
 
 	//Calculates the amount of money produced by this construction per second
-	public void CalculateProduction() {
+	private void CalculateProduction() {
 		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(upgradeLevel));
 	}
 
 	//Calculates the contribution of this specific constructions among all constructions
-	public void CalculateContribution() {
+	private void CalculateContribution() {
 		if (PersistentData.farmingRewardFromConstructions != 0) {
 			contribution = (float)(production / PersistentData.farmingRewardFromConstructions);
 		}

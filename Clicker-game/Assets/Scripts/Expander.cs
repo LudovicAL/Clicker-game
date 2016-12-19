@@ -26,7 +26,7 @@ public class Expander : MonoBehaviour {
 		updateDisplay ();
 	}
 
-	public void updateDisplay() {
+	private void updateDisplay() {
 		expanderButtonText.text = (isOn) ? bName + " ▼" : bName + " ▲";
 		expanderPanel.SetActive (isOn);
 	}

@@ -1,9 +1,12 @@
 ﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class PersistentData {
+
+
 	//INTERNALS
 	public static int constructionUpgradesIntervals = 1;
 
@@ -118,6 +121,9 @@ public static class PersistentData {
 	//ACHIEVEMENTS
 	public static Achievement[] listOfWealthAchievements = new Achievement[2];
 	public static Achievement[] listOfTimeAchievements = new Achievement[2];
+
+	//NOTIFICATIONS
+	public static List<Achievement> notificationList = new List<Achievement> ();
 
 	//BULKBUYER
 	public static RouletteButton bulkBuyer = new RouletteButton (new string[]{ "Buy 1", "Buy 10", "Buy 100", "Buy Max" }, new int[]{ 1, 10, 100, 0 });
