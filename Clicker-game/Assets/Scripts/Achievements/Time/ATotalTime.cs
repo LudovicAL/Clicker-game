@@ -10,10 +10,9 @@ public class ATotalTime : Achievement {
 		}
 	}
 
-	public override void UpdateAchievement() {
+	public override void UpdateAchievementThreadSafe() {
 		currentValue = PersistentData.totalTimeSpentPlaying.TotalSeconds;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
-		UpdateProgressBar ();
 	}
 }

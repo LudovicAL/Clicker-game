@@ -15,7 +15,7 @@ public abstract class Achievement {
 	public Achievement(string name, string description, bool revealed, GameObject aPanel, Image aProgressBar) {
 		this.name = name;
 		this.description = description;
-		this.currentLevel = 0;
+		this.currentLevel = 1;
 		this.currentValue = 0;
 		this.progress = 0.0f;
 		this.revealed = revealed;
@@ -56,5 +56,5 @@ public abstract class Achievement {
 		aProgressBar.fillAmount = progress;
 	}
 
-	public abstract void UpdateAchievement();
+	public abstract void UpdateAchievementThreadSafe();
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading;
 
 public class AchievementsPanel : MonoBehaviour {
 
@@ -16,6 +17,7 @@ public class AchievementsPanel : MonoBehaviour {
 	public Image[] wealthAchievementsProgressBarList;
 	public GameObject[] timeAchievementsPanelList;
 	public Image[] timeAchievementsProgressBarList;
+	private Thread achievementMonitorThread;
 
 	// Use this for initialization
 	void Start () {
@@ -30,17 +32,36 @@ public class AchievementsPanel : MonoBehaviour {
 			PersistentData.listOfTimeAchievements [i].aPanel = timeAchievementsPanelList[i];
 			PersistentData.listOfTimeAchievements [i].aProgressBar = timeAchievementsProgressBarList[i];
 		}
+		achievementMonitorThread = new Thread (CheckAchievementsThread);
+		achievementMonitorThread.Start ();
 		InvokeRepeating("TimedUpdate", 1.0f, 3.0f);
 	}
 
-	void TimedUpdate() {
+	private void TimedUpdate() {
 		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
-			a.UpdateAchievement ();
+			a.UpdateProgressBar();
 		}
 		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
-			a.UpdateAchievement ();
+			a.UpdateProgressBar();
 		}
 	}
+
+	#region Thread
+
+	private void CheckAchievementsThread() {
+		while(true) {
+			if (panelState == AvailablePanelStates.Playing) {
+				foreach(Achievement a in PersistentData.listOfWealthAchievements) {
+					a.UpdateAchievementThreadSafe ();
+				}
+				foreach(Achievement a in PersistentData.listOfTimeAchievements) {
+					a.UpdateAchievementThreadSafe ();
+				}
+			}
+		}
+	}
+
+	#endregion
 
 	// Update is called once per frame
 	void Update () {

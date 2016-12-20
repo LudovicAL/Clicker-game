@@ -361,9 +361,9 @@ public static class WordsLists {
 		"Your highest achieved wealth."
 	};
 
-	public static double[,] wealthAchievementsValuesTable = new double[2, 5] {
-		{ 5, 30, 100, 200, 1000 },
-		{ 10, 50, 500, 5000, 50000 }
+	public static double[,] wealthAchievementsValuesTable = new double[,] {
+		{ 0, 5, 30, 100, 200, 1000 },
+		{ 0, 10, 50, 500, 5000, 50000 }
 	};
 
 	public static string[] timeAchievementsNames = new string[] {
@@ -376,9 +376,9 @@ public static class WordsLists {
 		"Your total time spent playing the game."
 	};
 
-	public static double[,] timeAchievementsValuesTable = new double[2, 5] {
-		{ 10, 30, 100, 200, 1000 },
-		{ 10, 50, 500, 5000, 50000 }
+	public static double[,] timeAchievementsValuesTable = new double[,] {
+		{ 0, 10, 30, 100, 200, 1000 },
+		{ 0, 10, 50, 500, 5000, 50000 }
 	};
 
 	#endregion
