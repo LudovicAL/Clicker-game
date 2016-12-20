@@ -2,6 +2,8 @@
 
 public static class WordsLists {
 
+	#region NumberNotation
+
 	public static string[] numbersNames = new string[] {"",
 		" Thousand",
 		" Million",
@@ -148,6 +150,10 @@ public static class WordsLists {
 		" Mil"
 	};
 
+	#endregion
+
+	#region Construction
+
 	public static string[,] constructionsNames = new string[6, 10] {
 		{ "Shovels", "Pickaxes", "Jackhammers", "Metal detectors", "Excavators", "Dump trucks", "Conveyors", "Refineries", "Explosives", "Tunnel borers" },
 		{ "Shovels", "Pickaxes", "Jackhammers", "Cave dwellers", "Solar panels", "Air filters", "Incinerators", "Motherships", "Alpha canons", "Cyborgs" },
@@ -156,6 +162,10 @@ public static class WordsLists {
 		{ "Shovels", "Pickaxes", "Jackhammers", "Hydrolic arms", "Laser eyes", "Space conveyors", "Nuclear reactors", "Microwave canons", "Planet schedders", "Artificial intelligence" },
 		{ "Shovels", "Pickaxes", "Jackhammers", "Soil obliterators", "Black matter collectors", "Teleporters", "Gravitational controlers", "Physic alterators", "", "" }
 	};
+
+	#endregion
+
+	#region Abilities
 
 	public static string[,] paidWorkersAbilitiesNames = new string[6, 3] {
 		{ "Enhanced working effort", "Hydrolic excavation", "Additional salary incentives" },
@@ -174,6 +184,10 @@ public static class WordsLists {
 		{ "", "", "" },
 		{ "", "", "" }
 	};
+
+	#endregion
+
+	#region Upgrades
 
 	public static string[] upgradesAdjectives = new string[] {
 		"Flashy ",
@@ -267,6 +281,10 @@ public static class WordsLists {
 		new Color(0.2F, 0.3F, 0.4F, 0.5F)
 	};
 
+	#endregion
+
+	#region Planet
+
 	public static string[] planetNames = new string[] {
 		"Pluto",
 		"Atlantis",
@@ -315,6 +333,10 @@ public static class WordsLists {
 		"Touristy"
 	};
 
+	#endregion
+
+	#region PointerStuff
+
 	public static string[] pointerUpgradesNames = new string[] {
 		"Pointer base reward",
 		"Pointer reward multiplier"
@@ -324,6 +346,10 @@ public static class WordsLists {
 		"Doubles each click base reward.",
 		"Double the click reward multiplier."
 	};
+
+	#endregion
+
+	#region Achievements
 
 	public static string[] wealthAchievementsNames = new string[] {
 		"Money per second",
@@ -354,4 +380,6 @@ public static class WordsLists {
 		{ 10, 30, 100, 200, 1000 },
 		{ 10, 50, 500, 5000, 50000 }
 	};
+
+	#endregion
 }

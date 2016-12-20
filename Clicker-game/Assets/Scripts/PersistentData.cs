@@ -6,6 +6,7 @@ using UnityEngine;
 
 public static class PersistentData {
 
+	#region Variables
 
 	//INTERNALS
 	public static int constructionUpgradesIntervals = 1;
@@ -148,6 +149,10 @@ public static class PersistentData {
 		listOfTimeAchievements[1] = new ATotalTime(1, WordsLists.timeAchievementsNames[1], WordsLists.timeAchievementsDescriptions[1], true, null, null);
 	}
 
+	#endregion
+
+	#region SaveData
+
 	public static void SaveData() {
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Open (Application.persistentDataPath + "/storedGameData.dat", FileMode.OpenOrCreate);
@@ -262,6 +267,10 @@ public static class PersistentData {
 		bf.Serialize (file, storage);
 		file.Close ();
 	}
+
+	#endregion
+
+	#region LoadData
 
 	public static void LoadData() {
 		if (!System.IO.File.Exists(Application.persistentDataPath + "/storedGameData.dat")) {
@@ -380,4 +389,6 @@ public static class PersistentData {
 			CommonTools.updateNumbersNotations ();
 		}
 	}
+
+	#endregion
 }

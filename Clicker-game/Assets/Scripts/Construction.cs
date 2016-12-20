@@ -18,6 +18,8 @@ public class Construction {
 	public double upgradeCost { get; private set; }
 	private int upgradesInterval;
 
+	#region Constructor
+
 	public Construction(string name, int quantity, int id, float constructionCostModifier, Button constructionButton, Button upgradeButton, bool constructionAvailability, int upgradesInterval) {
 		this.name = name;
 		this.quantity = quantity;
@@ -35,8 +37,10 @@ public class Construction {
 		CalculateProduction ();
 		CalculateNextUpgradeCost ();
 	}
+
+	#endregion
 		
-	//CONSTRUCTION--------------------------------------------------------------
+	#region Construction
 
 	//Add N constructions to those already possessed
 	public void AddNConstructions(int numberOfConstructionsAdded) {
@@ -106,7 +110,9 @@ public class Construction {
 		);
 	}
 
-	//UPGRADE--------------------------------------------------------------
+	#endregion
+
+	#region Upgrade
 
 	//Buys an upgrade
 	public void BuyUpgrade(DataManager dm) {
@@ -142,7 +148,9 @@ public class Construction {
 		return (PersistentData.currentMoney >= upgradeCost);
 	}
 
-	//CONSTRUCTION BUTTON--------------------------------------------------------------
+	#endregion
+
+	#region Construction Button
 
 	public void UpdateConstructionButtonAvailability() {
 		if (upgradeButton != null) {
@@ -221,7 +229,9 @@ public class Construction {
 		}
 	}
 
-	//UPGRADE BUTTON--------------------------------------------------------------
+	#endregion
+
+	#region Upgrade Button
 
 	//Updates the upgrade button availability
 	public void UpdateUpgradeButtonAvailability() {
@@ -270,7 +280,9 @@ public class Construction {
 		);
 	}
 
-	//OTHER CALCULATIONS--------------------------------------------------------------
+	#endregion
+
+	#region OtherCalulations
 
 	//Calculates the amount of money produced by this construction per second
 	private void CalculateProduction() {
@@ -292,4 +304,6 @@ public class Construction {
 			numberOfConstructionsToBuild = PersistentData.bulkBuyer.Quantity;
 		}
 	}
+
+	#endregion
 }

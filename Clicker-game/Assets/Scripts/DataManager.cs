@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour {
 		AddMoney(PersistentData.totalFarmingReward);
 	}
 
-	//POINTER------------------------------------------------------------
+	#region PointerStuff
 
 	public void AddMoney(double moneyToAdd) {
 		PersistentData.currentMoney += moneyToAdd;
@@ -54,7 +54,9 @@ public class DataManager : MonoBehaviour {
 		PersistentData.totalClickingReward = PersistentData.baseClickingReward * PersistentData.clickingMultiplier;
 	}
 
-	//CONSTRUCTIONS------------------------------------------------------------
+	#endregion
+
+	#region Construction
 
 	public void CalculateTotalFarmingReward() {
 		PersistentData.farmingRewardFromConstructions = 0;
@@ -79,10 +81,14 @@ public class DataManager : MonoBehaviour {
 		}
 	}
 
-	//OTHERS------------------------------------------------------------
+	#endregion
+
+	#region OtherStuff
 
 	//Return the reward the player is entitled to after
 	public int CalculateRewardAfterAbsence() {
 		return (int)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.totalFarmingReward);
 	}
+
+	#endregion
 }
