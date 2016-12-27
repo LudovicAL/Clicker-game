@@ -32,7 +32,7 @@ public class MessagesPanel : MonoBehaviour {
 
 	//When the player clicks the claim reward after absence button
 	public void OnClaimRewardAfterAbsenceButtonClic() {
-		PersistentData.currentMoney += this.GetComponent<DataManager> ().CalculateRewardAfterAbsence ();
+		this.GetComponent<DataManager>().AddMoney(this.GetComponent<DataManager> ().CalculateRewardAfterAbsence ());
 		panelRewardAfterAbsence.SetActive (false);
 		panelMessage.SetActive (false);
 	}

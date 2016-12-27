@@ -23,7 +23,16 @@ public class DataManager : MonoBehaviour {
 
 	void TimedUpdate() {
 		AddMoney(PersistentData.totalFarmingReward);
+		AddMana (PersistentData.manaRegenRate);
 	}
+
+	#region ManaStuff
+
+	public void AddMana(float manaToAdd) {
+		PersistentData.currentMana = System.Math.Min (PersistentData.currentMana + manaToAdd, PersistentData.maxMana);
+	}
+
+	#endregion
 
 	#region PointerStuff
 
@@ -31,6 +40,7 @@ public class DataManager : MonoBehaviour {
 		PersistentData.currentMoney += moneyToAdd;
 		if (PersistentData.currentMoney > PersistentData.highestMoneyAchieved) {
 			PersistentData.highestMoneyAchieved = PersistentData.currentMoney;
+			this.GetComponent<AchievementsPanel> ().CheckWealthAchievements ();
 		}
 	}
 
@@ -86,8 +96,13 @@ public class DataManager : MonoBehaviour {
 	#region OtherStuff
 
 	//Return the reward the player is entitled to after
-	public int CalculateRewardAfterAbsence() {
-		return (int)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.totalFarmingReward);
+	public double CalculateRewardAfterAbsence() {
+		return (PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.totalFarmingReward);
+	}
+
+	//Return the mana of the player after his absence
+	public void UpdateManaAfterAbsence() {
+		AddMana((float)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.manaRegenRate));
 	}
 
 	#endregion

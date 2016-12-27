@@ -10,8 +10,9 @@ public class ALongestSession : Achievement {
 		}
 	}
 
-	public override void UpdateAchievementThreadSafe() {
+	public override void UpdateAchievement() {
 		currentValue = PersistentData.longestPlayingSession.TotalSeconds;
 		CalculateProgress ();
+		UpdateProgressBar ();
 	}
 }

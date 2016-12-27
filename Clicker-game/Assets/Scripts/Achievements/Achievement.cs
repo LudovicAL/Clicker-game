@@ -56,5 +56,5 @@ public abstract class Achievement {
 		aProgressBar.fillAmount = progress;
 	}
 
-	public abstract void UpdateAchievementThreadSafe();
+	public abstract void UpdateAchievement();
 }

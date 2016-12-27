@@ -52,7 +52,6 @@ public class GameStatesManager : MonoBehaviour {
 		} else if (gameState == AvailableGameStates.Paused) {
 			ChangeGameState (AvailableGameStates.Playing);
 		}
-		Debug.Log (gameState.ToString ());
 	}
 
 	//Properties

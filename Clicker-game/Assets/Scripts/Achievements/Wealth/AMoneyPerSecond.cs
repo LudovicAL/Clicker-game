@@ -10,9 +10,10 @@ public class AMoneyPerSecond : Achievement {
 		}
 	}
 
-	public override void UpdateAchievementThreadSafe() {
+	public override void UpdateAchievement() {
 		currentValue = PersistentData.highestTotalFarmingReward;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
+		UpdateProgressBar ();
 	}
 }

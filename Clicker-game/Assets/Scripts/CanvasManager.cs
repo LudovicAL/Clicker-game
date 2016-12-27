@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (canvasState == AvailableCanvasStates.Playing) {
-			
+
 		}
 	}
 
@@ -57,6 +57,7 @@ public class CanvasManager : MonoBehaviour {
 		this.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfConstruction ();
 		if (PersistentData.timeSinceLastSave != System.TimeSpan.Zero) {
 			this.GetComponent<MessagesPanel> ().ShowRewardAfterAbsence ();
+			this.GetComponent<DataManager> ().UpdateManaAfterAbsence ();
 		}
 	}
 }

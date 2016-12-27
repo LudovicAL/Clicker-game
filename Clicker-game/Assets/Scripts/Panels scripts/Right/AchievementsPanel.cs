@@ -17,7 +17,7 @@ public class AchievementsPanel : MonoBehaviour {
 	public Image[] wealthAchievementsProgressBarList;
 	public GameObject[] timeAchievementsPanelList;
 	public Image[] timeAchievementsProgressBarList;
-	private Thread achievementMonitorThread;
+	//private Thread achievementMonitorThread;
 
 	// Use this for initialization
 	void Start () {
@@ -32,41 +32,14 @@ public class AchievementsPanel : MonoBehaviour {
 			PersistentData.listOfTimeAchievements [i].aPanel = timeAchievementsPanelList[i];
 			PersistentData.listOfTimeAchievements [i].aProgressBar = timeAchievementsProgressBarList[i];
 		}
-		achievementMonitorThread = new Thread (CheckAchievementsThread);
-		achievementMonitorThread.Start ();
-		InvokeRepeating("TimedUpdate", 1.0f, 3.0f);
+		//achievementMonitorThread = new Thread (CheckAchievementsThread);
+		//achievementMonitorThread.Start ();
 	}
-
-	private void TimedUpdate() {
-		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
-			a.UpdateProgressBar();
-		}
-		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
-			a.UpdateProgressBar();
-		}
-	}
-
-	#region Thread
-
-	private void CheckAchievementsThread() {
-		while(true) {
-			if (panelState == AvailablePanelStates.Playing) {
-				foreach(Achievement a in PersistentData.listOfWealthAchievements) {
-					a.UpdateAchievementThreadSafe ();
-				}
-				foreach(Achievement a in PersistentData.listOfTimeAchievements) {
-					a.UpdateAchievementThreadSafe ();
-				}
-			}
-		}
-	}
-
-	#endregion
 
 	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			
+			CheckTimeAchievements ();
 		}
 	}
 
@@ -81,6 +54,35 @@ public class AchievementsPanel : MonoBehaviour {
 	public void SetPanelState(AvailablePanelStates state) {
 		panelState = state;
 	}
+
+	public void CheckWealthAchievements() {
+		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
+			a.UpdateAchievement ();
+		}
+	}
+
+	public void CheckTimeAchievements() {
+		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
+			a.UpdateAchievement ();
+		}
+	}
+
+	/*
+	#region Thread
+	private void CheckAchievementsThread() {
+		while(true) {
+			if (panelState == AvailablePanelStates.Playing) {
+				foreach(Achievement a in PersistentData.listOfWealthAchievements) {
+					a.UpdateAchievementThreadSafe ();
+				}
+				foreach(Achievement a in PersistentData.listOfTimeAchievements) {
+					a.UpdateAchievementThreadSafe ();
+				}
+			}
+		}
+	}
+	#endregion
+	*/
 
 	//When the mouse hover over a Wealth achieveent
 	public void OnMouseOverWealthAchievement(int buttonNo) {

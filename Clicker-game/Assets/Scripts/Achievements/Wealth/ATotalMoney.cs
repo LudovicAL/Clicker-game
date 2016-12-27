@@ -10,9 +10,10 @@ public class ATotalMoney : Achievement {
 		}
 	}
 
-	public override void UpdateAchievementThreadSafe() {
+	public override void UpdateAchievement() {
 		currentValue = PersistentData.highestMoneyAchieved;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
+		UpdateProgressBar ();
 	}
 }

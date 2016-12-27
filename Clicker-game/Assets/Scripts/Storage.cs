@@ -15,7 +15,7 @@ class Storage {
 	//CLICKING
 	public double totalClickingReward;
 	public double highestTotalClickingRewardAchieved;
-	public double highestNumberOfClicsAchived;
+	public double highestNumberOfClicsAchieved;
 	public double totalNumberOfClicks;
 
 	//FARMING
@@ -63,6 +63,10 @@ class Storage {
 	public int numberOfColonizedPlanets;
 	public int numberOfInvadedGalaxies;
 	public int numberOfCompanyRestarts;
+
+	//MANA
+	public float highestMaxManaAchieved;
+	public float highestManaRegenRateAchieved;
 
 	//ABILITIES
 	public int currentNumberOfAbilitiesUsed;//In the current session only

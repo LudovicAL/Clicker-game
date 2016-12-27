@@ -26,7 +26,7 @@ public static class PersistentData {
 	public static double totalClickingReward = 1;
 	public static double highestTotalClickingRewardAchieved = 1;
 	public static double currentNumberOfClicks = 0;
-	public static double highestNumberOfClicsAchived = 0;
+	public static double highestNumberOfClicsAchieved = 0;
 	public static double totalNumberOfClicks = 0;
 
 	//FARMING
@@ -75,9 +75,17 @@ public static class PersistentData {
 	public static int numberOfInvadedGalaxies = 0;
 	public static int numberOfCompanyRestarts = 0;
 
+	//MANA
+	public static float currentMana = 100;
+	public static float maxMana = 100;
+	public static float manaRegenRate = 1;
+	public static float highestMaxManaAchieved = 100;
+	public static float highestManaRegenRateAchieved = 1;
+
 	//ABILITIES
 	public static int currentNumberOfAbilitiesUsed = 0;	//In the current session only
 	public static int totalNumberOfAbilitiesUsed = 0;
+	public static Ability[] listOfAbilities = new Ability[4];
 
 	//RACES
 	public static int numberOfMarsiansAlliance = 0;
@@ -147,6 +155,12 @@ public static class PersistentData {
 		//Time Achievements
 		listOfTimeAchievements[0] = new ALongestSession(0, WordsLists.timeAchievementsNames[0], WordsLists.timeAchievementsDescriptions[0], true, null, null);
 		listOfTimeAchievements[1] = new ATotalTime(1, WordsLists.timeAchievementsNames[1], WordsLists.timeAchievementsDescriptions[1], true, null, null);
+		//Abilities
+		listOfAbilities[0] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
+		listOfAbilities[1] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
+		listOfAbilities[2] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
+		listOfAbilities[3] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
+
 	}
 
 	#endregion
@@ -170,7 +184,7 @@ public static class PersistentData {
 		//CLICKING
 		storage.totalClickingReward = totalClickingReward;
 		storage.highestTotalClickingRewardAchieved = highestTotalClickingRewardAchieved;
-		storage.highestNumberOfClicsAchived = highestNumberOfClicsAchived;
+		storage.highestNumberOfClicsAchieved = highestNumberOfClicsAchieved;
 		storage.totalNumberOfClicks = totalNumberOfClicks;
 
 		//FARMING
@@ -219,9 +233,13 @@ public static class PersistentData {
 		storage.numberOfInvadedGalaxies = numberOfInvadedGalaxies;
 		storage.numberOfCompanyRestarts = numberOfCompanyRestarts;
 
+		//MANA
+		storage.highestMaxManaAchieved = highestMaxManaAchieved;
+		storage.highestManaRegenRateAchieved = highestManaRegenRateAchieved;
+
 		//ABILITIES
-		storage.currentNumberOfAbilitiesUsed = //In the current session onlycurrentNumberOfAbilitiesUsed;//In the current session only
-			storage.totalNumberOfAbilitiesUsed = totalNumberOfAbilitiesUsed;
+		storage.currentNumberOfAbilitiesUsed = currentNumberOfAbilitiesUsed;//In the current session only
+		storage.totalNumberOfAbilitiesUsed = totalNumberOfAbilitiesUsed;
 
 		//RACES
 		storage.numberOfMarsiansAlliance = numberOfMarsiansAlliance;
@@ -293,7 +311,7 @@ public static class PersistentData {
 			//CLICKING
 			totalClickingReward = storage.totalClickingReward;
 			highestTotalClickingRewardAchieved = storage.highestTotalClickingRewardAchieved;
-			highestNumberOfClicsAchived = storage.highestNumberOfClicsAchived;
+			highestNumberOfClicsAchieved = storage.highestNumberOfClicsAchieved;
 			totalNumberOfClicks = storage.totalNumberOfClicks;
 
 			//FARMING
@@ -341,6 +359,10 @@ public static class PersistentData {
 			numberOfColonizedPlanets = storage.numberOfColonizedPlanets;
 			numberOfInvadedGalaxies = storage.numberOfInvadedGalaxies;
 			numberOfCompanyRestarts = storage.numberOfCompanyRestarts;
+
+			//MANA
+			highestMaxManaAchieved = storage.highestMaxManaAchieved;
+			highestManaRegenRateAchieved = storage.highestManaRegenRateAchieved;
 
 			//ABILITIES
 			currentNumberOfAbilitiesUsed = storage.currentNumberOfAbilitiesUsed;	//In the current session only
