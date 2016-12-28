@@ -29,7 +29,7 @@ public class AbilitiesPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			manaText.text = PersistentData.currentMana.ToString();
+			manaText.text = PersistentData.currentMana.ToString() + " / " + PersistentData.maxMana.ToString();
 			manaBar.fillAmount = (PersistentData.currentMana / PersistentData.maxMana);
 			foreach (Ability a in PersistentData.listOfAbilities) {
 				a.UpdateButtonInteractivity ();

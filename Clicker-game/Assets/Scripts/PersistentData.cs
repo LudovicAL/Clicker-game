@@ -130,6 +130,7 @@ public static class PersistentData {
 
 	//UPGRADES
 	public static Upgrade[] listOfPointerUpgrades = new Upgrade[2];
+	public static Upgrade[] listOfManaUpgrades = new Upgrade[2];
 
 	//ACHIEVEMENTS
 	public static Achievement[] listOfWealthAchievements = new Achievement[2];
@@ -150,9 +151,12 @@ public static class PersistentData {
 			unlocked = (i < 3) ? true : false;
 			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked, constructionUpgradesIntervals);
 		}
-		//Upgrades
+		//Pointer Upgrades
 		listOfPointerUpgrades [0] = new PointerBase (null, WordsLists.pointerUpgradesNames[0], WordsLists.pointerUpgradesDescriptions[0]);
 		listOfPointerUpgrades [1] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[1], WordsLists.pointerUpgradesDescriptions[1]);
+		//Mana Upgrades
+		listOfManaUpgrades [0] = new MaxMana (null, WordsLists.manaUpgradesNames[0], WordsLists.manaUpgradesDescriptions[0]);
+		listOfManaUpgrades [1] = new ManaRegen (null, WordsLists.manaUpgradesNames[1], WordsLists.manaUpgradesDescriptions[1]);
 		//Wealth Achievements
 		listOfWealthAchievements[0] = new AMoneyPerSecond(0, WordsLists.wealthAchievementsNames[0], WordsLists.wealthAchievementsDescriptions[0], true, null, null);
 		listOfWealthAchievements[1] = new ATotalMoney(1, WordsLists.wealthAchievementsNames[1], WordsLists.wealthAchievementsDescriptions[1], true, null, null);

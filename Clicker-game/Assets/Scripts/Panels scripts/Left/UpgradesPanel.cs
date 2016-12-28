@@ -13,6 +13,7 @@ public class UpgradesPanel : MonoBehaviour {
 	public GameObject thisPanel;
 	public Button[] constructionsUpgradesButtonList;
 	public Button[] pointersUpgradesButtonList;
+	public Button[] manaUpgradesButtonList;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -26,6 +27,9 @@ public class UpgradesPanel : MonoBehaviour {
 		}
 		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
 			PersistentData.listOfPointerUpgrades [i].uButton = pointersUpgradesButtonList[i];
+		}
+		for (int i = 0; i < PersistentData.listOfManaUpgrades.Length && i < manaUpgradesButtonList.Length; i++) {
+			PersistentData.listOfManaUpgrades [i].uButton = manaUpgradesButtonList[i];
 		}
 	}
 	
@@ -56,6 +60,8 @@ public class UpgradesPanel : MonoBehaviour {
 		panelState = state;
 	}
 
+	#region ConstructionUpgrades
+
 	//When the player clicks on a construction upgrade button
 	public void OnButtonClicConstructionUpgrade(int buttonNo) {
 		if (panelState == AvailablePanelStates.Playing) {
@@ -74,6 +80,9 @@ public class UpgradesPanel : MonoBehaviour {
 		}
 	}
 
+	#endregion
+
+	#region PointerUpgrades
 
 	//When the player clicks on a pointer upgrade button
 	public void OnButtonClicPointerUpgrade(int buttonNo) {
@@ -89,6 +98,26 @@ public class UpgradesPanel : MonoBehaviour {
 			PersistentData.listOfPointerUpgrades [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
 		}
 	}
+
+	#endregion
+
+	#region ManaUpgrades
+
+	//When the player clicks on a pointer upgrade button
+	public void OnButtonClicManaUpgrade(int buttonNo) {
+		if (panelState == AvailablePanelStates.Playing) {
+			PersistentData.listOfManaUpgrades [buttonNo].BuyNextLevel ();
+		}
+	}
+
+	//When the mouse hover over a pointer upgrade button
+	public void OnMouseOverManaUpgradeButton(int buttonNo) {
+		if (panelState == AvailablePanelStates.Playing) {			
+			PersistentData.listOfManaUpgrades [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
+		}
+	}
+
+	#endregion
 
 	public void OnMouseExitUpgradeButton() {
 		this.GetComponent<ToolTip> ().TurnToolTipOff ();

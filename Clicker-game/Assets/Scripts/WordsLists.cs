@@ -335,7 +335,7 @@ public static class WordsLists {
 
 	#endregion
 
-	#region PointerStuff
+	#region PointerUpgrades
 
 	public static string[] pointerUpgradesNames = new string[] {
 		"Pointer base reward",
@@ -345,6 +345,20 @@ public static class WordsLists {
 	public static string[] pointerUpgradesDescriptions = new string[] {
 		"Doubles each click base reward.",
 		"Double the click reward multiplier."
+	};
+
+	#endregion
+
+	#region ManaUpgrades
+
+	public static string[] manaUpgradesNames = new string[] {
+		"Maximum mana upgrade",
+		"Mana regenaration upgrade"
+	};
+
+	public static string[] manaUpgradesDescriptions = new string[] {
+		"Adds 50 to your maximum mana.",
+		"Adds 0.5 to you mana regeneration rate per second."
 	};
 
 	#endregion
