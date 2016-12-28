@@ -11,6 +11,10 @@ public static class PersistentData {
 	//INTERNALS
 	public static int constructionUpgradesIntervals = 1;
 
+	//INVESTORS
+	public static double currentInvestors = 0;
+	public static double potentialInvestors = 0;
+
 	//OPTIONS
 	public static bool shortNumbers = true;
 	public static bool promptForPlanetName = true;
@@ -172,6 +176,9 @@ public static class PersistentData {
 		FileStream file = File.Open (Application.persistentDataPath + "/storedGameData.dat", FileMode.OpenOrCreate);
 		Storage storage = new Storage ();
 		//---
+		//INVESTORS
+		storage.currentInvestors = currentInvestors;
+
 		//OPTIONS
 		storage.shortNumbers = shortNumbers;
 		storage.promptForPlanetName = promptForPlanetName;
@@ -299,6 +306,9 @@ public static class PersistentData {
 			Storage storage = (Storage)bf.Deserialize (file);
 			file.Close ();
 			//---
+			//INVESTORS
+			currentInvestors = storage.currentInvestors;
+
 			//OPTIONS
 			shortNumbers = storage.shortNumbers;
 			promptForPlanetName = storage.promptForPlanetName;

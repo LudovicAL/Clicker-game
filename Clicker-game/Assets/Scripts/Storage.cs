@@ -3,6 +3,9 @@
 //A mockup class used to temporary store the data on load and save events
 [Serializable]
 class Storage {
+	//INVESTORS
+	public double currentInvestors;
+
 	//OPTIONS
 	public bool shortNumbers;
 	public bool promptForPlanetName;
