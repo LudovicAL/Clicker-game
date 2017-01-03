@@ -46,7 +46,7 @@ public class OptionPanel : MonoBehaviour {
 	//When the player clicks the short number notation option button
 	public void OnDisplayShortNumberNotationButtonClic(Toggle tButton) {
 		PersistentData.shortNumbers = tButton.isOn;
-		CommonTools.updateNumbersNotations();
+		CommonTools.UpdateNumbersNotations();
 
 	}
 
@@ -62,7 +62,7 @@ public class OptionPanel : MonoBehaviour {
 
 	public void UpdateButtonShortNumberNotation() {
 		buttonOptionShortNumberNotation.isOn = PersistentData.shortNumbers;
-		CommonTools.updateNumbersNotations();
+		CommonTools.UpdateNumbersNotations();
 	}
 
 	public void UpdateButtonPlanetNamePrompt() {

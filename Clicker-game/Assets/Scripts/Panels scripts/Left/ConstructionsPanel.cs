@@ -19,15 +19,18 @@ public class ConstructionsPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < constructionsButtonList.Length; i++) {
-			PersistentData.listOfConstructions [i].constructionButton = constructionsButtonList [i];
-		}
-		foreach (Construction c in PersistentData.listOfConstructions) {
-			c.UpdateConstructionButtonAvailability ();
-			c.UpdateButtonDisplayedName ();
-			c.UpdateButtonDisplayedCost ();
-			c.UpdateButtonDisplayedQuantity ();
-			c.UpdateButtonDisplayedContribution ();
+		for (int i = 0, maxA = PersistentData.listOfConstructions.Length, maxB = constructionsButtonList.Length; i < maxA && i < maxB; i++) {
+			if (PersistentData.listOfConstructions[i] != null) {
+				PersistentData.listOfConstructions [i].constructionButton = constructionsButtonList [i];
+				PersistentData.listOfConstructions [i].UpdateConstructionButtonAvailability ();
+				PersistentData.listOfConstructions [i].UpdateButtonDisplayedName ();
+				PersistentData.listOfConstructions [i].UpdateButtonDisplayedCost ();
+				PersistentData.listOfConstructions [i].UpdateButtonDisplayedQuantity ();
+				PersistentData.listOfConstructions [i].UpdateButtonDisplayedContribution ();
+				PersistentData.listOfConstructions [i].UpdateConstructionButtonsImage ();
+			} else {
+				constructionsButtonList [i].gameObject.SetActive(false);
+			}
 		}
 	}
 	

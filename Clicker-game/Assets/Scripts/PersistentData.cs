@@ -8,9 +8,6 @@ public static class PersistentData {
 
 	#region Variables
 
-	//INTERNALS
-	public static int constructionUpgradesIntervals = 1;
-
 	//INVESTORS
 	public static double currentInvestors = 0;
 	public static double potentialInvestors = 0;
@@ -144,13 +141,8 @@ public static class PersistentData {
 
 	//STATIC CONSTRUCTOR
 	static PersistentData() {
-		string[] names = new string[]{ "Shovels", "Pickaxes", "Jackhammer", "???", "???", "???", "???", "???", "???", "???" };
-		bool unlocked;
 		//Constructions
-		for (int i = 0; i < listOfConstructions.Length; i++) {
-			unlocked = (i < 3) ? true : false;
-			listOfConstructions [i] = new Construction (names[i], 0, i + 1, 1.15f, null, null, unlocked, constructionUpgradesIntervals);
-		}
+		CommonTools.AddConstructionsToArray(listOfConstructions, WordsLists.constructionsDefault, 0);
 		//Pointer Upgrades
 		listOfPointerUpgrades [0] = new PointerBase (null, WordsLists.pointerUpgradesNames[0], WordsLists.pointerUpgradesDescriptions[0]);
 		listOfPointerUpgrades [1] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[1], WordsLists.pointerUpgradesDescriptions[1]);
@@ -417,12 +409,14 @@ public static class PersistentData {
 			highestTotalNumberOfConstructionAchieved = storage.highestTotalNumberOfConstructionAchieved;
 			highestNumberOfConstructionAchieved = storage.highestNumberOfConstructionAchieved;
 			for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
-				listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].quantity);
-				listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].upgradeLevel);
+				if (listOfConstructions[i] != null) {
+					listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].quantity);
+					listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].upgradeLevel);
+				}
 			}
 
 			//---
-			CommonTools.updateNumbersNotations ();
+			CommonTools.UpdateNumbersNotations ();
 		}
 	}
 

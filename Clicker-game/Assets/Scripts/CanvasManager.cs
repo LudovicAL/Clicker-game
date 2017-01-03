@@ -15,7 +15,7 @@ public class CanvasManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		CommonTools.updateNumbersNotations ();
+		CommonTools.UpdateNumbersNotations ();
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetCanvasState (AvailableCanvasStates.Playing);

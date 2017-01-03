@@ -154,13 +154,27 @@ public static class WordsLists {
 
 	#region Construction
 
-	public static string[,] constructionsNames = new string[6, 10] {
-		{ "Shovels", "Pickaxes", "Jackhammers", "Metal detectors", "Excavators", "Dump trucks", "Conveyors", "Refineries", "Explosives", "Tunnel borers" },
-		{ "Shovels", "Pickaxes", "Jackhammers", "Cave dwellers", "Solar panels", "Air filters", "Incinerators", "Motherships", "Alpha canons", "Cyborgs" },
-		{ "Shovels", "Pickaxes", "Jackhammers", "Troglodytes", "Water turbines", "Dust collectors", "Compressors", "Cargo vessels", "Gamma canons", "Space escalators" },
-		{ "Shovels", "Pickaxes", "Jackhammers", "Fusion reactors", "", "", "", "Quantic excavators", "Pulse canons", "Tractor beams" },
-		{ "Shovels", "Pickaxes", "Jackhammers", "Hydrolic arms", "Laser eyes", "Space conveyors", "Nuclear reactors", "Microwave canons", "Planet schedders", "Artificial intelligence" },
-		{ "Shovels", "Pickaxes", "Jackhammers", "Soil obliterators", "Black matter collectors", "Teleporters", "Gravitational controlers", "Physic alterators", "", "" }
+	public static Construction[] constructionsDefault = new Construction[10] {
+		new ConstructionFull ("Shovels", 0, 1, 1.15f, true, 1),
+		new ConstructionFull ("Pickaxes", 0, 2, 1.15f, true, 1),
+		new ConstructionFull ("Jack Hammers", 0, 3, 1.15f, true, 1),
+		new ConstructionEmpty(4),
+		new ConstructionEmpty(5),
+		new ConstructionEmpty(6),
+		new ConstructionEmpty(7),
+		new ConstructionEmpty(8),
+		new ConstructionEmpty(9),
+		new ConstructionEmpty(10)
+	};
+
+	public static Construction[] constructionsHuman = new Construction[7] {
+		new ConstructionFull ("Metal detectors", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Excavators", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Dump trucks", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Conveyors", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Refineries", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Explosives", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Tunnel Borers", 0, 1, 1.15f, false, 1),
 	};
 
 	#endregion

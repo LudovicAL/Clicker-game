@@ -21,9 +21,13 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0; i < PersistentData.listOfConstructions.Length && i < constructionsUpgradesButtonList.Length; i++) {
-			PersistentData.listOfConstructions [i].upgradeButton = constructionsUpgradesButtonList [i];
-			PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
+		for (int i = 0, maxA = PersistentData.listOfConstructions.Length, maxB = constructionsUpgradesButtonList.Length; i < maxA && i < maxB; i++) {
+			if (PersistentData.listOfConstructions[i] != null) {
+				PersistentData.listOfConstructions [i].upgradeButton = constructionsUpgradesButtonList [i];
+				PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
+			} else {
+				constructionsUpgradesButtonList [i].gameObject.SetActive(false);
+			}
 		}
 		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
 			PersistentData.listOfPointerUpgrades [i].uButton = pointersUpgradesButtonList[i];

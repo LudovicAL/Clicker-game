@@ -4,8 +4,19 @@ public static class CommonTools {
 
 	public static string[] numbersNotations = WordsLists.numbersAbreviations;
 
+	//Adds Constructions to an Array and performs the required calculations to finish those Constructions initialization
+	public static void AddConstructionsToArray(Construction[] destinationArray, Construction[] sourceArray, int startingIndex) {
+		for (int i = startingIndex, maxA = destinationArray.Length, maxB = sourceArray.Length; i < maxA && i < maxB; i++) {
+			destinationArray [i] = sourceArray [i];
+			destinationArray [i].CalculateNumberOfConstructionsToBuild ();
+			destinationArray [i].CalculateCostForNCopiesOfThisConstruction ();
+			destinationArray [i].CalculateProduction ();
+			destinationArray [i].CalculateNextUpgradeCost ();
+		}
+	}
+
 	//Updates the current number notation
-	public static void updateNumbersNotations() {
+	public static void UpdateNumbersNotations() {
 		if (PersistentData.shortNumbers) {
 			numbersNotations = WordsLists.numbersAbreviations;
 		} else {
