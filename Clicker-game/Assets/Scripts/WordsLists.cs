@@ -361,28 +361,6 @@ public static class WordsLists {
 
 	#endregion
 
-	#region Abilities
-
-	public static string[,] paidWorkersAbilitiesNames = new string[6, 3] {
-		{ "Enhanced working effort", "Hydrolic excavation", "Additional salary incentives" },
-		{ "Enhanced working effort", "", "" },
-		{ "Enhanced working effort", "", "" },
-		{ "Enhanced working effort", "", "" },
-		{ "Enhanced working effort", "Oil refill", "Nuclear prospection" },
-		{ "Enhanced working effort", "Apocalypse", "" }
-	};
-
-	public static string[,] enslavedWorkersAbilitiesNames = new string[6, 3] {
-		{ "Enhanced working effort", "Whipping frenzy", "Night shifts" },
-		{ "Enhanced working effort", "", "" },
-		{ "Enhanced working effort", "", "" },
-		{ "Enhanced working effort", "", "" },
-		{ "", "", "" },
-		{ "", "", "" }
-	};
-
-	#endregion
-
 	#region Upgrades
 
 	public static string[] upgradesAdjectives = new string[] {
@@ -559,6 +537,17 @@ public static class WordsLists {
 	public static Achievement[] listOfTimeAchievements = new Achievement[]  {
 		new ALongestSession("Longest playing session", "Your longest achieved playing session.", true, new double[] { 0, 10, 30, 100, 200, 1000 }),
 		new ATotalTime("Total time", "Your total time spent playing the game.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
+	};
+
+	#endregion
+
+	#region Abilities
+
+	public static Ability[] abilitiesDefault = new Ability[]  {
+		new DefaultAbility("Enhanced working effort", "No description yet.", 10.0f),
+		new EmptyAbility(),
+		new EmptyAbility(),
+		new EmptyAbility()
 	};
 
 	#endregion

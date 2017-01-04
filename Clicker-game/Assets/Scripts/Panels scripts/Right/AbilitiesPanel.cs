@@ -23,6 +23,7 @@ public class AbilitiesPanel : MonoBehaviour {
 		SetPanelState (AvailablePanelStates.Playing);
 		for (int i = 0; i < PersistentData.listOfAbilities.Length; i++) {
 			PersistentData.listOfAbilities [i].aButton = abilitiesButtons[i];
+			PersistentData.listOfAbilities [i].UpdateButtonAvailability ();
 		}
 	}
 	

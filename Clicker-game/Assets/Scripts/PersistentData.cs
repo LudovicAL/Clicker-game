@@ -86,7 +86,7 @@ public static class PersistentData {
 	//ABILITIES
 	public static int currentNumberOfAbilitiesUsed = 0;	//In the current session only
 	public static int totalNumberOfAbilitiesUsed = 0;
-	public static Ability[] listOfAbilities = new Ability[4];
+	public static Ability[] listOfAbilities = WordsLists.abilitiesDefault;
 
 	//RACES
 	public static int numberOfMarsiansAlliance = 0;
@@ -141,12 +141,7 @@ public static class PersistentData {
 
 	//STATIC CONSTRUCTOR
 	static PersistentData() {
-		//Abilities
-		listOfAbilities[0] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
-		listOfAbilities[1] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
-		listOfAbilities[2] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
-		listOfAbilities[3] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
-
+		//Nothing here yet...
 	}
 
 	#endregion
