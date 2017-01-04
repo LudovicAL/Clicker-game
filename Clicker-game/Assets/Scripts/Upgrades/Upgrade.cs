@@ -61,8 +61,10 @@ public abstract class Upgrade {
 		tt.TurnToolTipOn (
 			uButton.gameObject,
 			name,
-			CommonTools.DoubleToString(costOfNextLevel) + " $",
-			description
+			"Lvl " + (currentLevel + 1).ToString(),
+			description,
+			"Cost:",
+			CommonTools.DoubleToString(costOfNextLevel) + " $"
 		);
 	}
 

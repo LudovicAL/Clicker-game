@@ -337,9 +337,9 @@ public static class WordsLists {
 	#region Construction
 
 	public static Construction[] constructionsDefault = new Construction[10] {
-		new ConstructionFull ("Shovels", 0, 1, 1.15f, true, 1),
-		new ConstructionFull ("Pickaxes", 0, 2, 1.15f, true, 1),
-		new ConstructionFull ("Jack Hammers", 0, 3, 1.15f, true, 1),
+		new ConstructionFull ("Shovels", 0, 1, 1.15f, true, 25),
+		new ConstructionFull ("Pickaxes", 0, 2, 1.15f, true, 25),
+		new ConstructionFull ("Jack Hammers", 0, 3, 1.15f, true, 25),
 		new ConstructionEmpty(4),
 		new ConstructionEmpty(5),
 		new ConstructionEmpty(6),
@@ -350,13 +350,13 @@ public static class WordsLists {
 	};
 
 	public static Construction[] constructionsHuman = new Construction[7] {
-		new ConstructionFull ("Metal detectors", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Excavators", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Dump trucks", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Conveyors", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Refineries", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Explosives", 0, 1, 1.15f, false, 1),
-		new ConstructionFull ("Tunnel Borers", 0, 1, 1.15f, false, 1),
+		new ConstructionFull ("Metal detectors", 0, 4, 1.15f, false, 25),
+		new ConstructionFull ("Excavators", 0, 5, 1.15f, false, 25),
+		new ConstructionFull ("Dump trucks", 0, 6, 1.15f, false, 25),
+		new ConstructionFull ("Conveyors", 0, 7, 1.15f, false, 25),
+		new ConstructionFull ("Refineries", 0, 8, 1.15f, false, 25),
+		new ConstructionFull ("Explosives", 0, 9, 1.15f, false, 25),
+		new ConstructionFull ("Tunnel Borers", 0, 10, 1.15f, false, 25),
 	};
 
 	#endregion

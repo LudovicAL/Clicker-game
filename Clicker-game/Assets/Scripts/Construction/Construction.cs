@@ -137,6 +137,7 @@ public abstract class Construction {
 		CalculateNextUpgradeCost ();
 		CalculateProduction ();
 		UpdateUpgradeButtonColor ();
+		UpdateUpgradeButtonAvailability ();
 	}
 		
 	//Calculates the cost of the next upgrade

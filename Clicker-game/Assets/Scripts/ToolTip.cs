@@ -9,10 +9,18 @@ public class ToolTip : MonoBehaviour {
 		Playing,	//Game is playing
 	};
 
-	public GameObject ttPanel;
-	public Text ttTitle;
-	public Text ttProgress;
-	public Text ttDescription;
+	public GameObject ttSmallPanel;
+	public Text ttSmallTopLeft;
+	public Text ttSmallTopRight;
+	public Text ttSmallDescription;
+
+	public GameObject ttLongPanel;
+	public Text ttLongTopLeft;
+	public Text ttLongTopRight;
+	public Text ttLongDescription;
+	public Text ttLongBottomLeft;
+	public Text ttLongBottomRight;
+
 	private AvailablePanelStates panelState;
 
 	void Start () {
@@ -40,22 +48,40 @@ public class ToolTip : MonoBehaviour {
 		panelState = state;
 	}
 
-	public void TurnToolTipOn(GameObject go, string title, string progress, string description) {
+	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description) {
 		if (panelState == AvailablePanelStates.Playing) {
-			ttTitle.text = title;
-			ttProgress.text = progress;
-			ttDescription.text = description;
+			ttSmallTopLeft.text = topLeft;
+			ttSmallTopRight.text = topRight;
+			ttSmallDescription.text = description;
 			if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
-				ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
+				ttSmallPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
 			} else {
-				ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
+				ttSmallPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
 			}
-			ttPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
-			ttPanel.gameObject.SetActive (true);
+			ttSmallPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+			ttSmallPanel.gameObject.SetActive (true);
+		}
+	}
+
+	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description, string bottomLeft, string bottomRight) {
+		if (panelState == AvailablePanelStates.Playing) {
+			ttLongTopLeft.text = topLeft;
+			ttLongTopRight.text = topRight;
+			ttLongDescription.text = description;
+			ttLongBottomLeft.text = bottomLeft;
+			ttLongBottomRight.text = bottomRight;
+			if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
+				ttLongPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
+			} else {
+				ttLongPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
+			}
+			ttLongPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+			ttLongPanel.gameObject.SetActive (true);
 		}
 	}
 
 	public void TurnToolTipOff() {
-		ttPanel.gameObject.SetActive (false);
+		ttSmallPanel.gameObject.SetActive (false);
+		ttLongPanel.gameObject.SetActive (false);
 	}
 }
