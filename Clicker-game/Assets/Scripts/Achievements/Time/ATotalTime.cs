@@ -3,11 +3,8 @@ using UnityEngine.UI;
 
 public class ATotalTime : Achievement {
 
-	public ATotalTime(int id, string name, string description, bool revealed, GameObject aPanel, Image aProgressBar): base (name, description, revealed, aPanel, aProgressBar) {
-		valuesTable = new double[WordsLists.wealthAchievementsValuesTable.GetLength(1)];
-		for (int i = 0; i < valuesTable.Length; i++) {
-			valuesTable [i] = WordsLists.wealthAchievementsValuesTable [id, i];
-		}
+	public ATotalTime(string name, string description, bool revealed, double[] valuesTable): base (name, description, revealed, valuesTable) {
+		//Nothing to do here... yet
 	}
 
 	public override void UpdateAchievement() {

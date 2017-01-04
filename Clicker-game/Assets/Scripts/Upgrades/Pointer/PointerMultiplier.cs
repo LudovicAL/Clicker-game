@@ -2,7 +2,7 @@
 
 public class PointerMultiplier : Upgrade {
 
-	public PointerMultiplier(Button upgradeButton, string name, string description): base (upgradeButton, name, description) {
+	public PointerMultiplier(string name, string description): base (name, description) {
 
 	}
 

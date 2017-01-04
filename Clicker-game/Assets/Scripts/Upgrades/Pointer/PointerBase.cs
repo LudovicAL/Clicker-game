@@ -2,7 +2,7 @@
 
 public class PointerBase : Upgrade {
 
-	public PointerBase(Button upgradeButton, string name, string description): base (upgradeButton, name, description) {
+	public PointerBase(string name, string description): base (name, description) {
 
 	}
 

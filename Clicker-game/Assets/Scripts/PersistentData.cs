@@ -123,15 +123,15 @@ public static class PersistentData {
 	public static int currentTotalNumberOfConstruction = 0;
 	public static int highestTotalNumberOfConstructionAchieved = 0;
 	public static int[] highestNumberOfConstructionAchieved = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	public static Construction[] listOfConstructions = new Construction[10];
+	public static Construction[] listOfConstructions = WordsLists.constructionsDefault;
 
 	//UPGRADES
-	public static Upgrade[] listOfPointerUpgrades = new Upgrade[2];
-	public static Upgrade[] listOfManaUpgrades = new Upgrade[2];
+	public static Upgrade[] listOfPointerUpgrades = WordsLists.listOfPointerUpgrades;
+	public static Upgrade[] listOfManaUpgrades = WordsLists.listOfManaUpgrades;
 
 	//ACHIEVEMENTS
-	public static Achievement[] listOfWealthAchievements = new Achievement[2];
-	public static Achievement[] listOfTimeAchievements = new Achievement[2];
+	public static Achievement[] listOfWealthAchievements = WordsLists.listOfWealthAchievements;
+	public static Achievement[] listOfTimeAchievements = WordsLists.listOfTimeAchievements;
 
 	//NOTIFICATIONS
 	public static List<Achievement> notificationList = new List<Achievement> ();
@@ -141,20 +141,6 @@ public static class PersistentData {
 
 	//STATIC CONSTRUCTOR
 	static PersistentData() {
-		//Constructions
-		CommonTools.AddConstructionsToArray(listOfConstructions, WordsLists.constructionsDefault, 0);
-		//Pointer Upgrades
-		listOfPointerUpgrades [0] = new PointerBase (null, WordsLists.pointerUpgradesNames[0], WordsLists.pointerUpgradesDescriptions[0]);
-		listOfPointerUpgrades [1] = new PointerMultiplier (null, WordsLists.pointerUpgradesNames[1], WordsLists.pointerUpgradesDescriptions[1]);
-		//Mana Upgrades
-		listOfManaUpgrades [0] = new MaxMana (null, WordsLists.manaUpgradesNames[0], WordsLists.manaUpgradesDescriptions[0]);
-		listOfManaUpgrades [1] = new ManaRegen (null, WordsLists.manaUpgradesNames[1], WordsLists.manaUpgradesDescriptions[1]);
-		//Wealth Achievements
-		listOfWealthAchievements[0] = new AMoneyPerSecond(0, WordsLists.wealthAchievementsNames[0], WordsLists.wealthAchievementsDescriptions[0], true, null, null);
-		listOfWealthAchievements[1] = new ATotalMoney(1, WordsLists.wealthAchievementsNames[1], WordsLists.wealthAchievementsDescriptions[1], true, null, null);
-		//Time Achievements
-		listOfTimeAchievements[0] = new ALongestSession(0, WordsLists.timeAchievementsNames[0], WordsLists.timeAchievementsDescriptions[0], true, null, null);
-		listOfTimeAchievements[1] = new ATotalTime(1, WordsLists.timeAchievementsNames[1], WordsLists.timeAchievementsDescriptions[1], true, null, null);
 		//Abilities
 		listOfAbilities[0] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);
 		listOfAbilities[1] = new DefaultAbility(WordsLists.paidWorkersAbilitiesNames[0, 0], "No description yet.", 10.0f);

@@ -7,8 +7,7 @@ public abstract class Upgrade {
 	public double costOfNextLevel { get; protected set; }
 	public Button uButton { get; set; }
 
-	public Upgrade(Button upgradeButton, string name, string description) {
-		this.uButton = upgradeButton;
+	public Upgrade(string name, string description) {
 		this.name = name;
 		this.description = description;
 		this.currentLevel = 0;

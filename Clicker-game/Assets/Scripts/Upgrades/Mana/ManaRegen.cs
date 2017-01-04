@@ -2,7 +2,7 @@
 
 public class ManaRegen : Upgrade {
 
-	public ManaRegen(Button upgradeButton, string name, string description): base (upgradeButton, name, description) {
+	public ManaRegen(string name, string description): base (name, description) {
 
 	}
 

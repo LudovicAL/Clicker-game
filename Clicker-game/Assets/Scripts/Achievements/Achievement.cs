@@ -12,16 +12,14 @@ public abstract class Achievement {
 	public GameObject aPanel { get; set; }
 	public Image aProgressBar { get; set; }
 
-	public Achievement(string name, string description, bool revealed, GameObject aPanel, Image aProgressBar) {
+	public Achievement(string name, string description, bool revealed, double[] valuesTable) {
 		this.name = name;
 		this.description = description;
 		this.currentLevel = 1;
 		this.currentValue = 0;
 		this.progress = 0.0f;
 		this.revealed = revealed;
-		this.aPanel = aPanel;
-		this.aProgressBar = aProgressBar;
-		//valuesTable must be assigned in the children class.
+		this.valuesTable = valuesTable;
 	}
 
 	public void OnMouseOver(ToolTip tt) {

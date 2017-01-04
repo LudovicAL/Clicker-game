@@ -533,62 +533,32 @@ public static class WordsLists {
 
 	#region PointerUpgrades
 
-	public static string[] pointerUpgradesNames = new string[] {
-		"Pointer base reward",
-		"Pointer reward multiplier"
-	};
-
-	public static string[] pointerUpgradesDescriptions = new string[] {
-		"Doubles each click base reward.",
-		"Double the click reward multiplier."
+	public static Upgrade[] listOfPointerUpgrades = new Upgrade[]  {
+		new PointerBase ("Pointer base reward", "Doubles each click base reward."),
+		new PointerMultiplier ("Pointer reward multiplier", "Double the click reward multiplier.")
 	};
 
 	#endregion
 
 	#region ManaUpgrades
 
-	public static string[] manaUpgradesNames = new string[] {
-		"Maximum mana upgrade",
-		"Mana regenaration upgrade"
-	};
-
-	public static string[] manaUpgradesDescriptions = new string[] {
-		"Adds 50 to your maximum mana.",
-		"Adds 0.5 to you mana regeneration rate per second."
+	public static Upgrade[] listOfManaUpgrades = new Upgrade[]  {
+		new MaxMana ("Maximum mana upgrade", "Adds 50 to your maximum mana."),
+		new ManaRegen ("Mana regenaration upgrade", "Adds 0.5 to you mana regeneration rate per second.")
 	};
 
 	#endregion
 
 	#region Achievements
 
-	public static string[] wealthAchievementsNames = new string[] {
-		"Money per second",
-		"Total wealth"
+	public static Achievement[] listOfWealthAchievements = new Achievement[]  {
+		new AMoneyPerSecond("Money per second", "Your highest achieved income.", true, new double[] { 0, 5, 30, 100, 200, 1000 }),
+		new ATotalMoney("Total wealth", "Your highest achieved wealth.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
 	};
 
-	public static string[] wealthAchievementsDescriptions = new string[] {
-		"Your highest achieved income.",
-		"Your highest achieved wealth."
-	};
-
-	public static double[,] wealthAchievementsValuesTable = new double[,] {
-		{ 0, 5, 30, 100, 200, 1000 },
-		{ 0, 10, 50, 500, 5000, 50000 }
-	};
-
-	public static string[] timeAchievementsNames = new string[] {
-		"Longest playing session",
-		"Total time"
-	};
-
-	public static string[] timeAchievementsDescriptions = new string[] {
-		"Your longest achieved playing session.",
-		"Your total time spent playing the game."
-	};
-
-	public static double[,] timeAchievementsValuesTable = new double[,] {
-		{ 0, 10, 30, 100, 200, 1000 },
-		{ 0, 10, 50, 500, 5000, 50000 }
+	public static Achievement[] listOfTimeAchievements = new Achievement[]  {
+		new ALongestSession("Longest playing session", "Your longest achieved playing session.", true, new double[] { 0, 10, 30, 100, 200, 1000 }),
+		new ATotalTime("Total time", "Your total time spent playing the game.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
 	};
 
 	#endregion

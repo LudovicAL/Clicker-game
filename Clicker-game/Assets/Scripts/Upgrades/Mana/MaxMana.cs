@@ -2,7 +2,7 @@
 
 public class MaxMana : Upgrade {
 
-	public MaxMana(Button upgradeButton, string name, string description): base (upgradeButton, name, description) {
+	public MaxMana(string name, string description): base (name, description) {
 
 	}
 
