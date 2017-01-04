@@ -14,7 +14,9 @@ public class ConstructionEmpty : Construction {
 	#region Construction Button
 
 	public override void UpdateConstructionButtonAvailability() {
-		//Do nothing
+		if (constructionButton != null) {
+			constructionButton.gameObject.SetActive (false);
+		}
 	}
 
 	//Updates the button displaying the cost of the next copies of this construction
@@ -48,7 +50,9 @@ public class ConstructionEmpty : Construction {
 
 	//Updates the upgrade button availability
 	public override void UpdateUpgradeButtonAvailability() {
-		//Do nothing
+		if (upgradeButton != null) {
+			upgradeButton.gameObject.SetActive (false);
+		}
 	}
 
 	//Updates the upgrade button image color

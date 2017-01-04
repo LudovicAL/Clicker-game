@@ -21,7 +21,7 @@ public class ConstructionFull : Construction {
 	#region Construction Button
 
 	public override void UpdateConstructionButtonAvailability() {
-		if (upgradeButton != null) {
+		if (constructionButton != null) {
 			constructionButton.gameObject.SetActive (constructionAvailability);
 		}
 	}
