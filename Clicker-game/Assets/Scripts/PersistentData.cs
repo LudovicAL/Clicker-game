@@ -15,6 +15,7 @@ public static class PersistentData {
 	//OPTIONS
 	public static bool shortNumbers = true;
 	public static bool promptForPlanetName = true;
+	public static bool achievementsNotifications = true;
 
 	//PLANET
 	public static string planetName = "";
@@ -159,6 +160,7 @@ public static class PersistentData {
 		//OPTIONS
 		storage.shortNumbers = shortNumbers;
 		storage.promptForPlanetName = promptForPlanetName;
+		storage.achievementsNotifications = achievementsNotifications;
 
 		//PLANET
 		storage.planetName = planetName;
@@ -289,6 +291,7 @@ public static class PersistentData {
 			//OPTIONS
 			shortNumbers = storage.shortNumbers;
 			promptForPlanetName = storage.promptForPlanetName;
+			achievementsNotifications = storage.achievementsNotifications;
 
 			//PLANET
 			planetName = storage.planetName;

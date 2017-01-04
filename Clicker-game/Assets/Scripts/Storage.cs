@@ -9,6 +9,7 @@ class Storage {
 	//OPTIONS
 	public bool shortNumbers;
 	public bool promptForPlanetName;
+	public bool achievementsNotifications;
 
 	//PLANET
 	public string planetName;

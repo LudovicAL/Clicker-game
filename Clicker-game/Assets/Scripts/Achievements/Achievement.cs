@@ -40,7 +40,7 @@ public abstract class Achievement {
 		}
 		if (i > currentLevel) {
 			currentLevel = i;
-			if (!PersistentData.notificationList.Contains(this)) {
+			if (PersistentData.achievementsNotifications && !PersistentData.notificationList.Contains(this)) {
 				PersistentData.notificationList.Add (this);
 			}
 		}

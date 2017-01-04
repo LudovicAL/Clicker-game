@@ -15,6 +15,7 @@ public class OptionPanel : MonoBehaviour {
 	//private AvailablePanelStates panelState;
 	public Toggle buttonOptionShortNumberNotation;
 	public Toggle buttonOptionPlanetNamePromt;
+	public Toggle buttonOptionAchievementNotification;
 
 	// Use this for initialization
 	void Start () {
@@ -55,9 +56,15 @@ public class OptionPanel : MonoBehaviour {
 		PersistentData.promptForPlanetName = tButton.isOn;		
 	}
 
+	//When the player clicks the prompt for planet name option button
+	public void OnAchievementNotificationButtonClic(Toggle tButton) {
+		PersistentData.achievementsNotifications = tButton.isOn;		
+	}
+
 	public void UpdateAllOptionButtons() {
 		UpdateButtonShortNumberNotation ();
 		UpdateButtonPlanetNamePrompt ();
+		UpdateButtonAchievementsNotifications ();
 	}
 
 	public void UpdateButtonShortNumberNotation() {
@@ -67,5 +74,9 @@ public class OptionPanel : MonoBehaviour {
 
 	public void UpdateButtonPlanetNamePrompt() {
 		buttonOptionPlanetNamePromt.isOn = PersistentData.promptForPlanetName;
+	}
+
+	public void UpdateButtonAchievementsNotifications() {
+		buttonOptionAchievementNotification.isOn = PersistentData.achievementsNotifications;
 	}
 }
