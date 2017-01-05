@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UpgradesPanel : MonoBehaviour {
 
@@ -11,7 +12,8 @@ public class UpgradesPanel : MonoBehaviour {
 	};
 
 	public GameObject thisPanel;
-	public Button[] constructionsUpgradesButtonList;
+	public GameObject panelConstructionUpgrades;
+	public GameObject upgradeButtonPrefab;
 	public Button[] pointersUpgradesButtonList;
 	public Button[] manaUpgradesButtonList;
 	private AvailablePanelStates panelState;
@@ -21,15 +23,7 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0, maxA = PersistentData.listOfConstructions.Count, maxB = constructionsUpgradesButtonList.Length; i < maxA && i < maxB; i++) {
-			if (PersistentData.listOfConstructions[i] != null) {
-				PersistentData.listOfConstructions [i].upgradeButton = constructionsUpgradesButtonList [i];
-				PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
-				PersistentData.listOfConstructions [i].UpdateUpgradeButtonImage ();
-			} else {
-				constructionsUpgradesButtonList [i].gameObject.SetActive(false);
-			}
-		}
+		UpdateConstructionsUpgradesButtons ();
 		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
 			PersistentData.listOfPointerUpgrades [i].uButton = pointersUpgradesButtonList[i];
 		}
@@ -37,7 +31,7 @@ public class UpgradesPanel : MonoBehaviour {
 			PersistentData.listOfManaUpgrades [i].uButton = manaUpgradesButtonList[i];
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
@@ -66,6 +60,33 @@ public class UpgradesPanel : MonoBehaviour {
 	}
 
 	#region ConstructionUpgrades
+
+	public void UpdateConstructionsUpgradesButtons() {
+		for (int i = panelConstructionUpgrades.transform.childCount; i > 0; i--) {
+			GameObject.Destroy (panelConstructionUpgrades.transform.GetChild (i - 1).gameObject);
+		}
+		foreach (Construction c in PersistentData.listOfConstructions) {
+			GameObject go = (GameObject)Instantiate (upgradeButtonPrefab, panelConstructionUpgrades.transform, false);
+			Button b = go.GetComponent<Button> ();
+			c.upgradeButton = b;
+			c.UpdateUpgradeButtonAvailability ();
+			c.UpdateUpgradeButtonImage ();
+			//OnClick
+			b.onClick.AddListener(delegate() { OnButtonClicConstructionUpgrade (c.id - 1); });
+			b.onClick.AddListener(delegate() { OnMouseExitUpgradeButton (); });
+			//OnMouseEnter
+			EventTrigger trigger = go.GetComponent<EventTrigger> ();
+			EventTrigger.Entry entryA = new EventTrigger.Entry();
+			entryA.eventID = EventTriggerType.PointerEnter;
+			entryA.callback.AddListener ((data) => { OnMouseOverConstructionUpgradeButton (c.id - 1); });
+			trigger.triggers.Add (entryA);
+			//OnMouseExit
+			EventTrigger.Entry entryB = new EventTrigger.Entry();
+			entryB.eventID = EventTriggerType.PointerExit;
+			entryB.callback.AddListener ((data) => { OnMouseExitUpgradeButton(); });
+			trigger.triggers.Add (entryB);
+		}
+	}
 
 	//When the player clicks on a construction upgrade button
 	public void OnButtonClicConstructionUpgrade(int buttonNo) {

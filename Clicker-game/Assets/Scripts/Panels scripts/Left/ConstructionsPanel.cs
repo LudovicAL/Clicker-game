@@ -11,7 +11,6 @@ public class ConstructionsPanel : MonoBehaviour {
 
 	public GameObject constructionButtonPrefab;
 	public GameObject thisPanel;
-	//public Button[] constructionsButtonList;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -19,16 +18,7 @@ public class ConstructionsPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0, max = PersistentData.listOfConstructions.Count; i < max; i++) {
-			GameObject go = (GameObject)Instantiate (constructionButtonPrefab, thisPanel.transform, false);
-			PersistentData.listOfConstructions[i].constructionButton = go.GetComponent<Button> ();
-			PersistentData.listOfConstructions[i].UpdateConstructionButtonAvailability ();
-			PersistentData.listOfConstructions[i].UpdateButtonDisplayedName ();
-			PersistentData.listOfConstructions[i].UpdateButtonDisplayedCost ();
-			PersistentData.listOfConstructions[i].UpdateButtonDisplayedQuantity ();
-			PersistentData.listOfConstructions[i].UpdateButtonDisplayedContribution ();
-			PersistentData.listOfConstructions[i].UpdateConstructionButtonImage ();
-		}
+		UpdateConstructionButtons ();
 	}
 	
 	// Update is called once per frame
@@ -54,6 +44,24 @@ public class ConstructionsPanel : MonoBehaviour {
 
 	public void SetPanelState(AvailablePanelStates state) {
 		panelState = state;
+	}
+
+	public void UpdateConstructionButtons() {
+		for (int i = thisPanel.transform.childCount; i > 0; i--) {
+			GameObject.Destroy (thisPanel.transform.GetChild (i - 1).gameObject);
+		}
+		foreach (Construction c in PersistentData.listOfConstructions) {
+			GameObject go = (GameObject)Instantiate (constructionButtonPrefab, thisPanel.transform, false);
+			Button b = go.GetComponent<Button> ();
+			b.onClick.AddListener(delegate() { OnButtonClic (c.id - 1); });
+			c.constructionButton = b;
+			c.UpdateConstructionButtonAvailability ();
+			c.UpdateButtonDisplayedName ();
+			c.UpdateButtonDisplayedCost ();
+			c.UpdateButtonDisplayedQuantity ();
+			c.UpdateButtonDisplayedContribution ();
+			c.UpdateConstructionButtonImage ();
+		}
 	}
 
 	//When the player clicks on a construction button
