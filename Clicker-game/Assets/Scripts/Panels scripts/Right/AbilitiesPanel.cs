@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class AbilitiesPanel : MonoBehaviour {
 
@@ -11,9 +12,10 @@ public class AbilitiesPanel : MonoBehaviour {
 	};
 
 	public GameObject thisPanel;
+	public GameObject abilityButtonPanel;
 	public Image manaBar;
 	public Text manaText;
-	public Button[] abilitiesButtons;
+	public GameObject abilityButtonPrefab;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -21,10 +23,7 @@ public class AbilitiesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0; i < PersistentData.listOfAbilities.Length; i++) {
-			PersistentData.listOfAbilities [i].aButton = abilitiesButtons[i];
-			PersistentData.listOfAbilities [i].UpdateButtonAvailability ();
-		}
+		UpdateAbilityButtons ();
 	}
 	
 	// Update is called once per frame
@@ -50,17 +49,26 @@ public class AbilitiesPanel : MonoBehaviour {
 		panelState = state;
 	}
 
-	//When the mouse hover over an ability button
-	public void OnMouseOverAbility(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfAbilities [buttonNo].OnMouseOver(this.GetComponent<ToolTip> ());
-		}
-	}
-
-	//When the player clicks on an ability button
-	public void OnButtonClicAbility(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfAbilities [buttonNo].UseAbility ();
+	public void UpdateAbilityButtons() {
+		foreach (Ability a in PersistentData.listOfAbilities) {
+			GameObject go = (GameObject)Instantiate (abilityButtonPrefab, abilityButtonPanel.transform, false);
+			Button b = go.GetComponent<Button> ();
+			a.aButton = b;
+			a.UpdateButtonAvailability ();
+			a.UpdateButtonDisplayedName ();
+			//OnClick
+			b.onClick.AddListener(delegate() { a.UseAbility(); });
+			//OnMouseEnter
+			EventTrigger trigger = go.GetComponent<EventTrigger> ();
+			EventTrigger.Entry entryA = new EventTrigger.Entry();
+			entryA.eventID = EventTriggerType.PointerEnter;
+			entryA.callback.AddListener ((data) => { a.OnMouseOver(this.GetComponent<ToolTip> ()); });
+			trigger.triggers.Add (entryA);
+			//OnMouseExit
+			EventTrigger.Entry entryB = new EventTrigger.Entry();
+			entryB.eventID = EventTriggerType.PointerExit;
+			entryB.callback.AddListener ((data) => { OnMouseExitAbility(); });
+			trigger.triggers.Add (entryB);
 		}
 	}
 

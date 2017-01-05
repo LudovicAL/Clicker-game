@@ -53,7 +53,8 @@ public class ConstructionsPanel : MonoBehaviour {
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			GameObject go = (GameObject)Instantiate (constructionButtonPrefab, thisPanel.transform, false);
 			Button b = go.GetComponent<Button> ();
-			b.onClick.AddListener(delegate() { OnButtonClic (c.id - 1); });
+			b.onClick.AddListener(delegate() { c.BuyConstruction(this.GetComponent<DataManager>()); });
+			b.onClick.AddListener(delegate() { Update(); });
 			c.constructionButton = b;
 			c.UpdateConstructionButtonAvailability ();
 			c.UpdateButtonDisplayedName ();
@@ -61,16 +62,6 @@ public class ConstructionsPanel : MonoBehaviour {
 			c.UpdateButtonDisplayedQuantity ();
 			c.UpdateButtonDisplayedContribution ();
 			c.UpdateConstructionButtonImage ();
-		}
-	}
-
-	//When the player clicks on a construction button
-	public void OnButtonClic(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			if (PersistentData.listOfConstructions[buttonNo].CanAffordConstruction()) {
-				PersistentData.listOfConstructions[buttonNo].BuyConstruction (this.GetComponent<DataManager>());
-				Update ();
-			}
 		}
 	}
 }

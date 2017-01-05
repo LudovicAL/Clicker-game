@@ -13,9 +13,10 @@ public class UpgradesPanel : MonoBehaviour {
 
 	public GameObject thisPanel;
 	public GameObject panelConstructionUpgrades;
-	public GameObject upgradeButtonPrefab;
+	public GameObject panelPointerUpgrades;
 	public Button[] pointersUpgradesButtonList;
 	public Button[] manaUpgradesButtonList;
+	public GameObject upgradeButtonPrefab;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -72,8 +73,9 @@ public class UpgradesPanel : MonoBehaviour {
 			c.UpdateUpgradeButtonAvailability ();
 			c.UpdateUpgradeButtonImage ();
 			//OnClick
-			b.onClick.AddListener(delegate() { OnButtonClicConstructionUpgrade (c.id - 1); });
+			b.onClick.AddListener(delegate() { c.BuyUpgrade(this.GetComponent<DataManager>()); });
 			b.onClick.AddListener(delegate() { OnMouseExitUpgradeButton (); });
+			b.onClick.AddListener(delegate() { Update (); });
 			//OnMouseEnter
 			EventTrigger trigger = go.GetComponent<EventTrigger> ();
 			EventTrigger.Entry entryA = new EventTrigger.Entry();
@@ -85,17 +87,6 @@ public class UpgradesPanel : MonoBehaviour {
 			entryB.eventID = EventTriggerType.PointerExit;
 			entryB.callback.AddListener ((data) => { OnMouseExitUpgradeButton(); });
 			trigger.triggers.Add (entryB);
-		}
-	}
-
-	//When the player clicks on a construction upgrade button
-	public void OnButtonClicConstructionUpgrade(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			if (PersistentData.listOfConstructions[buttonNo].CanAffordUpgrade()) {
-				PersistentData.listOfConstructions[buttonNo].BuyUpgrade(this.GetComponent<DataManager>());
-				Update ();
-				this.GetComponent<ToolTip> ().TurnToolTipOff ();
-			}
 		}
 	}
 

@@ -195,7 +195,7 @@ public class Construction {
 					break;
 				}
 			}
-		} 
+		}
 	}
 
 	//Updates the displayed contribution for this construction

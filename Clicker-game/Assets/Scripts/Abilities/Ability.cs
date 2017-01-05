@@ -25,6 +25,19 @@ public abstract class Ability {
 		aButton.gameObject.SetActive(IsAbilityAvailable());
 	}
 
+	//Updates the active status of the button
+	public void UpdateButtonDisplayedName() {
+		if (aButton != null) {
+			Component[] textComponentsArray = aButton.GetComponentsInChildren<Text> ();
+			foreach (Text t in textComponentsArray) {
+				if (t.gameObject.CompareTag("Name")) {
+					t.text = name;
+					break;
+				}
+			}
+		} 
+	}
+
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
 			aButton.gameObject,

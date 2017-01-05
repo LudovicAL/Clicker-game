@@ -350,11 +350,8 @@ public static class WordsLists {
 		new Construction ("Jack Hammers", 0, 3, 1.15f, true, 25)
 	};
 
-	public static Ability[] abilitiesDefault = new Ability[]  {
+	public static List<Ability> abilitiesDefault = new List<Ability>()  {
 		new DefaultAbility("Enhanced working effort", "No description yet.", 10.0f),
-		new EmptyAbility(),
-		new EmptyAbility(),
-		new EmptyAbility()
 	};
 
 	#endregion
@@ -378,7 +375,7 @@ public static class WordsLists {
 		new Construction ("Tunnel Borers", 0, 10, 1.15f, false, 25),
 	};
 
-	public static Ability[] abilitiesHuman = new Ability[3] {
+	public static List<Ability> abilitiesHuman = new List<Ability>() {
 		new EmptyAbility(),
 		new EmptyAbility(),
 		new EmptyAbility()

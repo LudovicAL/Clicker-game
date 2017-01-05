@@ -87,7 +87,7 @@ public static class PersistentData {
 	//ABILITIES
 	public static int currentNumberOfAbilitiesUsed = 0;	//In the current session only
 	public static int totalNumberOfAbilitiesUsed = 0;
-	public static Ability[] listOfAbilities = WordsLists.abilitiesDefault;
+	public static List<Ability> listOfAbilities = WordsLists.abilitiesDefault;
 
 	//RACES
 	public static int numberOfMarsiansAlliance = 0;
