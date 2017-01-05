@@ -61,21 +61,25 @@ public class OptionPanel : MonoBehaviour {
 		PersistentData.achievementsNotifications = tButton.isOn;		
 	}
 
+	//Updates all the options buttons so they correspond the values in PersistentData
 	public void UpdateAllOptionButtons() {
 		UpdateButtonShortNumberNotation ();
 		UpdateButtonPlanetNamePrompt ();
 		UpdateButtonAchievementsNotifications ();
 	}
 
+	//Updates the number notation option button so it corresponds the value in PersistentData
 	public void UpdateButtonShortNumberNotation() {
 		buttonOptionShortNumberNotation.isOn = PersistentData.shortNumbers;
 		CommonTools.UpdateNumbersNotations();
 	}
 
+	//Updates the planet name prompt option button so it corresponds the value in PersistentData
 	public void UpdateButtonPlanetNamePrompt() {
 		buttonOptionPlanetNamePromt.isOn = PersistentData.promptForPlanetName;
 	}
 
+	//Updates the achievement notification option button so it corresponds the value in PersistentData
 	public void UpdateButtonAchievementsNotifications() {
 		buttonOptionAchievementNotification.isOn = PersistentData.achievementsNotifications;
 	}

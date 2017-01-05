@@ -376,9 +376,7 @@ public static class WordsLists {
 	};
 
 	public static List<Ability> abilitiesHuman = new List<Ability>() {
-		new EmptyAbility(),
-		new EmptyAbility(),
-		new EmptyAbility()
+		//Insert abilities here
 	};
 
 	#endregion

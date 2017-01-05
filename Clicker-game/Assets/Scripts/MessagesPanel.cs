@@ -12,12 +12,11 @@ public class MessagesPanel : MonoBehaviour {
 	public GameObject panelInputDialogForPlanetName;
 	public InputField inputFieldOfInputDialog;
 
-	// Use this for initialization
+	/*
 	void Start () {
 		
 	}
-	
-	/*
+
 	void Update () {
 	
 	}
@@ -45,6 +44,7 @@ public class MessagesPanel : MonoBehaviour {
 		inputFieldOfInputDialog.ActivateInputField ();
 	}
 
+	//When the player submits his desired planet name (or no name at all)
 	public void OnPlanetNameSubmit() {
 		if (inputFieldOfInputDialog.text.Length == 0) {
 			PersistentData.planetName = CommonTools.GeneratePlanetName ();

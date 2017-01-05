@@ -57,6 +57,7 @@ public abstract class Upgrade {
 
 	}
 
+	//On mouse over the upgrade button
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
 			uButton.gameObject,
@@ -68,9 +69,12 @@ public abstract class Upgrade {
 		);
 	}
 
+	//Is the upgrade available
 	public abstract bool IsUpgradeAvailable();
 
+	//Calculates the cost of the next level for this upgrade
 	public abstract void CalculateCostOfNextLevel();
 
+	//Applies the upgrade effect
 	public abstract void ApplyUpgradeEffect();
 }

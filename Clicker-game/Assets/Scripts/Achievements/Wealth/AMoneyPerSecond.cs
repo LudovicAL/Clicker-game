@@ -7,6 +7,7 @@ public class AMoneyPerSecond : Achievement {
 		//Nothing to do here... yet
 	}
 
+	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
 		currentValue = PersistentData.highestTotalFarmingReward;
 		CalculateCurrentLevel ();

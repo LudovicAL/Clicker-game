@@ -62,6 +62,7 @@ public class UpgradesPanel : MonoBehaviour {
 
 	#region ConstructionUpgrades
 
+	//Deletes all previously existing buttons, creates new ones and updates their display
 	public void UpdateConstructionsUpgradesButtons() {
 		for (int i = panelConstructionUpgrades.transform.childCount; i > 0; i--) {
 			GameObject.Destroy (panelConstructionUpgrades.transform.GetChild (i - 1).gameObject);
@@ -136,6 +137,7 @@ public class UpgradesPanel : MonoBehaviour {
 
 	#endregion
 
+	//On mouse exit the upgrade button
 	public void OnMouseExitUpgradeButton() {
 		this.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}

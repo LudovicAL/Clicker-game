@@ -38,6 +38,7 @@ public abstract class Ability {
 		} 
 	}
 
+	//OnMouseOver the ability button
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
 			aButton.gameObject,
@@ -47,6 +48,9 @@ public abstract class Ability {
 		);
 	}
 
+	//Is the ability available
 	public abstract bool IsAbilityAvailable();
+
+	//Uses the ability
 	public abstract void UseAbility();
 }

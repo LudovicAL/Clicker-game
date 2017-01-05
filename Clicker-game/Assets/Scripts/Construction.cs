@@ -160,6 +160,7 @@ public class Construction {
 
 	#region Construction Button
 
+	//Updates the construction button Active state
 	public void UpdateConstructionButtonAvailability() {
 		if (constructionButton != null) {
 			constructionButton.gameObject.SetActive (constructionAvailability);

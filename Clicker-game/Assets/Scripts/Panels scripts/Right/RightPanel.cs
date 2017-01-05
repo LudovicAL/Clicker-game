@@ -12,10 +12,8 @@ public class RightPanel : MonoBehaviour {
 	public GameObject thisPanel;
 	public Button[] menuButtonsList;
 	public GameObject[] innerPanelsList;
-
 	private AvailablePanelStates panelState;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
@@ -23,7 +21,6 @@ public class RightPanel : MonoBehaviour {
 		updateMenuButtonColors (0);
 	}
 
-	// Update is called once per frame
 	void Update () {
 
 	}
@@ -54,6 +51,7 @@ public class RightPanel : MonoBehaviour {
 		}
 	}
 
+	//Updates the menu button current color to highligh the currently visited menu
 	public void updateMenuButtonColors(int highlightedButton) {
 		for (int i = 0; i < menuButtonsList.Length; i++) {
 			menuButtonsList[i].GetComponent<Button>().colors = ((i == highlightedButton) ? this.GetComponent<CanvasManager> ().enabledColorBlock : this.GetComponent<CanvasManager> ().disabledColorBlock);

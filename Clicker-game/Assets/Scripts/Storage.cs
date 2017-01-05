@@ -68,10 +68,6 @@ class Storage {
 	public int numberOfInvadedGalaxies;
 	public int numberOfCompanyRestarts;
 
-	//MANA
-	public float highestMaxManaAchieved;
-	public float highestManaRegenRateAchieved;
-
 	//ABILITIES
 	public int currentNumberOfAbilitiesUsed;//In the current session only
 	public int totalNumberOfAbilitiesUsed;
@@ -111,4 +107,9 @@ class Storage {
 	public int[] highestNumberOfConstructionAchieved;
 	public int[] constructionsQuantity;
 	public int[] constructionsUpgradeLevel;
+
+	//MANA
+	public float currentMana;
+	public float highestMaxManaAchieved;
+	public float highestManaRegenRateAchieved;
 }

@@ -13,15 +13,13 @@ public class CanvasManager : MonoBehaviour {
 	public ColorBlock disabledColorBlock;
 	private AvailableCanvasStates canvasState;
 
-	// Use this for initialization
 	void Start () {
 		CommonTools.UpdateNumbersNotations ();
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetCanvasState (AvailableCanvasStates.Playing);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (canvasState == AvailableCanvasStates.Playing) {
 
@@ -40,15 +38,18 @@ public class CanvasManager : MonoBehaviour {
 		canvasState = state;
 	}
 
+	//Shows a video ad
 	public void ShowAd() {
 		this.GetComponent<AdsManager> ().ShowRewardedAd ();
 	}
 
-	public void OnSaveButtonClic() {
+	//Saves the game
+	public void OnSaveButtonClick() {
 		PersistentData.SaveData ();
 	}
 
-	public void OnLoadButtonClic() {
+	//Load the saved game
+	public void OnLoadButtonClick() {
 		PersistentData.LoadData ();
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
 		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();

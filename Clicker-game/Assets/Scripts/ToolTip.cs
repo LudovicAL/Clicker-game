@@ -48,6 +48,7 @@ public class ToolTip : MonoBehaviour {
 		panelState = state;
 	}
 
+	//Turns on the small tooltip
 	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description) {
 		if (panelState == AvailablePanelStates.Playing) {
 			ttSmallTopLeft.text = topLeft;
@@ -63,6 +64,7 @@ public class ToolTip : MonoBehaviour {
 		}
 	}
 
+	//Turns on the long tooltip
 	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description, string bottomLeft, string bottomRight) {
 		if (panelState == AvailablePanelStates.Playing) {
 			ttLongTopLeft.text = topLeft;
@@ -80,6 +82,7 @@ public class ToolTip : MonoBehaviour {
 		}
 	}
 
+	//Turns off both tooltips
 	public void TurnToolTipOff() {
 		ttSmallPanel.gameObject.SetActive (false);
 		ttLongPanel.gameObject.SetActive (false);

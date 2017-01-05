@@ -7,6 +7,7 @@ public class ALongestSession : Achievement {
 		//Nothing to do here... yet
 	}
 
+	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
 		currentValue = PersistentData.longestPlayingSession.TotalSeconds;
 		CalculateProgress ();

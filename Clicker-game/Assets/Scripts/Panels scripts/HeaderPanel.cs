@@ -16,14 +16,12 @@ public class HeaderPanel : MonoBehaviour {
 	public Text currentFarmingText;
 
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing) {
 			currentMoneyText.text = CommonTools.DoubleToString(PersistentData.currentMoney) + " $";

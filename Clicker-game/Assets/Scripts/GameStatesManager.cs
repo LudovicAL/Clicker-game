@@ -11,10 +11,8 @@ public class GameStatesManager : MonoBehaviour {
 
 	public UnityEvent PausedGameState;
 	public UnityEvent PlayingGameState;
-
 	private AvailableGameStates gameState;
 
-	// Use this for initialization
 	void Start () {
 		if (PlayingGameState == null) {
 			PlayingGameState = new UnityEvent();
@@ -25,7 +23,6 @@ public class GameStatesManager : MonoBehaviour {
 		ChangeGameState(AvailableGameStates.Playing);
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown("escape")) {
 			OnEscapeKeyPressed ();

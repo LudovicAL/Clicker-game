@@ -4,17 +4,6 @@ public static class CommonTools {
 
 	public static string[] numbersNotations = WordsLists.numbersAbreviations;
 
-	//Adds Constructions to an Array and performs the required calculations to finish those Constructions initialization
-	public static void AddConstructionsToArray(Construction[] destinationArray, Construction[] sourceArray, int startingIndex) {
-		for (int i = startingIndex, maxA = destinationArray.Length, maxB = sourceArray.Length; i < maxA && i < maxB; i++) {
-			destinationArray [i] = sourceArray [i];
-			destinationArray [i].CalculateNumberOfConstructionsToBuild ();
-			destinationArray [i].CalculateCostForNCopiesOfThisConstruction ();
-			destinationArray [i].CalculateProduction ();
-			destinationArray [i].CalculateNextUpgradeCost ();
-		}
-	}
-
 	//Updates the current number notation
 	public static void UpdateNumbersNotations() {
 		if (PersistentData.shortNumbers) {
@@ -24,7 +13,7 @@ public static class CommonTools {
 		}
 	}
 
-	//Convert a double to its shortened string representation using the user selected notation
+	//Converts a double to its shortened string representation using the user selected notation
 	public static string DoubleToString(double d) {
 		if (d < 1000) {
 			return System.Math.Floor (d).ToString ();
@@ -51,30 +40,10 @@ public static class CommonTools {
 		return str + numbersNotations[magnitude];
 	}
 
-	 /*
-	//WARNING: THIS VERSION OF THE SCRIPT IS REGIONAL DEPENDANT AS IT USE THE LOCAL TOSTRING RULES FOR BUILDING NUMERICS
-	public static string DoubleToString(double d) {
-		if (d <= 999) {
-			return d.ToString("0");
-		} else {
-			string str = d.ToString ("N0");
-			if (str.IndexOf(',') == 3) {
-				return str.Substring (0, 3) + numbersNotations[str.Length / 4];
-			} else {
-				return str.Substring (0, 4) + numbersNotations[str.Length / 4];
-			}
-		}
-	}
-	*/
-
 	//Generates a random planet name
 	public static string GeneratePlanetName(){
-		if (WordsLists.planetNames.Length > 0 && WordsLists.planetAdjectives.Length > 0) {
-			int nameId = Random.Range (0, WordsLists.planetNames.Length - 1);
-			int adjectiveId = Random.Range (0, WordsLists.planetAdjectives.Length - 1);
-			return WordsLists.planetNames [nameId] + " the " + WordsLists.planetAdjectives [adjectiveId];
-		} else {
-			return "Planet name";
-		}
+		int nameId = Random.Range (0, WordsLists.planetNames.Length - 1);
+		int adjectiveId = Random.Range (0, WordsLists.planetAdjectives.Length - 1);
+		return WordsLists.planetNames [nameId] + " the " + WordsLists.planetAdjectives [adjectiveId];
 	}
 }

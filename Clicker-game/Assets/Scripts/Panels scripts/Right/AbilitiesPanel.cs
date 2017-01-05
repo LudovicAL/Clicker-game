@@ -18,7 +18,6 @@ public class AbilitiesPanel : MonoBehaviour {
 	public GameObject abilityButtonPrefab;
 	private AvailablePanelStates panelState;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
@@ -26,7 +25,6 @@ public class AbilitiesPanel : MonoBehaviour {
 		UpdateAbilityButtons ();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			manaText.text = PersistentData.currentMana.ToString() + " / " + PersistentData.maxMana.ToString();
@@ -49,6 +47,7 @@ public class AbilitiesPanel : MonoBehaviour {
 		panelState = state;
 	}
 
+	//Deletes all previously existing ability buttons, creates new ones and updates their display
 	public void UpdateAbilityButtons() {
 		foreach (Ability a in PersistentData.listOfAbilities) {
 			GameObject go = (GameObject)Instantiate (abilityButtonPrefab, abilityButtonPanel.transform, false);
@@ -72,6 +71,7 @@ public class AbilitiesPanel : MonoBehaviour {
 		}
 	}
 
+	//On mouse exit ability button
 	public void OnMouseExitAbility() {
 		this.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}

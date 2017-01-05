@@ -22,6 +22,7 @@ public abstract class Achievement {
 		this.valuesTable = valuesTable;
 	}
 
+	//On mouse over the achievement panel
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
 			aPanel,
@@ -31,6 +32,7 @@ public abstract class Achievement {
 		);
 	}
 
+	//Calculates the current achievement level
 	public void CalculateCurrentLevel() {
 		int i = currentLevel;
 		for (; i < valuesTable.Length; i++) {
@@ -46,13 +48,16 @@ public abstract class Achievement {
 		}
 	}
 
+	//Calculate the current progress toward the next level
 	public void CalculateProgress() {
 		progress = (currentLevel >= valuesTable.Length) ? 100.0f : (float)(currentValue / valuesTable[currentLevel]);
 	}
 
+	//Updates the achievement's progress bar
 	public void UpdateProgressBar() {
 		aProgressBar.fillAmount = progress;
 	}
 
+	//Updates the achievement progress and display
 	public abstract void UpdateAchievement();
 }

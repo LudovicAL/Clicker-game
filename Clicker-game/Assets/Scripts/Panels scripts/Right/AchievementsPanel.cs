@@ -17,9 +17,7 @@ public class AchievementsPanel : MonoBehaviour {
 	public Image[] wealthAchievementsProgressBarList;
 	public GameObject[] timeAchievementsPanelList;
 	public Image[] timeAchievementsProgressBarList;
-	//private Thread achievementMonitorThread;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
@@ -32,11 +30,8 @@ public class AchievementsPanel : MonoBehaviour {
 			PersistentData.listOfTimeAchievements [i].aPanel = timeAchievementsPanelList[i];
 			PersistentData.listOfTimeAchievements [i].aProgressBar = timeAchievementsProgressBarList[i];
 		}
-		//achievementMonitorThread = new Thread (CheckAchievementsThread);
-		//achievementMonitorThread.Start ();
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			CheckTimeAchievements ();
@@ -55,34 +50,19 @@ public class AchievementsPanel : MonoBehaviour {
 		panelState = state;
 	}
 
+	//Updates every wealth related achievement
 	public void CheckWealthAchievements() {
 		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
 			a.UpdateAchievement ();
 		}
 	}
 
+	//Updates every time related achievement
 	public void CheckTimeAchievements() {
 		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
 			a.UpdateAchievement ();
 		}
 	}
-
-	/*
-	#region Thread
-	private void CheckAchievementsThread() {
-		while(true) {
-			if (panelState == AvailablePanelStates.Playing) {
-				foreach(Achievement a in PersistentData.listOfWealthAchievements) {
-					a.UpdateAchievementThreadSafe ();
-				}
-				foreach(Achievement a in PersistentData.listOfTimeAchievements) {
-					a.UpdateAchievementThreadSafe ();
-				}
-			}
-		}
-	}
-	#endregion
-	*/
 
 	//When the mouse hover over a Wealth achieveent
 	public void OnMouseOverWealthAchievement(int buttonNo) {
@@ -98,6 +78,7 @@ public class AchievementsPanel : MonoBehaviour {
 		}
 	}
 
+	//On mouse exit an achievement panel
 	public void OnMouseExitAchievement() {
 		this.GetComponent<ToolTip> ().TurnToolTipOff ();
 	}

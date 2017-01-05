@@ -21,11 +21,13 @@ public class Expander : MonoBehaviour {
 	}
 	*/
 
+	//On a click on the expander
 	public void onClick() {
 		isOn = !isOn;
 		updateDisplay ();
 	}
 
+	//Updates the expander display
 	private void updateDisplay() {
 		expanderButtonText.text = (isOn) ? bName + " ▼" : bName + " ▲";
 		expanderPanel.SetActive (isOn);

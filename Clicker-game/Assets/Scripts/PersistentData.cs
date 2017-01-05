@@ -77,13 +77,6 @@ public static class PersistentData {
 	public static int numberOfInvadedGalaxies = 0;
 	public static int numberOfCompanyRestarts = 0;
 
-	//MANA
-	public static float currentMana = 100;
-	public static float maxMana = 100;
-	public static float manaRegenRate = 1;
-	public static float highestMaxManaAchieved = 100;
-	public static float highestManaRegenRateAchieved = 1;
-
 	//ABILITIES
 	public static int currentNumberOfAbilitiesUsed = 0;	//In the current session only
 	public static int totalNumberOfAbilitiesUsed = 0;
@@ -139,6 +132,13 @@ public static class PersistentData {
 
 	//BULKBUYER
 	public static RouletteButton bulkBuyer = new RouletteButton (new string[]{ "Buy 1", "Buy 10", "Buy 100", "Buy Max" }, new int[]{ 1, 10, 100, 0 });
+
+	//MANA
+	public static float currentMana = 100;
+	public static float maxMana = 100;
+	public static float manaRegenRate = 1;
+	public static float highestMaxManaAchieved = 100;
+	public static float highestManaRegenRateAchieved = 1;
 
 	//STATIC CONSTRUCTOR
 	static PersistentData() {
@@ -219,10 +219,6 @@ public static class PersistentData {
 		storage.numberOfInvadedGalaxies = numberOfInvadedGalaxies;
 		storage.numberOfCompanyRestarts = numberOfCompanyRestarts;
 
-		//MANA
-		storage.highestMaxManaAchieved = highestMaxManaAchieved;
-		storage.highestManaRegenRateAchieved = highestManaRegenRateAchieved;
-
 		//ABILITIES
 		storage.currentNumberOfAbilitiesUsed = currentNumberOfAbilitiesUsed;//In the current session only
 		storage.totalNumberOfAbilitiesUsed = totalNumberOfAbilitiesUsed;
@@ -266,6 +262,11 @@ public static class PersistentData {
 			storage.constructionsQuantity[i] = listOfConstructions [i].quantity;
 			storage.constructionsUpgradeLevel[i] = listOfConstructions [i].upgradeLevel;
 		}
+
+		//MANA
+		storage.currentMana = currentMana;
+		storage.highestMaxManaAchieved = highestMaxManaAchieved;
+		storage.highestManaRegenRateAchieved = highestManaRegenRateAchieved;
 
 		//---
 		bf.Serialize (file, storage);
@@ -350,10 +351,6 @@ public static class PersistentData {
 			numberOfInvadedGalaxies = storage.numberOfInvadedGalaxies;
 			numberOfCompanyRestarts = storage.numberOfCompanyRestarts;
 
-			//MANA
-			highestMaxManaAchieved = storage.highestMaxManaAchieved;
-			highestManaRegenRateAchieved = storage.highestManaRegenRateAchieved;
-
 			//ABILITIES
 			currentNumberOfAbilitiesUsed = storage.currentNumberOfAbilitiesUsed;	//In the current session only
 			totalNumberOfAbilitiesUsed = storage.totalNumberOfAbilitiesUsed;
@@ -398,6 +395,11 @@ public static class PersistentData {
 					listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].upgradeLevel);
 				}
 			}
+
+			//MANA
+			currentMana = storage.currentMana;
+			highestMaxManaAchieved = storage.highestMaxManaAchieved;
+			highestManaRegenRateAchieved = storage.highestManaRegenRateAchieved;
 
 			//---
 			CommonTools.UpdateNumbersNotations ();

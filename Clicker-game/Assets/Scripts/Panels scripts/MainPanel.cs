@@ -15,14 +15,12 @@ public class MainPanel : MonoBehaviour {
 	public Image planetImage;
 	public Text planetName;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			
@@ -56,6 +54,7 @@ public class MainPanel : MonoBehaviour {
 		UpdatePlanet ();
 	}
 
+	//Updates the planet display
 	public void UpdatePlanet() {
 		planetName.text = PersistentData.planetName;
 		planetImage.GetComponent<RectTransform> ().localScale = new Vector3(PersistentData.planetScale, PersistentData.planetScale, 1.0f);

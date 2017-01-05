@@ -15,14 +15,12 @@ public class InvestorsPanel : MonoBehaviour {
 	public Text potentialInvestors;
 	private AvailablePanelStates panelState;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			UpdatePotentialInvestors();
@@ -41,11 +39,13 @@ public class InvestorsPanel : MonoBehaviour {
 		panelState = state;
 	}
 
+	//Updates the number of potential investors
 	public void UpdatePotentialInvestors() {
 		PersistentData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (PersistentData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
 		potentialInvestors.text = CommonTools.DoubleToString(PersistentData.potentialInvestors);
 	}
 
+	//When the user clicks expand
 	public void OnExpandButtonClic() {
 
 	}

@@ -6,10 +6,12 @@ public class DefaultAbility : Ability {
 		//Nothing here yet
 	}
 
+	//Is the ability available
 	public override bool IsAbilityAvailable() {
 		return true;
 	}
 
+	//Uses the ability
 	public override void UseAbility() {
 		if (PersistentData.currentMana >= manaCost) {
 			PersistentData.currentMana -= manaCost;

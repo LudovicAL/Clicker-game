@@ -19,15 +19,15 @@
 	}
 
 	//Properties
-	public string Caption {
-		get {
-			return captions[currentItem];
-		}
-	}
-		
 	public int Quantity {
 		get {
-			return quantities[currentItem];
+			return quantities [currentItem];
+		}
+	}
+
+	public string Caption {
+		get {
+			return captions [currentItem];
 		}
 	}
 }
