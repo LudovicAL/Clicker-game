@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Construction {
-	public int id { get; protected set; } //The smallest id must start at 1.
-	public string name { get; protected set; }
-	public int quantity { get; protected set; }
-	public double constructionCost { get; protected set; }
+public class Construction {
+	public int id { get; private set; } //The smallest id must start at 1.
+	public string name { get; private set; }
+	public int quantity { get; private set; }
+	public double constructionCost { get; private set; }
 	public bool constructionAvailability { get; set; }
-	public double production { get; protected set; }
-	public float contribution { get; protected set; }
-	protected int numberOfConstructionsToBuild;
-	protected float constructionCostModifier;
+	public double production { get; private set; }
+	public float contribution { get; private set; }
+	private int numberOfConstructionsToBuild;
+	private float constructionCostModifier;
 	public Sprite icon { get; set; }
 	public Button constructionButton { get; set; }
 
 	public Button upgradeButton { get; set; }
-	public int upgradeLevel { get; protected set; }
-	public double upgradeCost { get; protected set; }
-	protected int upgradesInterval;
+	public int upgradeLevel { get; private set; }
+	public double upgradeCost { get; private set; }
+	private int upgradesInterval;
 
 	#region Constructor
 
@@ -36,7 +36,13 @@ public abstract class Construction {
 		this.upgradeCost = 1;
 		this.constructionAvailability = constructionAvailability;
 		this.upgradesInterval = upgradesInterval;
-		//Icons are managed in the child class
+		Sprite[] constructionIcons = Resources.LoadAll<Sprite> ("ConstructionIcons");
+		foreach (Sprite s in constructionIcons) {
+			if (string.Compare(s.name.ToString(), name) == 0) {
+				this.icon = s;
+				break;
+			}
+		}
 	}
 
 	#endregion
@@ -81,7 +87,7 @@ public abstract class Construction {
 
 	//Calculates the cost to build one copy of this construction
 	//A * C ^ B  ... Where A = id, B = quantity, C = costModifier
-	protected double CalculateCostForOne() {
+	private double CalculateCostForOne() {
 		return System.Math.Pow(id + 1, constructionCostModifier + 4) * System.Math.Pow(constructionCostModifier, quantity);
 	}
 
@@ -93,7 +99,7 @@ public abstract class Construction {
 
 	//Returns the maximum number of copies of this construction the player can afford at the moment with his current money
 	//Floor(ln((availableMoney / costForOne) * (C - 1) + 1) / ln(c))
-	protected int CalculateMaxBuyable(double availableMoney) {
+	private int CalculateMaxBuyable(double availableMoney) {
 		return (int)System.Math.Floor (
 			System.Math.Log (
 				(
@@ -154,51 +160,158 @@ public abstract class Construction {
 
 	#region Construction Button
 
-	public abstract void UpdateConstructionButtonAvailability();
+	public void UpdateConstructionButtonAvailability() {
+		if (constructionButton != null) {
+			constructionButton.gameObject.SetActive (constructionAvailability);
+		}
+	}
 
 	//Updates the button displaying the cost of the next copies of this construction
-	public abstract void UpdateButtonDisplayedCost();
+	public void UpdateButtonDisplayedCost() {
+		if (constructionButton != null) {
+			Component[] textComponentsArray = constructionButton.GetComponentsInChildren<Text> ();
+			foreach (Text t in textComponentsArray) {
+				if (t.gameObject.CompareTag("Cost")) {
+					CalculateNumberOfConstructionsToBuild ();
+					CalculateCostForNCopiesOfThisConstruction();
+					if (PersistentData.bulkBuyer.Quantity == 0) {
+						t.text = "(" + numberOfConstructionsToBuild.ToString() + "x) " + CommonTools.DoubleToString(constructionCost) + " $";
+					} else {
+						t.text = CommonTools.DoubleToString(constructionCost) + " $";
+					}
+					break;
+				}
+			}
+		}
+	}
 
 	//Updates the displayed name for this construction
-	public abstract void UpdateButtonDisplayedName();
+	public void UpdateButtonDisplayedName() {
+		if (constructionButton != null) {
+			Component[] textComponentsArray = constructionButton.GetComponentsInChildren<Text> ();
+			foreach (Text t in textComponentsArray) {
+				if (t.gameObject.CompareTag("Name")) {
+					t.text = name;
+					break;
+				}
+			}
+		} 
+	}
 
 	//Updates the displayed contribution for this construction
-	public abstract void UpdateButtonDisplayedContribution();
+	public void UpdateButtonDisplayedContribution() {
+		if (constructionButton != null) {
+			Component[] textComponentsArray = constructionButton.GetComponentsInChildren<Text> ();
+			foreach (Text t in textComponentsArray) {
+				if (t.gameObject.CompareTag("Contribution")) {
+					t.text = contribution.ToString("p2");
+					break;
+				}
+			}
+		} 
+	}
 
 	//Updates the button displaying the number of copies of this construction currently possessed
-	public abstract void UpdateButtonDisplayedQuantity();
+	public void UpdateButtonDisplayedQuantity() {
+		if (constructionButton != null) {
+			Component[] textComponentsArray = constructionButton.GetComponentsInChildren<Text> ();
+			foreach (Text t in textComponentsArray) {
+				if (t.gameObject.CompareTag("Quantity")) {
+					t.text = quantity.ToString ();
+					break;
+				}
+			}
+		}
+	}
 
 	//Updates the construction button's image
-	public abstract void UpdateConstructionButtonsImage();
+	public void UpdateConstructionButtonImage() {
+		if (constructionButton != null) {
+			Component[] imageComponentsArray = constructionButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Image")) {
+					i.GetComponent<Image> ().sprite = icon;
+					break;
+				}
+			}
+		}
+	}
 
 	#endregion
 
 	#region Upgrade Button
 
 	//Updates the upgrade button availability
-	public abstract void UpdateUpgradeButtonAvailability();
+	public void UpdateUpgradeButtonAvailability() {
+		if (upgradeButton != null) {
+			if (constructionAvailability) {
+				upgradeButton.gameObject.SetActive(quantity >= ((upgradeLevel + 1) * upgradesInterval));
+			} else {
+				upgradeButton.gameObject.SetActive(false);
+			}
+		}
+	}
 
 	//Updates the upgrade button image color
-	protected abstract void UpdateUpgradeButtonColor();
+	private void UpdateUpgradeButtonColor() {
+		if (upgradeButton != null) {
+			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Plus")) {
+					i.GetComponent<Image> ().color = WordsLists.upgradesColors [upgradeLevel];
+					break;
+				}
+			}
+		}
+	}
 
 	//Updates the upgrade button's image
-	protected abstract void UpdateUpgradeButtonsImage();
+	public void UpdateUpgradeButtonImage() {
+		if (upgradeButton != null) {
+			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Image")) {
+					i.GetComponent<Image> ().sprite = icon;
+					break;
+				}
+			}
+		}
+	}
 
 	//When the mouse hover over the upgrade button
-	public abstract void OnMouseOverUpgradeButton(ToolTip tt);
+	public void OnMouseOverUpgradeButton(ToolTip tt) {
+		tt.TurnToolTipOn (
+			upgradeButton.gameObject,
+			WordsLists.upgradesAdjectives[upgradeLevel] + name,
+			CommonTools.DoubleToString(upgradeCost) + " $",
+			name + " production is doubled."
+		);
+	}
 
 	#endregion
 
 	#region OtherCalulations
 
 	//Calculates the amount of money produced by this construction per second
-	public abstract void CalculateProduction();
+	public void CalculateProduction() {
+		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(upgradeLevel));
+	}
 
 	//Calculates the contribution of this specific constructions among all constructions
-	protected abstract void CalculateContribution();
+	private void CalculateContribution() {
+		if (PersistentData.farmingRewardFromConstructions != 0) {
+			contribution = (float)(production / PersistentData.farmingRewardFromConstructions);
+		}
+	}
 
 	//Calculates the number of constructions to build according to the bulk buying roulette button
-	public abstract void CalculateNumberOfConstructionsToBuild();
+	public void CalculateNumberOfConstructionsToBuild() {
+		if (PersistentData.bulkBuyer.Quantity == 0) {
+			numberOfConstructionsToBuild = CalculateMaxBuyable(PersistentData.currentMoney);
+		} else {
+			numberOfConstructionsToBuild = PersistentData.bulkBuyer.Quantity;
+		}
+	}
 
 	#endregion
 }

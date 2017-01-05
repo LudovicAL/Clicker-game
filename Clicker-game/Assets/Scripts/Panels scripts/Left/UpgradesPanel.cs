@@ -21,10 +21,11 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0, maxA = PersistentData.listOfConstructions.Length, maxB = constructionsUpgradesButtonList.Length; i < maxA && i < maxB; i++) {
+		for (int i = 0, maxA = PersistentData.listOfConstructions.Count, maxB = constructionsUpgradesButtonList.Length; i < maxA && i < maxB; i++) {
 			if (PersistentData.listOfConstructions[i] != null) {
 				PersistentData.listOfConstructions [i].upgradeButton = constructionsUpgradesButtonList [i];
 				PersistentData.listOfConstructions [i].UpdateUpgradeButtonAvailability ();
+				PersistentData.listOfConstructions [i].UpdateUpgradeButtonImage ();
 			} else {
 				constructionsUpgradesButtonList [i].gameObject.SetActive(false);
 			}

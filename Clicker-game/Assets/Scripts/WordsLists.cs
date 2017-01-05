@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public static class WordsLists {
 
@@ -334,29 +335,53 @@ public static class WordsLists {
 
 	#endregion
 
-	#region Construction
+	#region Default Race
 
-	public static Construction[] constructionsDefault = new Construction[10] {
-		new ConstructionFull ("Shovels", 0, 1, 1.15f, true, 25),
-		new ConstructionFull ("Pickaxes", 0, 2, 1.15f, true, 25),
-		new ConstructionFull ("Jack Hammers", 0, 3, 1.15f, true, 25),
-		new ConstructionEmpty(4),
-		new ConstructionEmpty(5),
-		new ConstructionEmpty(6),
-		new ConstructionEmpty(7),
-		new ConstructionEmpty(8),
-		new ConstructionEmpty(9),
-		new ConstructionEmpty(10)
+	public static Race noRace = new Race (
+        "No race",
+        "No description",
+        constructionsDefault,
+        abilitiesDefault
+    );
+
+	public static List<Construction> constructionsDefault = new List<Construction> {
+		new Construction ("Shovels", 0, 1, 1.15f, true, 25),
+		new Construction ("Pickaxes", 0, 2, 1.15f, true, 25),
+		new Construction ("Jack Hammers", 0, 3, 1.15f, true, 25)
 	};
 
-	public static Construction[] constructionsHuman = new Construction[7] {
-		new ConstructionFull ("Metal detectors", 0, 4, 1.15f, false, 25),
-		new ConstructionFull ("Excavators", 0, 5, 1.15f, false, 25),
-		new ConstructionFull ("Dump trucks", 0, 6, 1.15f, false, 25),
-		new ConstructionFull ("Conveyors", 0, 7, 1.15f, false, 25),
-		new ConstructionFull ("Refineries", 0, 8, 1.15f, false, 25),
-		new ConstructionFull ("Explosives", 0, 9, 1.15f, false, 25),
-		new ConstructionFull ("Tunnel Borers", 0, 10, 1.15f, false, 25),
+	public static Ability[] abilitiesDefault = new Ability[]  {
+		new DefaultAbility("Enhanced working effort", "No description yet.", 10.0f),
+		new EmptyAbility(),
+		new EmptyAbility(),
+		new EmptyAbility()
+	};
+
+	#endregion
+
+	#region Humans
+
+	public static Race humanRace = new Race (
+        "Human",
+        "No description yet",
+        constructionsHuman,
+        abilitiesHuman
+    );
+
+	public static List<Construction> constructionsHuman = new List<Construction> {
+		new Construction ("Metal detectors", 0, 4, 1.15f, false, 25),
+		new Construction ("Excavators", 0, 5, 1.15f, false, 25),
+		new Construction ("Dump trucks", 0, 6, 1.15f, false, 25),
+		new Construction ("Conveyors", 0, 7, 1.15f, false, 25),
+		new Construction ("Refineries", 0, 8, 1.15f, false, 25),
+		new Construction ("Explosives", 0, 9, 1.15f, false, 25),
+		new Construction ("Tunnel Borers", 0, 10, 1.15f, false, 25),
+	};
+
+	public static Ability[] abilitiesHuman = new Ability[3] {
+		new EmptyAbility(),
+		new EmptyAbility(),
+		new EmptyAbility()
 	};
 
 	#endregion
@@ -537,17 +562,6 @@ public static class WordsLists {
 	public static Achievement[] listOfTimeAchievements = new Achievement[]  {
 		new ALongestSession("Longest playing session", "Your longest achieved playing session.", true, new double[] { 0, 10, 30, 100, 200, 1000 }),
 		new ATotalTime("Total time", "Your total time spent playing the game.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
-	};
-
-	#endregion
-
-	#region Abilities
-
-	public static Ability[] abilitiesDefault = new Ability[]  {
-		new DefaultAbility("Enhanced working effort", "No description yet.", 10.0f),
-		new EmptyAbility(),
-		new EmptyAbility(),
-		new EmptyAbility()
 	};
 
 	#endregion

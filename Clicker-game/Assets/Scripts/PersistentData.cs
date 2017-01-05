@@ -124,7 +124,7 @@ public static class PersistentData {
 	public static int currentTotalNumberOfConstruction = 0;
 	public static int highestTotalNumberOfConstructionAchieved = 0;
 	public static int[] highestNumberOfConstructionAchieved = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	public static Construction[] listOfConstructions = WordsLists.constructionsDefault;
+	public static List<Construction> listOfConstructions = WordsLists.constructionsDefault;
 
 	//UPGRADES
 	public static Upgrade[] listOfPointerUpgrades = WordsLists.listOfPointerUpgrades;
@@ -260,9 +260,9 @@ public static class PersistentData {
 		//CONSTRUCTION
 		storage.highestTotalNumberOfConstructionAchieved = highestTotalNumberOfConstructionAchieved;
 		storage.highestNumberOfConstructionAchieved = highestNumberOfConstructionAchieved;
-		storage.constructionsQuantity = new int[listOfConstructions.Length];
-		storage.constructionsUpgradeLevel = new int[listOfConstructions.Length];
-		for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
+		storage.constructionsQuantity = new int[listOfConstructions.Count];
+		storage.constructionsUpgradeLevel = new int[listOfConstructions.Count];
+		for (int i = 0, max = listOfConstructions.Count; i < max; i++) {
 			storage.constructionsQuantity[i] = listOfConstructions [i].quantity;
 			storage.constructionsUpgradeLevel[i] = listOfConstructions [i].upgradeLevel;
 		}
@@ -392,7 +392,7 @@ public static class PersistentData {
 			//CONSTRUCTION
 			highestTotalNumberOfConstructionAchieved = storage.highestTotalNumberOfConstructionAchieved;
 			highestNumberOfConstructionAchieved = storage.highestNumberOfConstructionAchieved;
-			for (int i = 0, max = listOfConstructions.Length; i < max; i++) {
+			for (int i = 0, max = listOfConstructions.Count; i < max; i++) {
 				if (listOfConstructions[i] != null) {
 					listOfConstructions [i].AddNConstructions(storage.constructionsQuantity [i] - listOfConstructions [i].quantity);
 					listOfConstructions [i].AddNUpgrades(storage.constructionsUpgradeLevel [i] - listOfConstructions [i].upgradeLevel);

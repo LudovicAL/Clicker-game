@@ -9,9 +9,9 @@ public class ConstructionsPanel : MonoBehaviour {
 		Playing,	//Game is playing
 	};
 
-
+	public GameObject constructionButtonPrefab;
 	public GameObject thisPanel;
-	public Button[] constructionsButtonList;
+	//public Button[] constructionsButtonList;
 	private AvailablePanelStates panelState;
 
 	// Use this for initialization
@@ -19,18 +19,15 @@ public class ConstructionsPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0, maxA = PersistentData.listOfConstructions.Length, maxB = constructionsButtonList.Length; i < maxA && i < maxB; i++) {
-			if (PersistentData.listOfConstructions[i] != null) {
-				PersistentData.listOfConstructions [i].constructionButton = constructionsButtonList [i];
-				PersistentData.listOfConstructions [i].UpdateConstructionButtonAvailability ();
-				PersistentData.listOfConstructions [i].UpdateButtonDisplayedName ();
-				PersistentData.listOfConstructions [i].UpdateButtonDisplayedCost ();
-				PersistentData.listOfConstructions [i].UpdateButtonDisplayedQuantity ();
-				PersistentData.listOfConstructions [i].UpdateButtonDisplayedContribution ();
-				PersistentData.listOfConstructions [i].UpdateConstructionButtonsImage ();
-			} else {
-				constructionsButtonList [i].gameObject.SetActive(false);
-			}
+		for (int i = 0, max = PersistentData.listOfConstructions.Count; i < max; i++) {
+			GameObject go = (GameObject)Instantiate (constructionButtonPrefab, thisPanel.transform, false);
+			PersistentData.listOfConstructions[i].constructionButton = go.GetComponent<Button> ();
+			PersistentData.listOfConstructions[i].UpdateConstructionButtonAvailability ();
+			PersistentData.listOfConstructions[i].UpdateButtonDisplayedName ();
+			PersistentData.listOfConstructions[i].UpdateButtonDisplayedCost ();
+			PersistentData.listOfConstructions[i].UpdateButtonDisplayedQuantity ();
+			PersistentData.listOfConstructions[i].UpdateButtonDisplayedContribution ();
+			PersistentData.listOfConstructions[i].UpdateConstructionButtonImage ();
 		}
 	}
 	
