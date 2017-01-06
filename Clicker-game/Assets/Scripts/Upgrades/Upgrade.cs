@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Upgrade {
 	public string name { get; protected set; }
@@ -6,12 +7,20 @@ public abstract class Upgrade {
 	public int currentLevel { get; protected  set; }
 	public double costOfNextLevel { get; protected set; }
 	public Button uButton { get; set; }
+	public Sprite icon { get; set; }
 
 	public Upgrade(string name, string description) {
 		this.name = name;
 		this.description = description;
 		this.currentLevel = 0;
 		CalculateCostOfNextLevel ();
+		Sprite[] raceIcons = Resources.LoadAll<Sprite> ("Upgrades");
+		foreach (Sprite s in raceIcons) {
+			if (string.Compare(s.name.ToString(), name) == 0) {
+				this.icon = s;
+				break;
+			}
+		}
 	}
 
 	public bool CanAffordUpgrade() {
@@ -55,6 +64,19 @@ public abstract class Upgrade {
 	//Updates the button's color
 	public void UpdateButtonColor() {
 
+	}
+
+	//Updates the button's image
+	public void UpdateButtonImage() {
+		if (uButton != null) {
+			Component[] imageComponentsArray = uButton.GetComponentsInChildren<Image> ();
+			foreach (Image i in imageComponentsArray) {
+				if (i.gameObject.CompareTag("Image")) {
+					i.GetComponent<Image> ().sprite = icon;
+					break;
+				}
+			}
+		}
 	}
 
 	//On mouse over the upgrade button

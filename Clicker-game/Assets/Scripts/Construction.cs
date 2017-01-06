@@ -21,9 +21,9 @@ public class Construction {
 
 	#region Constructor
 
-	public Construction(string name, int quantity, int id, float constructionCostModifier, bool constructionAvailability, int upgradesInterval) {
+	public Construction(string name, int id, float constructionCostModifier, bool constructionAvailability, int upgradesInterval) {
 		this.name = name;
-		this.quantity = quantity;
+		this.quantity = 0;
 		this.id = id;
 		this.constructionButton = null;
 		this.upgradeButton = null;

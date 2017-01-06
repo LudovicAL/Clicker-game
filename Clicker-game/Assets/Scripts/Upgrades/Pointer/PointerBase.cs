@@ -20,5 +20,4 @@ public class PointerBase : Upgrade {
 	public override bool IsUpgradeAvailable() {
 		return true;
 	}
-
 }

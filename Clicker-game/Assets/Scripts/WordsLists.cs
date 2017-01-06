@@ -335,48 +335,117 @@ public static class WordsLists {
 
 	#endregion
 
-	#region Default Race
+	#region Races
 
-	public static Race noRace = new Race (
-        "No race",
-        "No description",
-        constructionsDefault,
-        abilitiesDefault
-    );
-
-	public static List<Construction> constructionsDefault = new List<Construction> {
-		new Construction ("Shovels", 0, 1, 1.15f, true, 25),
-		new Construction ("Pickaxes", 0, 2, 1.15f, true, 25),
-		new Construction ("Jack Hammers", 0, 3, 1.15f, true, 25)
-	};
-
-	public static List<Ability> abilitiesDefault = new List<Ability>()  {
-		new DefaultAbility("Enhanced working effort", "No description yet.", 10.0f),
-	};
-
-	#endregion
-
-	#region Humans
-
-	public static Race humanRace = new Race (
-        "Human",
-        "No description yet",
-        constructionsHuman,
-        abilitiesHuman
-    );
-
-	public static List<Construction> constructionsHuman = new List<Construction> {
-		new Construction ("Metal detectors", 0, 4, 1.15f, false, 25),
-		new Construction ("Excavators", 0, 5, 1.15f, false, 25),
-		new Construction ("Dump trucks", 0, 6, 1.15f, false, 25),
-		new Construction ("Conveyors", 0, 7, 1.15f, false, 25),
-		new Construction ("Refineries", 0, 8, 1.15f, false, 25),
-		new Construction ("Explosives", 0, 9, 1.15f, false, 25),
-		new Construction ("Tunnel Borers", 0, 10, 1.15f, false, 25),
-	};
-
-	public static List<Ability> abilitiesHuman = new List<Ability>() {
-		//Insert abilities here
+	public static List<Race> listOfRaces = new List<Race> {
+		new Race (
+	        "No race",
+	        "No description",
+			new List<Construction> {
+				new Construction ("Shovels", 1, 1.15f, true, 25),
+				new Construction ("Pickaxes", 2, 1.15f, true, 25),
+				new Construction ("Jack Hammers", 3, 1.15f, true, 25)
+			},
+			new List<Ability>()  {
+				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),
+			}
+	    ),
+		new Race (
+	        "Humans",
+	        "Beings like you and me.",
+			new List<Construction> {
+				new Construction ("Metal detectors", 4, 1.15f, false, 25),
+				new Construction ("Excavators", 5, 1.15f, false, 25),
+				new Construction ("Dump trucks", 6, 1.15f, false, 25),
+				new Construction ("Conveyors", 7, 1.15f, false, 25),
+				new Construction ("Refineries", 8, 1.15f, false, 25),
+				new Construction ("Explosives", 9, 1.15f, false, 25),
+				new Construction ("Tunnel Borers", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+	    ),
+		new Race (
+			"Martians",
+			"Traders from planet Mars.",
+			new List<Construction> {
+				new Construction ("Cave Dwellers", 4, 1.15f, false, 25),
+				new Construction ("Solar Panels", 5, 1.15f, false, 25),
+				new Construction ("Air Filters", 6, 1.15f, false, 25),
+				new Construction ("Incinerators", 7, 1.15f, false, 25),
+				new Construction ("Motherships", 8, 1.15f, false, 25),
+				new Construction ("Alpha Canons", 9, 1.15f, false, 25),
+				new Construction ("Cyborgs", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+		),
+		new Race (
+			"Venusians",
+			"Contractors from planet Venus.",
+			new List<Construction> {
+				new Construction ("Troglodytes", 4, 1.15f, false, 25),
+				new Construction ("Water Turbines", 5, 1.15f, false, 25),
+				new Construction ("Dust Collectors", 6, 1.15f, false, 25),
+				new Construction ("Compressors", 7, 1.15f, false, 25),
+				new Construction ("Cargo Vessels", 8, 1.15f, false, 25),
+				new Construction ("Gamma Canons", 9, 1.15f, false, 25),
+				new Construction ("Space Elevators", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+		),
+		new Race (
+			"Outer Space Civilization",
+			"Entrepreneurs from outer space.",
+			new List<Construction> {
+				new Construction ("Empty", 4, 1.15f, false, 25),
+				new Construction ("Fusion Reactors", 5, 1.15f, false, 25),
+				new Construction ("Empty", 6, 1.15f, false, 25),
+				new Construction ("Empty", 7, 1.15f, false, 25),
+				new Construction ("Quantic Excavators", 8, 1.15f, false, 25),
+				new Construction ("Pulse Canons", 9, 1.15f, false, 25),
+				new Construction ("Tractor Beams", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+		),
+		new Race (
+			"Robots",
+			"Unremitting robots working around the clock.",
+			new List<Construction> {
+				new Construction ("Hydrolic Arms", 4, 1.15f, false, 25),
+				new Construction ("Laser Eyes", 5, 1.15f, false, 25),
+				new Construction ("Space Conveyors", 6, 1.15f, false, 25),
+				new Construction ("Nuclear Reactors", 7, 1.15f, false, 25),
+				new Construction ("Microwaves Canons", 8, 1.15f, false, 25),
+				new Construction ("Planet Shredders", 9, 1.15f, false, 25),
+				new Construction ("Artificial Intelligences", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+		),
+		new Race (
+			"Etheral Beings",
+			"Intagible beings with underfined objectives.",
+			new List<Construction> {
+				new Construction ("Soil Obliterators", 4, 1.15f, false, 25),
+				new Construction ("Black Matter Collectors", 5, 1.15f, false, 25),
+				new Construction ("Teleporters", 6, 1.15f, false, 25),
+				new Construction ("Gravitational Controlers", 7, 1.15f, false, 25),
+				new Construction ("Physic Alterators", 8, 1.15f, false, 25),
+				new Construction ("Empty", 9, 1.15f, false, 25),
+				new Construction ("Empty", 10, 1.15f, false, 25)
+			},
+			new List<Ability>() {
+				//Insert abilities here
+			}
+		)
 	};
 
 	#endregion
@@ -531,18 +600,18 @@ public static class WordsLists {
 
 	#region PointerUpgrades
 
-	public static Upgrade[] listOfPointerUpgrades = new Upgrade[]  {
-		new PointerBase ("Pointer base reward", "Doubles each click base reward."),
-		new PointerMultiplier ("Pointer reward multiplier", "Double the click reward multiplier.")
+	public static List<Upgrade> listOfPointerUpgrades = new List<Upgrade>  {
+		new PointerBase ("Pointer Base Reward", "Doubles each click base reward."),
+		new PointerMultiplier ("Pointer Reward Multiplier", "Double the click reward multiplier.")
 	};
 
 	#endregion
 
 	#region ManaUpgrades
 
-	public static Upgrade[] listOfManaUpgrades = new Upgrade[]  {
-		new MaxMana ("Maximum mana upgrade", "Adds 50 to your maximum mana."),
-		new ManaRegen ("Mana regenaration upgrade", "Adds 0.5 to you mana regeneration rate per second.")
+	public static List<Upgrade> listOfManaUpgrades = new List<Upgrade>  {
+		new MaxMana ("Maximum Mana", "Adds 50 to your maximum mana."),
+		new ManaRegen ("Mana Regeneration", "Adds 0.5 to you mana regeneration rate per second.")
 	};
 
 	#endregion

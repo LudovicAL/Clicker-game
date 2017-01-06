@@ -12,10 +12,10 @@ public class UpgradesPanel : MonoBehaviour {
 	};
 
 	public GameObject thisPanel;
+	public GameObject panelRaces;
 	public GameObject panelConstructionUpgrades;
 	public GameObject panelPointerUpgrades;
-	public Button[] pointersUpgradesButtonList;
-	public Button[] manaUpgradesButtonList;
+	public GameObject panelManaUpgrades;
 	public GameObject upgradeButtonPrefab;
 	private AvailablePanelStates panelState;
 
@@ -24,13 +24,18 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
+		UpdateUpgradeButtons (PersistentData.listOfRaces, panelRaces);
 		UpdateConstructionsUpgradesButtons ();
-		for (int i = 0; i < PersistentData.listOfPointerUpgrades.Length && i < pointersUpgradesButtonList.Length; i++) {
-			PersistentData.listOfPointerUpgrades [i].uButton = pointersUpgradesButtonList[i];
-		}
-		for (int i = 0; i < PersistentData.listOfManaUpgrades.Length && i < manaUpgradesButtonList.Length; i++) {
-			PersistentData.listOfManaUpgrades [i].uButton = manaUpgradesButtonList[i];
-		}
+		UpdateUpgradeButtons (PersistentData.listOfPointerUpgrades, panelPointerUpgrades);
+		UpdateUpgradeButtons (PersistentData.listOfManaUpgrades, panelManaUpgrades);
+	}
+
+	void fooA(Upgrade u) {
+
+	}
+
+	void fooB<T>(List<T> u) where T : Upgrade {
+
 	}
 
 	// Update is called once per frame
@@ -60,7 +65,40 @@ public class UpgradesPanel : MonoBehaviour {
 		panelState = state;
 	}
 
-	#region ConstructionUpgrades
+	#region UpgradesButtons
+
+	//Deletes all previously existing buttons, creates new ones and updates their display
+	public void UpdateUpgradeButtons<T>(List<T> uList, GameObject uPanel) where T : Upgrade {
+		for (int i = uPanel.transform.childCount; i > 0; i--) {
+			GameObject.Destroy (uPanel.transform.GetChild (i - 1).gameObject);
+		}
+		foreach (Upgrade u in uList) {
+			GameObject go = (GameObject)Instantiate (upgradeButtonPrefab, uPanel.transform, false);
+			Button b = go.GetComponent<Button> ();
+			u.uButton = b;
+			u.UpdateButtonAvailability ();
+			u.UpdateButtonImage ();
+			//OnClick
+			b.onClick.AddListener(delegate() { u.BuyNextLevel(); });
+			b.onClick.AddListener(delegate() { OnMouseExitUpgradeButton (); });
+			b.onClick.AddListener(delegate() { Update (); });
+			//OnMouseEnter
+			EventTrigger trigger = go.GetComponent<EventTrigger> ();
+			EventTrigger.Entry entryA = new EventTrigger.Entry();
+			entryA.eventID = EventTriggerType.PointerEnter;
+			entryA.callback.AddListener ((data) => { u.OnMouseOver(this.GetComponent<ToolTip>()); });
+			trigger.triggers.Add (entryA);
+			//OnMouseExit
+			EventTrigger.Entry entryB = new EventTrigger.Entry();
+			entryB.eventID = EventTriggerType.PointerExit;
+			entryB.callback.AddListener ((data) => { OnMouseExitUpgradeButton(); });
+			trigger.triggers.Add (entryB);
+		}
+	}
+
+	#endregion
+
+	#region ConstructionUpgradesButtons
 
 	//Deletes all previously existing buttons, creates new ones and updates their display
 	public void UpdateConstructionsUpgradesButtons() {
@@ -81,57 +119,13 @@ public class UpgradesPanel : MonoBehaviour {
 			EventTrigger trigger = go.GetComponent<EventTrigger> ();
 			EventTrigger.Entry entryA = new EventTrigger.Entry();
 			entryA.eventID = EventTriggerType.PointerEnter;
-			entryA.callback.AddListener ((data) => { OnMouseOverConstructionUpgradeButton (c.id - 1); });
+			entryA.callback.AddListener ((data) => { c.OnMouseOverUpgradeButton(this.GetComponent<ToolTip> ()); });
 			trigger.triggers.Add (entryA);
 			//OnMouseExit
 			EventTrigger.Entry entryB = new EventTrigger.Entry();
 			entryB.eventID = EventTriggerType.PointerExit;
 			entryB.callback.AddListener ((data) => { OnMouseExitUpgradeButton(); });
 			trigger.triggers.Add (entryB);
-		}
-	}
-
-	//When the mouse hover over a construction upgrade button
-	public void OnMouseOverConstructionUpgradeButton(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfConstructions [buttonNo].OnMouseOverUpgradeButton (this.GetComponent<ToolTip> ());
-		}
-	}
-
-	#endregion
-
-	#region PointerUpgrades
-
-	//When the player clicks on a pointer upgrade button
-	public void OnButtonClicPointerUpgrade(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfPointerUpgrades [buttonNo].BuyNextLevel ();
-			this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
-		}
-	}
-
-	//When the mouse hover over a pointer upgrade button
-	public void OnMouseOverPointerUpgradeButton(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {			
-			PersistentData.listOfPointerUpgrades [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
-		}
-	}
-
-	#endregion
-
-	#region ManaUpgrades
-
-	//When the player clicks on a pointer upgrade button
-	public void OnButtonClicManaUpgrade(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfManaUpgrades [buttonNo].BuyNextLevel ();
-		}
-	}
-
-	//When the mouse hover over a pointer upgrade button
-	public void OnMouseOverManaUpgradeButton(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {			
-			PersistentData.listOfManaUpgrades [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
 		}
 	}
 
