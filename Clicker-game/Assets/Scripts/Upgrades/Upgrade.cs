@@ -6,6 +6,7 @@ public abstract class Upgrade {
 	public string description { get; protected set; }
 	public int currentLevel { get; protected  set; }
 	public double costOfNextLevel { get; protected set; }
+	public double costOfAvailibility { get; protected set; }
 	public Button uButton { get; set; }
 	public Sprite icon { get; set; }
 
@@ -28,9 +29,9 @@ public abstract class Upgrade {
 	}
 
 	//Adds N level(s) to the current upgrade's level
-	public void AddNLevel(int n) {
+	public void AddNLevel(int n, GameObject scriptsBucket) {
 		currentLevel += n;
-		ApplyUpgradeEffect ();
+		ApplyUpgradeEffect (scriptsBucket);
 		CalculateCostOfNextLevel ();
 		UpdateButtonAvailability ();
 		UpdateButtonInteractivity ();
@@ -39,10 +40,10 @@ public abstract class Upgrade {
 	}
 
 	//Buys the upgrade's next level
-	public void BuyNextLevel() {
+	public void BuyNextLevel(GameObject scriptsBucket) {
 		if (CanAffordUpgrade ()) {
 			PersistentData.currentMoney -= costOfNextLevel;
-			AddNLevel(1);
+			AddNLevel(1, scriptsBucket);
 		}
 	}
 
@@ -98,5 +99,5 @@ public abstract class Upgrade {
 	public abstract void CalculateCostOfNextLevel();
 
 	//Applies the upgrade effect
-	public abstract void ApplyUpgradeEffect();
+	public abstract void ApplyUpgradeEffect(GameObject scriptsBucket);
 }

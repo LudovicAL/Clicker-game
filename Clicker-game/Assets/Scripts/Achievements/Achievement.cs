@@ -15,7 +15,7 @@ public abstract class Achievement {
 	public Achievement(string name, string description, bool revealed, double[] valuesTable) {
 		this.name = name;
 		this.description = description;
-		this.currentLevel = 1;
+		this.currentLevel = 0;
 		this.currentValue = 0;
 		this.progress = 0.0f;
 		this.revealed = revealed;
@@ -24,12 +24,12 @@ public abstract class Achievement {
 
 	//On mouse over the achievement panel
 	public void OnMouseOver(ToolTip tt) {
-		tt.TurnToolTipOn (
-			aPanel,
-			name,
-			currentLevel.ToString() + "/" + valuesTable.Length.ToString(),
-			description + " " + progress.ToString("P0")
-		);
+		
+		tt.TurnToolTipOn (aPanel, new string[] {
+			name + " (" + currentLevel.ToString() + "/" + valuesTable.Length.ToString() + ")",
+			description,
+			progress.ToString("P0")
+		});
 	}
 
 	//Calculates the current achievement level
@@ -50,7 +50,7 @@ public abstract class Achievement {
 
 	//Calculate the current progress toward the next level
 	public void CalculateProgress() {
-		progress = (currentLevel >= valuesTable.Length) ? 100.0f : (float)(currentValue / valuesTable[currentLevel]);
+		progress = (currentLevel >= valuesTable.Length) ? 1.0f : (float)(currentValue / valuesTable[currentLevel]);
 	}
 
 	//Updates the achievement's progress bar

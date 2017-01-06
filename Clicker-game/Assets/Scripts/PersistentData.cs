@@ -80,10 +80,10 @@ public static class PersistentData {
 	//ABILITIES
 	public static int currentNumberOfAbilitiesUsed = 0;	//In the current session only
 	public static int totalNumberOfAbilitiesUsed = 0;
-	public static List<Ability> listOfAbilities = WordsLists.listOfRaces [0].abilities;
+	public static List<Ability> listOfAbilities = WordsLists.listOfRacesUpgrades [0].abilities;
 
 	//RACES
-	public static Race currentRace = WordsLists.listOfRaces[0];
+	public static Race currentRace = WordsLists.listOfRacesUpgrades [0];
 	public static int numberOfMarsiansAlliance = 0;
 	public static int numberOfVenusiansAlliance = 0;
 	public static int numberOfRobotAlliance = 0;
@@ -118,10 +118,10 @@ public static class PersistentData {
 	public static int currentTotalNumberOfConstruction = 0;
 	public static int highestTotalNumberOfConstructionAchieved = 0;
 	public static int[] highestNumberOfConstructionAchieved = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-	public static List<Construction> listOfConstructions = WordsLists.listOfRaces[0].constructions;
+	public static List<Construction> listOfConstructions = WordsLists.listOfRacesUpgrades[0].constructions;
 
 	//UPGRADES
-	public static List<Race> listOfRaces = WordsLists.listOfRaces;
+	public static List<Race> listOfRacesUpgrades = WordsLists.listOfRacesUpgrades;
 	public static List<Upgrade> listOfPointerUpgrades = WordsLists.listOfPointerUpgrades;
 	public static List<Upgrade> listOfManaUpgrades = WordsLists.listOfManaUpgrades;
 

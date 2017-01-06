@@ -337,7 +337,7 @@ public static class WordsLists {
 
 	#region Races
 
-	public static List<Race> listOfRaces = new List<Race> {
+	public static List<Race> listOfRacesUpgrades = new List<Race> {
 		new Race (
 	        "No race",
 	        "No description",
@@ -348,7 +348,8 @@ public static class WordsLists {
 			},
 			new List<Ability>()  {
 				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),
-			}
+			},
+			0
 	    ),
 		new Race (
 	        "Humans",
@@ -364,7 +365,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			50
 	    ),
 		new Race (
 			"Martians",
@@ -380,7 +382,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			100
 		),
 		new Race (
 			"Venusians",
@@ -396,7 +399,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			100
 		),
 		new Race (
 			"Outer Space Civilization",
@@ -412,7 +416,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			200
 		),
 		new Race (
 			"Robots",
@@ -428,7 +433,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			300
 		),
 		new Race (
 			"Etheral Beings",
@@ -444,7 +450,8 @@ public static class WordsLists {
 			},
 			new List<Ability>() {
 				//Insert abilities here
-			}
+			},
+			400
 		)
 	};
 

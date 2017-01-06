@@ -21,6 +21,8 @@ public class ToolTip : MonoBehaviour {
 	public Text ttLongBottomLeft;
 	public Text ttLongBottomRight;
 
+	public GameObject ttCustomPanel;
+
 	private AvailablePanelStates panelState;
 
 	void Start () {
@@ -54,12 +56,7 @@ public class ToolTip : MonoBehaviour {
 			ttSmallTopLeft.text = topLeft;
 			ttSmallTopRight.text = topRight;
 			ttSmallDescription.text = description;
-			if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
-				ttSmallPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
-			} else {
-				ttSmallPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
-			}
-			ttSmallPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+			positionToolTip (go, ttSmallPanel);
 			ttSmallPanel.gameObject.SetActive (true);
 		}
 	}
@@ -72,19 +69,40 @@ public class ToolTip : MonoBehaviour {
 			ttLongDescription.text = description;
 			ttLongBottomLeft.text = bottomLeft;
 			ttLongBottomRight.text = bottomRight;
-			if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
-				ttLongPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
-			} else {
-				ttLongPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
-			}
-			ttLongPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+			positionToolTip (go, ttLongPanel);
 			ttLongPanel.gameObject.SetActive (true);
 		}
 	}
 
-	//Turns off both tooltips
+	//Turns on the custom tooltip
+	public void TurnToolTipOn(GameObject go, string[] texts) {
+		if (panelState == AvailablePanelStates.Playing) {
+			for (int i = 0, maxA = ttCustomPanel.transform.childCount, maxB = texts.Length; i < maxA; i++) {
+				if (i < maxB) {
+					ttCustomPanel.transform.GetChild (i).GetComponent<Text> ().text = texts [i];
+					ttCustomPanel.transform.GetChild (i).gameObject.SetActive (true);
+				} else {
+					ttCustomPanel.transform.GetChild (i).gameObject.SetActive (false);
+				}
+			}
+			positionToolTip (go, ttCustomPanel);
+			ttCustomPanel.gameObject.SetActive (true);
+		}
+	}
+
+	public void positionToolTip(GameObject go, GameObject ttPanel) {
+		if (Camera.main.ScreenToViewportPoint(go.GetComponent<RectTransform> ().position).x > 0.5f) {
+			ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(1.01f, 0.5f);
+		} else {
+			ttPanel.GetComponent<RectTransform> ().pivot = new Vector2(-0.01f, 0.5f);
+		}
+		ttPanel.GetComponent<RectTransform> ().position = go.GetComponent<RectTransform> ().position;
+	}
+
+	//Turns off all tooltips
 	public void TurnToolTipOff() {
 		ttSmallPanel.gameObject.SetActive (false);
 		ttLongPanel.gameObject.SetActive (false);
+		ttCustomPanel.gameObject.SetActive (false);
 	}
 }

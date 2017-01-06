@@ -24,18 +24,10 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		UpdateUpgradeButtons (PersistentData.listOfRaces, panelRaces);
+		UpdateUpgradeButtons (PersistentData.listOfRacesUpgrades, panelRaces);
 		UpdateConstructionsUpgradesButtons ();
 		UpdateUpgradeButtons (PersistentData.listOfPointerUpgrades, panelPointerUpgrades);
 		UpdateUpgradeButtons (PersistentData.listOfManaUpgrades, panelManaUpgrades);
-	}
-
-	void fooA(Upgrade u) {
-
-	}
-
-	void fooB<T>(List<T> u) where T : Upgrade {
-
 	}
 
 	// Update is called once per frame
@@ -46,7 +38,15 @@ public class UpgradesPanel : MonoBehaviour {
 					c.upgradeButton.interactable = c.CanAffordUpgrade ();
 				}
 			}
+			foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+				u.UpdateButtonAvailability ();
+				u.UpdateButtonInteractivity ();
+			}
 			foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+				u.UpdateButtonAvailability ();
+				u.UpdateButtonInteractivity ();
+			}
+			foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
@@ -79,7 +79,7 @@ public class UpgradesPanel : MonoBehaviour {
 			u.UpdateButtonAvailability ();
 			u.UpdateButtonImage ();
 			//OnClick
-			b.onClick.AddListener(delegate() { u.BuyNextLevel(); });
+			b.onClick.AddListener(delegate() { u.BuyNextLevel(this.gameObject); });
 			b.onClick.AddListener(delegate() { OnMouseExitUpgradeButton (); });
 			b.onClick.AddListener(delegate() { Update (); });
 			//OnMouseEnter
