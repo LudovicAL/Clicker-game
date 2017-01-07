@@ -41,25 +41,25 @@ public class MainPanel : MonoBehaviour {
 
 	//Generates a random planet
 	public void RandomizePlanet() {
-		PersistentData.planetScale = Random.Range (1.0f, 2.0f);
+		PersistentData.storedData.planetScale = Random.Range (1.0f, 2.0f);
 		Sprite[] planetIcons = Resources.LoadAll<Sprite> ("PlanetIcons");
 		if (planetIcons.Length > 0) {
-			PersistentData.planetIconId = Random.Range (0, planetIcons.Length - 1);
+			PersistentData.storedData.planetIconId = Random.Range (0, planetIcons.Length - 1);
 		}
-		if (PersistentData.promptForPlanetName) {
+		if (PersistentData.storedData.promptForPlanetName) {
 			this.GetComponent<MessagesPanel>().PromptForPlanetName ();
 		} else {
-			PersistentData.planetName = CommonTools.GeneratePlanetName ();
+			PersistentData.storedData.planetName = CommonTools.GeneratePlanetName ();
 		}
 		UpdatePlanet ();
 	}
 
 	//Updates the planet display
 	public void UpdatePlanet() {
-		planetName.text = PersistentData.planetName;
-		planetImage.GetComponent<RectTransform> ().localScale = new Vector3(PersistentData.planetScale, PersistentData.planetScale, 1.0f);
+		planetName.text = PersistentData.storedData.planetName;
+		planetImage.GetComponent<RectTransform> ().localScale = new Vector3(PersistentData.storedData.planetScale, PersistentData.storedData.planetScale, 1.0f);
 		Sprite[] planetIcons = Resources.LoadAll<Sprite> ("PlanetIcons");
-		planetImage.GetComponent<Image> ().sprite = planetIcons[PersistentData.planetIconId];
+		planetImage.GetComponent<Image> ().sprite = planetIcons[PersistentData.storedData.planetIconId];
 	}
 
 	//Whenever the player clics the main button

@@ -19,6 +19,6 @@ public class MaxMana : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		return (PersistentData.currentMoney >= costOfAvailibility) ? true : false;
+		return (PersistentData.storedData.currentMoney >= costOfAvailibility) ? true : false;
 	}
 }

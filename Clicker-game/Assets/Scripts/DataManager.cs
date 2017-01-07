@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
+using System.IO;
+
 public class DataManager : MonoBehaviour {
 
 	public float pointerUpgradesCostModifier;
@@ -9,7 +11,7 @@ public class DataManager : MonoBehaviour {
 	void Start () {
 		this.GetComponent<CanvasManager> ().OnLoadButtonClick ();
 		InvokeRepeating("TimedUpdate", 1.0f, 1.0f);
-		if (PersistentData.planetName.Length == 0) {
+		if (PersistentData.storedData.planetName.Length == 0) {
 			this.GetComponent<MainPanel> ().RandomizePlanet ();
 		}
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
@@ -21,7 +23,7 @@ public class DataManager : MonoBehaviour {
 
 	//Launched every second
 	void TimedUpdate() {
-		AddMoney(PersistentData.totalFarmingReward);
+		AddMoney(PersistentData.storedData.totalFarmingReward);
 		AddMana (PersistentData.manaRegenRate);
 	}
 
@@ -38,9 +40,9 @@ public class DataManager : MonoBehaviour {
 
 	//Adds money to the player current money
 	public void AddMoney(double moneyToAdd) {
-		PersistentData.currentMoney += moneyToAdd;
-		if (PersistentData.currentMoney > PersistentData.highestMoneyAchieved) {
-			PersistentData.highestMoneyAchieved = PersistentData.currentMoney;
+		PersistentData.storedData.currentMoney += moneyToAdd;
+		if (PersistentData.storedData.currentMoney > PersistentData.storedData.highestMoneyAchieved) {
+			PersistentData.storedData.highestMoneyAchieved = PersistentData.storedData.currentMoney;
 			this.GetComponent<AchievementsPanel> ().CheckWealthAchievements ();
 		}
 	}
@@ -48,22 +50,22 @@ public class DataManager : MonoBehaviour {
 	//Simulates a pointer click
 	public void AddClick() {
 		PersistentData.currentNumberOfClicks += 1;
-		PersistentData.totalNumberOfClicks += 1;
-		AddMoney(PersistentData.totalClickingReward);
+		PersistentData.storedData.totalNumberOfClicks += 1;
+		AddMoney(PersistentData.storedData.totalClickingReward);
 	}
 
 	//Simulates n pointer clicks
 	public void AddClicks(int numberOfClicks) {
 		PersistentData.currentNumberOfClicks += numberOfClicks;
-		PersistentData.totalNumberOfClicks += numberOfClicks;
-		AddMoney(PersistentData.totalClickingReward * numberOfClicks);
+		PersistentData.storedData.totalNumberOfClicks += numberOfClicks;
+		AddMoney(PersistentData.storedData.totalClickingReward * numberOfClicks);
 	}
 
 	//Calculates the total clicking reward (and the base clicking reward and clicking multiplier in the process)
 	public void CalculateTotalClickingReward() {
 		PersistentData.baseClickingReward = Mathf.Exp(PersistentData.listOfPointerUpgrades[0].currentLevel);
 		PersistentData.clickingMultiplier = (PersistentData.listOfPointerUpgrades[1].currentLevel + 1);
-		PersistentData.totalClickingReward = PersistentData.baseClickingReward * PersistentData.clickingMultiplier;
+		PersistentData.storedData.totalClickingReward = PersistentData.baseClickingReward * PersistentData.clickingMultiplier;
 	}
 
 	#endregion
@@ -76,9 +78,9 @@ public class DataManager : MonoBehaviour {
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			PersistentData.farmingRewardFromConstructions += c.production; 
 		}
-		PersistentData.totalFarmingReward = PersistentData.farmingRewardFromConstructions;
-		if (PersistentData.totalFarmingReward > PersistentData.highestTotalFarmingReward) {
-			PersistentData.highestTotalFarmingReward = PersistentData.totalFarmingReward;
+		PersistentData.storedData.totalFarmingReward = PersistentData.farmingRewardFromConstructions;
+		if (PersistentData.storedData.totalFarmingReward > PersistentData.storedData.highestTotalFarmingReward) {
+			PersistentData.storedData.highestTotalFarmingReward = PersistentData.storedData.totalFarmingReward;
 		}
 	}
 
@@ -89,8 +91,8 @@ public class DataManager : MonoBehaviour {
 			total += c.quantity;
 		}
 		PersistentData.currentTotalNumberOfConstruction = total;
-		if (PersistentData.highestTotalNumberOfConstructionAchieved < PersistentData.currentTotalNumberOfConstruction) {
-			PersistentData.highestTotalNumberOfConstructionAchieved = PersistentData.currentTotalNumberOfConstruction;
+		if (PersistentData.storedData.highestTotalNumberOfConstructionAchieved < PersistentData.currentTotalNumberOfConstruction) {
+			PersistentData.storedData.highestTotalNumberOfConstructionAchieved = PersistentData.currentTotalNumberOfConstruction;
 		}
 	}
 
@@ -100,7 +102,7 @@ public class DataManager : MonoBehaviour {
 
 	//Return the reward the player is entitled to after
 	public double CalculateRewardAfterAbsence() {
-		return (PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.totalFarmingReward);
+		return (PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.storedData.totalFarmingReward);
 	}
 
 	//Return the mana of the player after his absence

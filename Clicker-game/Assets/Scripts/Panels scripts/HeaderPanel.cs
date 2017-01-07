@@ -24,8 +24,8 @@ public class HeaderPanel : MonoBehaviour {
 	
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing) {
-			currentMoneyText.text = CommonTools.DoubleToString(PersistentData.currentMoney) + " $";
-			currentFarmingText.text = CommonTools.DoubleToString(PersistentData.totalFarmingReward) + " $ / sec.";
+			currentMoneyText.text = CommonTools.DoubleToString(PersistentData.storedData.currentMoney) + " $";
+			currentFarmingText.text = CommonTools.DoubleToString(PersistentData.storedData.totalFarmingReward) + " $ / sec.";
 		}
 	}
 

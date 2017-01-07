@@ -2,114 +2,72 @@
 
 //A mockup class used to temporary store the data on load and save events
 [Serializable]
-class Storage {
+public class Storage {
 	//INVESTORS
-	public double currentInvestors;
+	public double currentInvestors = 0;
 
 	//OPTIONS
-	public bool shortNumbers;
-	public bool promptForPlanetName;
-	public bool achievementsNotifications;
+	public bool shortNumbers = true;
+	public bool promptForPlanetName = true;
+	public bool achievementsNotifications = true;
 
 	//PLANET
-	public string planetName;
-	public float planetScale;
-	public int planetIconId;
+	public string planetName = "";
+	public float planetScale = 1.0f;
+	public int planetIconId = 0;
 
 	//CLICKING
-	public double totalClickingReward;
-	public double highestTotalClickingRewardAchieved;
-	public double highestNumberOfClicsAchieved;
-	public double totalNumberOfClicks;
+	public double totalClickingReward = 1;
+	public double highestTotalClickingRewardAchieved = 1;
+	public double highestNumberOfClicsAchieved = 0;
+	public double totalNumberOfClicks = 0;
 
 	//FARMING
-	public double farmingRewardFromConstructions;
-	public double totalFarmingReward;
-	public double highestTotalFarmingReward;
+	public double totalFarmingReward = 0;
+	public double highestTotalFarmingReward = 0;
 
 	//MONEY
-	public double currentMoney;
-	public double highestMoneyAchieved;
-	public double totalMoneyCollected;
-
-	//GEMS
-	//Opals
-	public double currentOpals;
-	public double highestOpalsAchieved;
-	public double totalOpalsCollected;
-	//Diamond
-	public double currentDiamonds;
-	public double highestDiamondsAchieved;
-	public double totalDiamondsCollected;
-	//Ruby
-	public double currentRubies;
-	public double highestRubiesAchieved;
-	public double totalRubiesCollected;
-	//Emerald
-	public double currentEmeralds;
-	public double highestEmeraldsAchieved;
-	public double totalEmeraldsCollected;
-	//Silver
-	public double currentSilvers;
-	public double highestSilversAchieved;
-	public double totalSilversCollected;
-	//Bronze
-	public double currentBronzes;
-	public double highestBronzesAchieved;
-	public double totalBronzesCollected;
-
-	//GOLD INGOTS
-	public int currentGoldIngots;
-	public int hightGoldIngotsAchieved;
-	public int totalGoldIngotsAchieved;
+	public double currentMoney = 0;
+	public double highestMoneyAchieved = 0;
+	public double totalMoneyCollected = 0;
 
 	//RESTARTS
-	public int numberOfColonizedPlanets;
-	public int numberOfInvadedGalaxies;
-	public int numberOfCompanyRestarts;
+	public int numberOfColonizedPlanets = 0;
+	public int numberOfInvadedGalaxies = 0;
+	public int numberOfCompanyRestarts = 0;
 
 	//ABILITIES
-	public int currentNumberOfAbilitiesUsed;//In the current session only
-	public int totalNumberOfAbilitiesUsed;
+	public int totalNumberOfAbilitiesUsed = 0;
 
 	//RACES
-	public int numberOfMarsiansAlliance;
-	public int numberOfVenusiansAlliance;
-	public int numberOfRobotAlliance;
-
-	//CLASSES
-	public int numberOfGamesWithPaidEmployees;
-	public int numberOfGamesWithSlaveEmployees;
-
-	//WORK FORCE
-	public double currentNumberOfEmployees;
-	public double highestAchievedNumberOfEmployees;
+	public int numberOfMarsiansAlliance = 0;
+	public int numberOfVenusiansAlliance = 0;
+	public int numberOfRobotAlliance = 0;
 
 	//TIME
-	//Game
-	public DateTime timeAtLastsave;
-	public TimeSpan timeSpentPlayingWithCurrentSession;
-	public TimeSpan longestPlayingSession;
-	public TimeSpan totalTimeSpentPlaying;
-	public TimeSpan totalTimeSpentOffline;
+		//Game
+	public DateTime timeAtLastSave = System.DateTime.Now;
+	public TimeSpan longestPlayingSession = System.TimeSpan.Zero;
+	public TimeSpan totalTimeSpentPlaying = System.TimeSpan.Zero;
+	public TimeSpan totalTimeSpentOffline = System.TimeSpan.Zero;
 
-	//Races
-	public TimeSpan timeSpentPlayingMarsians;
-	public TimeSpan timeSpentPlayingVenusians;
-	public TimeSpan timeSpentPlayingRobots;
-
-	//Classes
-	public TimeSpan timeSpentPayingEmployees;
-	public TimeSpan timeSpentEnslavingEmployees;
+		//Races
+	public TimeSpan timeSpentPlayingMarsians = System.TimeSpan.Zero;
+	public TimeSpan timeSpentPlayingVenusians = System.TimeSpan.Zero;
+	public TimeSpan timeSpentPlayingRobots = System.TimeSpan.Zero;
 
 	//CONSTRUCTION
-	public int highestTotalNumberOfConstructionAchieved;
-	public int[] highestNumberOfConstructionAchieved;
-	public int[] constructionsQuantity;
-	public int[] constructionsUpgradeLevel;
+	public int highestTotalNumberOfConstructionAchieved = 0;
+	public int[] constructionsQuantities = new int[10];
+	public int[] constructionsUpgradesLevels = new int[10];
+
+	//UPGRADES
+
+	//ACHIEVEMENTS
+
+	//BULKBUYER
 
 	//MANA
-	public float currentMana;
-	public float highestMaxManaAchieved;
-	public float highestManaRegenRateAchieved;
+	public float highestMaxManaAchieved = 100.0f;
+	public float highestManaRegenRateAchieved = 1.0f;
 }

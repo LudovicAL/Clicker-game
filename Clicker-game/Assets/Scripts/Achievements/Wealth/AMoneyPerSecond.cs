@@ -9,7 +9,7 @@ public class AMoneyPerSecond : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
-		currentValue = PersistentData.highestTotalFarmingReward;
+		currentValue = PersistentData.storedData.highestTotalFarmingReward;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
 		UpdateProgressBar ();

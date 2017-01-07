@@ -47,9 +47,9 @@ public class MessagesPanel : MonoBehaviour {
 	//When the player submits his desired planet name (or no name at all)
 	public void OnPlanetNameSubmit() {
 		if (inputFieldOfInputDialog.text.Length == 0) {
-			PersistentData.planetName = CommonTools.GeneratePlanetName ();
+			PersistentData.storedData.planetName = CommonTools.GeneratePlanetName ();
 		} else {
-			PersistentData.planetName = inputFieldOfInputDialog.text;
+			PersistentData.storedData.planetName = inputFieldOfInputDialog.text;
 			inputFieldOfInputDialog.text = "";
 		}
 		this.GetComponent<MainPanel> ().UpdatePlanet ();

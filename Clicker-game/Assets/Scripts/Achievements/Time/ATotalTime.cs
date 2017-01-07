@@ -9,7 +9,7 @@ public class ATotalTime : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
-		currentValue = PersistentData.totalTimeSpentPlaying.TotalSeconds;
+		currentValue = PersistentData.storedData.totalTimeSpentPlaying.TotalSeconds;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
 		UpdateProgressBar ();

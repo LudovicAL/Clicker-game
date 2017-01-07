@@ -46,19 +46,19 @@ public class OptionPanel : MonoBehaviour {
 
 	//When the player clicks the short number notation option button
 	public void OnDisplayShortNumberNotationButtonClic(Toggle tButton) {
-		PersistentData.shortNumbers = tButton.isOn;
+		PersistentData.storedData.shortNumbers = tButton.isOn;
 		CommonTools.UpdateNumbersNotations();
 
 	}
 
 	//When the player clicks the prompt for planet name option button
 	public void OnPromptForPlanetNameButtonClic(Toggle tButton) {
-		PersistentData.promptForPlanetName = tButton.isOn;		
+		PersistentData.storedData.promptForPlanetName = tButton.isOn;		
 	}
 
 	//When the player clicks the prompt for planet name option button
 	public void OnAchievementNotificationButtonClic(Toggle tButton) {
-		PersistentData.achievementsNotifications = tButton.isOn;		
+		PersistentData.storedData.achievementsNotifications = tButton.isOn;		
 	}
 
 	//Updates all the options buttons so they correspond the values in PersistentData
@@ -70,17 +70,17 @@ public class OptionPanel : MonoBehaviour {
 
 	//Updates the number notation option button so it corresponds the value in PersistentData
 	public void UpdateButtonShortNumberNotation() {
-		buttonOptionShortNumberNotation.isOn = PersistentData.shortNumbers;
+		buttonOptionShortNumberNotation.isOn = PersistentData.storedData.shortNumbers;
 		CommonTools.UpdateNumbersNotations();
 	}
 
 	//Updates the planet name prompt option button so it corresponds the value in PersistentData
 	public void UpdateButtonPlanetNamePrompt() {
-		buttonOptionPlanetNamePromt.isOn = PersistentData.promptForPlanetName;
+		buttonOptionPlanetNamePromt.isOn = PersistentData.storedData.promptForPlanetName;
 	}
 
 	//Updates the achievement notification option button so it corresponds the value in PersistentData
 	public void UpdateButtonAchievementsNotifications() {
-		buttonOptionAchievementNotification.isOn = PersistentData.achievementsNotifications;
+		buttonOptionAchievementNotification.isOn = PersistentData.storedData.achievementsNotifications;
 	}
 }

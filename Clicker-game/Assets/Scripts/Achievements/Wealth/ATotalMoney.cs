@@ -9,7 +9,7 @@ public class ATotalMoney : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
-		currentValue = PersistentData.highestMoneyAchieved;
+		currentValue = PersistentData.storedData.highestMoneyAchieved;
 		CalculateCurrentLevel ();
 		CalculateProgress ();
 		UpdateProgressBar ();

@@ -25,7 +25,7 @@ public abstract class Upgrade {
 	}
 
 	public bool CanAffordUpgrade() {
-		return (PersistentData.currentMoney >= costOfNextLevel);
+		return (PersistentData.storedData.currentMoney >= costOfNextLevel);
 	}
 
 	//Adds N level(s) to the current upgrade's level
@@ -42,7 +42,7 @@ public abstract class Upgrade {
 	//Buys the upgrade's next level
 	public void BuyNextLevel(GameObject scriptsBucket) {
 		if (CanAffordUpgrade ()) {
-			PersistentData.currentMoney -= costOfNextLevel;
+			PersistentData.storedData.currentMoney -= costOfNextLevel;
 			AddNLevel(1, scriptsBucket);
 		}
 	}

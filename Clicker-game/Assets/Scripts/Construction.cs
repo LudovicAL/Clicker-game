@@ -63,7 +63,7 @@ public class Construction {
 	//Buys a construction
 	public void BuyConstruction(DataManager dm) {
 		if (CanAffordConstruction()) {
-			PersistentData.currentMoney -= constructionCost;
+			PersistentData.storedData.currentMoney -= constructionCost;
 			AddNConstructions(numberOfConstructionsToBuild);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
 			dm.CalculateTotalFarmingReward ();
@@ -81,7 +81,7 @@ public class Construction {
 		if (constructionCost == 0) {
 			return false;
 		} else {
-			return (PersistentData.currentMoney >= constructionCost);
+			return (PersistentData.storedData.currentMoney >= constructionCost);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class Construction {
 	//Buys an upgrade
 	public void BuyUpgrade(DataManager dm) {
 		if (CanAffordUpgrade()) {
-			PersistentData.currentMoney -= upgradeCost;
+			PersistentData.storedData.currentMoney -= upgradeCost;
 			AddNUpgrades(1);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
 			dm.CalculateTotalFarmingReward ();
@@ -153,7 +153,7 @@ public class Construction {
 
 	//Returns true if the player can afford the construction upgrade
 	public bool CanAffordUpgrade() {
-		return (PersistentData.currentMoney >= upgradeCost);
+		return (PersistentData.storedData.currentMoney >= upgradeCost);
 	}
 
 	#endregion
@@ -308,7 +308,7 @@ public class Construction {
 	//Calculates the number of constructions to build according to the bulk buying roulette button
 	public void CalculateNumberOfConstructionsToBuild() {
 		if (PersistentData.bulkBuyer.Quantity == 0) {
-			numberOfConstructionsToBuild = CalculateMaxBuyable(PersistentData.currentMoney);
+			numberOfConstructionsToBuild = CalculateMaxBuyable(PersistentData.storedData.currentMoney);
 		} else {
 			numberOfConstructionsToBuild = PersistentData.bulkBuyer.Quantity;
 		}

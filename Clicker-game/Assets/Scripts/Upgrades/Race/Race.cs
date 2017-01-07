@@ -25,7 +25,7 @@ public class Race : Upgrade {
 	public override bool IsUpgradeAvailable() {
 		if ((this != PersistentData.listOfRacesUpgrades [0]) &&	//Checks that it is not upgrade 0
 		    (PersistentData.currentRace == PersistentData.listOfRacesUpgrades [0]) &&	//Checks that 'currentUpgrade' is upgrade 0
-		    (PersistentData.currentMoney >= costOfAvailibility)) {	//Checks that the costOfAvailibility requirement is met
+		    (PersistentData.storedData.currentMoney >= costOfAvailibility)) {	//Checks that the costOfAvailibility requirement is met
 			return true;
 		} else {
 			return false;

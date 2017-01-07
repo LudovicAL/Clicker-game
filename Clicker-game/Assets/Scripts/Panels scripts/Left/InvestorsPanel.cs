@@ -41,7 +41,7 @@ public class InvestorsPanel : MonoBehaviour {
 
 	//Updates the number of potential investors
 	public void UpdatePotentialInvestors() {
-		PersistentData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (PersistentData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
+		PersistentData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (PersistentData.storedData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
 		potentialInvestors.text = CommonTools.DoubleToString(PersistentData.potentialInvestors);
 	}
 
