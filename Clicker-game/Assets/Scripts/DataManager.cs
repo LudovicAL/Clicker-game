@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 using System.IO;
@@ -108,6 +109,46 @@ public class DataManager : MonoBehaviour {
 	//Return the mana of the player after his absence
 	public void UpdateManaAfterAbsence() {
 		AddMana((float)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.manaRegenRate));
+	}
+
+	//Restart the game
+	public void Restart() {
+		foreach (Construction c in PersistentData.listOfConstructions) {
+			c.AddNConstructions (-c.quantity);
+			c.AddNUpgrades (-c.upgradeLevel);
+		}
+		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+			u.AddNLevel (-u.currentLevel, this.gameObject);
+		}
+		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+			u.AddNLevel (-u.currentLevel, this.gameObject);
+		}
+		foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+			u.AddNLevel (-u.currentLevel, this.gameObject);
+		}
+		foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
+			u.AddNLevel (-u.currentLevel, this.gameObject);
+		}
+		PersistentData.bonusPerInvestor = 0.01f;
+		PersistentData.baseClickingReward = 1;
+		PersistentData.clickingMultiplier = 1;
+		PersistentData.currentNumberOfClicks = 0;
+		PersistentData.currentNumberOfAbilitiesUsed = 0;
+		PersistentData.listOfAbilities = WordsLists.listOfRacesUpgrades [0].abilities;
+		PersistentData.currentRace = WordsLists.listOfRacesUpgrades [0];
+		PersistentData.timeSpentPlayingWithCurrentSession = System.TimeSpan.Zero;
+		PersistentData.listOfConstructions = WordsLists.listOfRacesUpgrades[0].constructions;
+		PersistentData.notificationList = new List<Achievement> ();
+		PersistentData.currentMana = 100;
+		PersistentData.maxMana = 100;
+		PersistentData.manaRegenRate = 1;
+		PersistentData.storedData.currentMoney = 0;
+		PersistentData.storedData.constructionsQuantities = new int[10];
+		PersistentData.storedData.constructionsUpgradesLevels = new int[10];
+		CalculateTotalClickingReward ();
+		CalculateTotalFarmingReward ();
+		CalculateCurrentTotalNumberOfConstruction ();
+		PersistentData.SaveData ();
 	}
 
 	#endregion

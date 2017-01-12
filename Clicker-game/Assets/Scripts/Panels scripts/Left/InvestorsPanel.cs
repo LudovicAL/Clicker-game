@@ -49,6 +49,7 @@ public class InvestorsPanel : MonoBehaviour {
 
 	//When the user clicks expand
 	public void OnExpandButtonClic() {
-
+		PersistentData.storedData.currentInvestors += PersistentData.potentialInvestors;
+		this.GetComponent<DataManager>().Restart ();
 	}
 }

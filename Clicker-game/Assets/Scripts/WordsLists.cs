@@ -633,7 +633,7 @@ public static class WordsLists {
 	#region InvestorsUpgrades
 
 	public static List<Upgrade> listOfInvestorsUpgrades = new List<Upgrade>  {
-		new BonusPerInvestorUpgrade ("Bonus per investor", "Adds 1% to your bonus per investor."),
+		new BonusPerInvestorUpgrade ("Bonus Per Investor", "Adds 1% to your bonus per investor."),
 	};
 
 	#endregion

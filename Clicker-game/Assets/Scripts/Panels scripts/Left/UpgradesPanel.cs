@@ -16,6 +16,7 @@ public class UpgradesPanel : MonoBehaviour {
 	public GameObject panelConstructionUpgrades;
 	public GameObject panelPointerUpgrades;
 	public GameObject panelManaUpgrades;
+	public GameObject panelInvestorsUpgrades;
 	public GameObject upgradeButtonPrefab;
 	private AvailablePanelStates panelState;
 
@@ -28,6 +29,7 @@ public class UpgradesPanel : MonoBehaviour {
 		UpdateConstructionsUpgradesButtons ();
 		UpdateUpgradeButtons (PersistentData.listOfPointerUpgrades, panelPointerUpgrades);
 		UpdateUpgradeButtons (PersistentData.listOfManaUpgrades, panelManaUpgrades);
+		UpdateUpgradeButtons (PersistentData.listOfInvestorsUpgrades, panelInvestorsUpgrades);
 	}
 
 	// Update is called once per frame
@@ -47,6 +49,10 @@ public class UpgradesPanel : MonoBehaviour {
 				u.UpdateButtonInteractivity ();
 			}
 			foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+				u.UpdateButtonAvailability ();
+				u.UpdateButtonInteractivity ();
+			}
+			foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}

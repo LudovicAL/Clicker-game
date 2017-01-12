@@ -52,6 +52,7 @@ public class Construction {
 	//Add N constructions to those already possessed
 	public void AddNConstructions(int numberOfConstructionsAdded) {
 		quantity += numberOfConstructionsAdded;
+		PersistentData.storedData.constructionsQuantities [id - 1] = quantity;
 		//Not all required calculations are performed here, but rather only those that effect this construction alone
 		CalculateNumberOfConstructionsToBuild ();
 		CalculateCostForNCopiesOfThisConstruction ();
@@ -139,6 +140,7 @@ public class Construction {
 	//Add N upgrades to those already possessed
 	public void AddNUpgrades(int numberOfUpgradesToAdd) {
 		upgradeLevel += numberOfUpgradesToAdd;
+		PersistentData.storedData.constructionsUpgradesLevels [id - 1] = upgradeLevel;
 		//Not all required calculations are performed here, but rather only those that effect this construction alone
 		CalculateNextUpgradeCost ();
 		CalculateProduction ();
