@@ -57,11 +57,12 @@ public class Storage {
 	public TimeSpan timeSpentPlayingRobots = System.TimeSpan.Zero;
 
 	//CONSTRUCTION
-	public int highestTotalNumberOfConstructionAchieved = 0;
+	public int highestTotalNumberOfConstructionsAchieved = 0;
 	public int[] constructionsQuantities = new int[10];
 	public int[] constructionsUpgradesLevels = new int[10];
 
 	//UPGRADES
+	public int highestTotalNumberOfUpgradesAchieved = 0;
 
 	//ACHIEVEMENTS
 

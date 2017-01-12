@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 
-public class ManaRegen : Upgrade {
+public class UMaxMana : Upgrade {
 
-	public ManaRegen(string name, string description): base (name, description) {
+	public UMaxMana(string name, string description): base (name, description) {
 
 	}
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.manaRegenRate += 0.5f;
+		PersistentData.maxMana += 50;
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade
 	public override void CalculateCostOfNextLevel() {
-		costOfNextLevel = System.Math.Pow ((currentLevel + 3), 4);
+		costOfNextLevel = System.Math.Pow ((currentLevel + 3), 5);
 		costOfAvailability = costOfNextLevel / 3;
 	}
 

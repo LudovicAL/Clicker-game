@@ -31,6 +31,7 @@ public abstract class Upgrade {
 	//Adds N level(s) to the current upgrade's level
 	public void AddNLevel(int n, GameObject scriptsBucket) {
 		currentLevel += n;
+		scriptsBucket.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfUpgrades ();
 		ApplyUpgradeEffect (scriptsBucket);
 		CalculateCostOfNextLevel ();
 		UpdateButtonAvailability ();

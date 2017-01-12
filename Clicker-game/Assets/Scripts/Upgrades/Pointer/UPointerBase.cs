@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PointerBase : Upgrade {
+public class UPointerBase : Upgrade {
 
-	public PointerBase(string name, string description): base (name, description) {
+	public UPointerBase(string name, string description): base (name, description) {
 
 	}
 
@@ -10,6 +10,8 @@ public class PointerBase : Upgrade {
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.baseClickingReward = currentLevel;
 		scriptsBucket.GetComponent<DataManager> ().CalculateTotalClickingReward ();
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade

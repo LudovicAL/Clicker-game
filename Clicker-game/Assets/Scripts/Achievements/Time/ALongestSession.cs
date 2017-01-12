@@ -10,6 +10,7 @@ public class ALongestSession : Achievement {
 	//Updates the achievement progress and display
 	public override void UpdateAchievement() {
 		currentValue = PersistentData.storedData.longestPlayingSession.TotalSeconds;
+		CalculateCurrentLevel ();
 		CalculateProgress ();
 		UpdateProgressBar ();
 	}

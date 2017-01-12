@@ -26,7 +26,7 @@ public abstract class Achievement {
 	public void OnMouseOver(ToolTip tt) {
 		
 		tt.TurnToolTipOn (aPanel, new string[] {
-			name + " (" + currentLevel.ToString() + "/" + valuesTable.Length.ToString() + ")",
+			name + " (" + currentLevel.ToString() + "/" + (valuesTable.Length - 1).ToString() + ")",
 			description,
 			progress.ToString("P0")
 		});
@@ -34,23 +34,21 @@ public abstract class Achievement {
 
 	//Calculates the current achievement level
 	public void CalculateCurrentLevel() {
-		int i = currentLevel;
-		for (; i < valuesTable.Length; i++) {
-			if (currentValue < valuesTable[i]) {
+		for (int i = currentLevel, max = valuesTable.Length - 1; i < max; i++) {
+			if (currentValue > valuesTable[i + 1]) {
+				currentLevel = i + 1;
+				if (PersistentData.storedData.achievementsNotifications && !PersistentData.notificationList.Contains(this)) {
+					PersistentData.notificationList.Add (this);
+				}
+			} else {
 				break;
-			}
-		}
-		if (i > currentLevel) {
-			currentLevel = i;
-			if (PersistentData.storedData.achievementsNotifications && !PersistentData.notificationList.Contains(this)) {
-				PersistentData.notificationList.Add (this);
 			}
 		}
 	}
 
 	//Calculate the current progress toward the next level
 	public void CalculateProgress() {
-		progress = (currentLevel >= valuesTable.Length) ? 1.0f : (float)(currentValue / valuesTable[currentLevel]);
+		progress = (currentLevel >= valuesTable.Length - 1) ? 1.0f : (float)(currentValue / valuesTable[currentLevel + 1]);
 	}
 
 	//Updates the achievement's progress bar

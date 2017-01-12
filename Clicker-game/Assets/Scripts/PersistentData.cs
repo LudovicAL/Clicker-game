@@ -35,7 +35,7 @@ public static class PersistentData {
 	public static List<Ability> listOfAbilities = WordsLists.listOfRacesUpgrades [0].abilities;
 
 	//RACES
-	public static Race currentRace = WordsLists.listOfRacesUpgrades [0];
+	public static URace currentRace = WordsLists.listOfRacesUpgrades [0];
 
 	//TIME
 		//Game
@@ -45,17 +45,21 @@ public static class PersistentData {
 		//Races
 
 	//CONSTRUCTIONS
-	public static int currentTotalNumberOfConstruction = 0;
+	public static int currentTotalNumberOfConstructions = 0;
 	public static List<Construction> listOfConstructions = WordsLists.listOfRacesUpgrades[0].constructions;
 
 	//UPGRADES
-	public static List<Race> listOfRacesUpgrades = WordsLists.listOfRacesUpgrades;
+	public static int currentTotalNumberOfUpgrades = 0;
+	public static List<URace> listOfRacesUpgrades = WordsLists.listOfRacesUpgrades;
+	public static List<Upgrade> listOfConstructionsUpgrades = WordsLists.listOfRacesUpgrades[0].upgrades;
 	public static List<Upgrade> listOfPointerUpgrades = WordsLists.listOfPointerUpgrades;
 	public static List<Upgrade> listOfManaUpgrades = WordsLists.listOfManaUpgrades;
 
 	//ACHIEVEMENTS
-	public static Achievement[] listOfWealthAchievements = WordsLists.listOfWealthAchievements;
-	public static Achievement[] listOfTimeAchievements = WordsLists.listOfTimeAchievements;
+	public static List<Achievement> listOfWealthAchievements = WordsLists.listOfWealthAchievements;
+	public static List<Achievement> listOfTimeAchievements = WordsLists.listOfTimeAchievements;
+	public static List<Achievement> listOfConstructionsAchievements = WordsLists.listOfConstructionsAchievements;
+	public static List<Achievement> listOfUpgradesAchievements = WordsLists.listOfUpgradesAchievements;
 
 	//NOTIFICATIONS
 	public static List<Achievement> notificationList = new List<Achievement> ();

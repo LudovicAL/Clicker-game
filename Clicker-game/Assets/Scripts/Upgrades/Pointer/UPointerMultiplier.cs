@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class PointerMultiplier : Upgrade {
+public class UPointerMultiplier : Upgrade {
 
-	public PointerMultiplier(string name, string description): base (name, description) {
+	public UPointerMultiplier(string name, string description): base (name, description) {
 
 	}
 
@@ -10,6 +10,8 @@ public class PointerMultiplier : Upgrade {
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.clickingMultiplier = currentLevel;
 		scriptsBucket.GetComponent<DataManager> ().CalculateTotalClickingReward ();
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade

@@ -44,7 +44,7 @@ public class DataManager : MonoBehaviour {
 		PersistentData.storedData.currentMoney += moneyToAdd;
 		if (PersistentData.storedData.currentMoney > PersistentData.storedData.highestMoneyAchieved) {
 			PersistentData.storedData.highestMoneyAchieved = PersistentData.storedData.currentMoney;
-			this.GetComponent<AchievementsPanel> ().CheckWealthAchievements ();
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
 		}
 	}
 
@@ -82,18 +82,45 @@ public class DataManager : MonoBehaviour {
 		PersistentData.storedData.totalFarmingReward = PersistentData.farmingRewardFromConstructions * (PersistentData.storedData.currentInvestors * (double)PersistentData.bonusPerInvestor + 1);
 		if (PersistentData.storedData.totalFarmingReward > PersistentData.storedData.highestTotalFarmingReward) {
 			PersistentData.storedData.highestTotalFarmingReward = PersistentData.storedData.totalFarmingReward;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
 		}
 	}
 
 	//Calculates the current total number of construction
-	public void CalculateCurrentTotalNumberOfConstruction() {
+	public void CalculateCurrentTotalNumberOfConstructions() {
 		int total = 0;
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			total += c.quantity;
 		}
-		PersistentData.currentTotalNumberOfConstruction = total;
-		if (PersistentData.storedData.highestTotalNumberOfConstructionAchieved < PersistentData.currentTotalNumberOfConstruction) {
-			PersistentData.storedData.highestTotalNumberOfConstructionAchieved = PersistentData.currentTotalNumberOfConstruction;
+		PersistentData.currentTotalNumberOfConstructions = total;
+		if (PersistentData.storedData.highestTotalNumberOfConstructionsAchieved < PersistentData.currentTotalNumberOfConstructions) {
+			PersistentData.storedData.highestTotalNumberOfConstructionsAchieved = PersistentData.currentTotalNumberOfConstructions;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfConstructionsAchievements);
+		}
+	}
+
+	//Calculates the current total number of upgrades
+	public void CalculateCurrentTotalNumberOfUpgrades() {
+		int total = 0;
+		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+			total += u.currentLevel;
+		}
+		foreach (Construction c in PersistentData.listOfConstructions) {
+			total += c.upgradeLevel;
+		}
+		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+			total += u.currentLevel;
+		}
+		foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+			total += u.currentLevel;
+		}
+		foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
+			total += u.currentLevel;
+		}
+		PersistentData.currentTotalNumberOfUpgrades = total;
+		if (PersistentData.storedData.highestTotalNumberOfUpgradesAchieved < PersistentData.currentTotalNumberOfUpgrades) {
+			PersistentData.storedData.highestTotalNumberOfUpgradesAchieved = PersistentData.currentTotalNumberOfUpgrades;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 		}
 	}
 
@@ -143,11 +170,12 @@ public class DataManager : MonoBehaviour {
 		PersistentData.maxMana = 100;
 		PersistentData.manaRegenRate = 1;
 		PersistentData.storedData.currentMoney = 0;
+		PersistentData.currentTotalNumberOfConstructions = 0;
+		PersistentData.currentTotalNumberOfUpgrades = 0;
 		PersistentData.storedData.constructionsQuantities = new int[10];
 		PersistentData.storedData.constructionsUpgradesLevels = new int[10];
 		CalculateTotalClickingReward ();
 		CalculateTotalFarmingReward ();
-		CalculateCurrentTotalNumberOfConstruction ();
 		PersistentData.SaveData ();
 	}
 

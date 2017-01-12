@@ -55,7 +55,7 @@ public class CanvasManager : MonoBehaviour {
 		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
 		this.GetComponent<DataManager> ().CalculateTotalFarmingReward ();
-		this.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfConstruction ();
+		this.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfConstructions ();
 		if (PersistentData.timeSinceLastSave != System.TimeSpan.Zero) {
 			this.GetComponent<MessagesPanel> ().ShowRewardAfterAbsence ();
 			this.GetComponent<DataManager> ().UpdateManaAfterAbsence ();

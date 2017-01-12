@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Threading;
+using UnityEngine.EventSystems;
 
 public class AchievementsPanel : MonoBehaviour {
 
@@ -13,28 +14,25 @@ public class AchievementsPanel : MonoBehaviour {
 
 	public GameObject thisPanel;
 	private AvailablePanelStates panelState;
-	public GameObject[] wealthAchievementsPanelList;
-	public Image[] wealthAchievementsProgressBarList;
-	public GameObject[] timeAchievementsPanelList;
-	public Image[] timeAchievementsProgressBarList;
+	public GameObject achievementPanelPrefab;
+	public GameObject panelWealthAchievements;
+	public GameObject panelTimeAchievements;
+	public GameObject panelConstructionsAchievements;
+	public GameObject panelUpgradesAchievements;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
-		for (int i = 0; i < PersistentData.listOfWealthAchievements.Length && i < wealthAchievementsPanelList.Length; i++) {
-			PersistentData.listOfWealthAchievements [i].aPanel = wealthAchievementsPanelList[i];
-			PersistentData.listOfWealthAchievements [i].aProgressBar = wealthAchievementsProgressBarList[i];
-		}
-		for (int i = 0; i < PersistentData.listOfTimeAchievements.Length && i < timeAchievementsPanelList.Length; i++) {
-			PersistentData.listOfTimeAchievements [i].aPanel = timeAchievementsPanelList[i];
-			PersistentData.listOfTimeAchievements [i].aProgressBar = timeAchievementsProgressBarList[i];
-		}
+		UpdateAchievementPanels (PersistentData.listOfWealthAchievements, panelWealthAchievements);
+		UpdateAchievementPanels (PersistentData.listOfTimeAchievements, panelTimeAchievements);
+		UpdateAchievementPanels (PersistentData.listOfConstructionsAchievements, panelConstructionsAchievements);
+		UpdateAchievementPanels (PersistentData.listOfUpgradesAchievements, panelUpgradesAchievements);
 	}
 
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			CheckTimeAchievements ();
+			CheckAchievementsInList (PersistentData.listOfTimeAchievements);
 		}
 	}
 
@@ -50,16 +48,33 @@ public class AchievementsPanel : MonoBehaviour {
 		panelState = state;
 	}
 
-	//Updates every wealth related achievement
-	public void CheckWealthAchievements() {
-		foreach(Achievement a in PersistentData.listOfWealthAchievements) {
+	//Deletes all previously existing buttons, creates new ones and updates their display
+	public void UpdateAchievementPanels<T>(List<T> aList, GameObject aPanel) where T : Achievement {
+		for (int i = aPanel.transform.childCount; i > 0; i--) {
+			GameObject.Destroy (aPanel.transform.GetChild (i - 1).gameObject);
+		}
+		foreach (Achievement a in aList) {
+			GameObject go = (GameObject)Instantiate (achievementPanelPrefab, aPanel.transform, false);
+			a.aPanel = go;
+			a.aProgressBar = go.transform.GetChild (0).GetChild (0).gameObject.GetComponent<Image>();
 			a.UpdateAchievement ();
+			//OnMouseEnter
+			EventTrigger trigger = go.GetComponent<EventTrigger> ();
+			EventTrigger.Entry entryA = new EventTrigger.Entry();
+			entryA.eventID = EventTriggerType.PointerEnter;
+			entryA.callback.AddListener ((data) => { a.OnMouseOver(this.GetComponent<ToolTip>()); });
+			trigger.triggers.Add (entryA);
+			//OnMouseExit
+			EventTrigger.Entry entryB = new EventTrigger.Entry();
+			entryB.eventID = EventTriggerType.PointerExit;
+			entryB.callback.AddListener ((data) => { OnMouseExitAchievement(); });
+			trigger.triggers.Add (entryB);
 		}
 	}
 
-	//Updates every time related achievement
-	public void CheckTimeAchievements() {
-		foreach(Achievement a in PersistentData.listOfTimeAchievements) {
+	//Updates every achievements in a given list
+	public void CheckAchievementsInList<T>(List<T> achievementsList) where T : Achievement {
+		foreach(Achievement a in achievementsList) {
 			a.UpdateAchievement ();
 		}
 	}

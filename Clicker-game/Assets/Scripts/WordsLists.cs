@@ -337,8 +337,8 @@ public static class WordsLists {
 
 	#region Races
 
-	public static List<Race> listOfRacesUpgrades = new List<Race> {
-		new Race (
+	public static List<URace> listOfRacesUpgrades = new List<URace> {
+		new URace (
 	        "No race",
 	        "No description",
 			new List<Construction> {
@@ -346,13 +346,16 @@ public static class WordsLists {
 				new Construction ("Pickaxes", 2, 1.15f, true, 25),
 				new Construction ("Jack Hammers", 3, 1.15f, true, 25)
 			},
+			new List<Upgrade> {
+				
+			},
 			new List<Ability>()  {
 				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),
 			},
 			0,
 			0
 	    ),
-		new Race (
+		new URace (
 	        "Humans",
 	        "Beings like you and me.",
 			new List<Construction> {
@@ -364,13 +367,16 @@ public static class WordsLists {
 				new Construction ("Explosives", 9, 1.15f, false, 25),
 				new Construction ("Tunnel Borers", 10, 1.15f, false, 25)
 			},
+			new List<Upgrade> {
+
+			},
 			new List<Ability>() {
 				//Insert abilities here
 			},
 			50,
 			0
 	    ),
-		new Race (
+		new URace (
 			"Martians",
 			"Traders from planet Mars.",
 			new List<Construction> {
@@ -382,13 +388,16 @@ public static class WordsLists {
 				new Construction ("Alpha Canons", 9, 1.15f, false, 25),
 				new Construction ("Cyborgs", 10, 1.15f, false, 25)
 			},
+			new List<Upgrade> {
+
+			},
 			new List<Ability>() {
 				//Insert abilities here
 			},
 			100,
 			0
 		),
-		new Race (
+		new URace (
 			"Venusians",
 			"Contractors from planet Venus.",
 			new List<Construction> {
@@ -400,13 +409,16 @@ public static class WordsLists {
 				new Construction ("Gamma Canons", 9, 1.15f, false, 25),
 				new Construction ("Space Elevators", 10, 1.15f, false, 25)
 			},
+			new List<Upgrade> {
+
+			},
 			new List<Ability>() {
 				//Insert abilities here
 			},
 			100,
 			0
 		),
-		new Race (
+		new URace (
 			"Outer Space Civilization",
 			"Entrepreneurs from outer space.",
 			new List<Construction> {
@@ -418,13 +430,16 @@ public static class WordsLists {
 				new Construction ("Pulse Canons", 9, 1.15f, false, 25),
 				new Construction ("Tractor Beams", 10, 1.15f, false, 25)
 			},
+			new List<Upgrade> {
+
+			},
 			new List<Ability>() {
 				//Insert abilities here
 			},
 			200,
 			0
 		),
-		new Race (
+		new URace (
 			"Robots",
 			"Unremitting robots working around the clock.",
 			new List<Construction> {
@@ -436,13 +451,16 @@ public static class WordsLists {
 				new Construction ("Planet Shredders", 9, 1.15f, false, 25),
 				new Construction ("Artificial Intelligences", 10, 1.15f, false, 25)
 			},
+			new List<Upgrade> {
+
+			},
 			new List<Ability>() {
 				//Insert abilities here
 			},
 			300,
 			0
 		),
-		new Race (
+		new URace (
 			"Etheral Beings",
 			"Intagible beings with underfined objectives.",
 			new List<Construction> {
@@ -453,6 +471,9 @@ public static class WordsLists {
 				new Construction ("Physic Alterators", 8, 1.15f, false, 25),
 				new Construction ("Empty", 9, 1.15f, false, 25),
 				new Construction ("Empty", 10, 1.15f, false, 25)
+			},
+			new List<Upgrade> {
+
 			},
 			new List<Ability>() {
 				//Insert abilities here
@@ -615,8 +636,8 @@ public static class WordsLists {
 	#region PointerUpgrades
 
 	public static List<Upgrade> listOfPointerUpgrades = new List<Upgrade>  {
-		new PointerBase ("Pointer Base Reward", "Doubles each click base reward."),
-		new PointerMultiplier ("Pointer Reward Multiplier", "Double the click reward multiplier.")
+		new UPointerBase ("Pointer Base Reward", "Doubles each click base reward."),
+		new UPointerMultiplier ("Pointer Reward Multiplier", "Double the click reward multiplier.")
 	};
 
 	#endregion
@@ -624,8 +645,8 @@ public static class WordsLists {
 	#region ManaUpgrades
 
 	public static List<Upgrade> listOfManaUpgrades = new List<Upgrade>  {
-		new MaxMana ("Maximum Mana", "Adds 50 to your maximum mana."),
-		new ManaRegen ("Mana Regeneration", "Adds 0.5 to you mana regeneration rate per second.")
+		new UMaxMana ("Maximum Mana", "Adds 50 to your maximum mana."),
+		new UManaRegen ("Mana Regeneration", "Adds 0.5 to you mana regeneration rate per second.")
 	};
 
 	#endregion
@@ -633,21 +654,29 @@ public static class WordsLists {
 	#region InvestorsUpgrades
 
 	public static List<Upgrade> listOfInvestorsUpgrades = new List<Upgrade>  {
-		new BonusPerInvestorUpgrade ("Bonus Per Investor", "Adds 1% to your bonus per investor."),
+		new UBonusPerInvestorUpgrade ("Bonus Per Investor", "Adds 1% to your bonus per investor."),
 	};
 
 	#endregion
 
 	#region Achievements
 
-	public static Achievement[] listOfWealthAchievements = new Achievement[]  {
-		new AMoneyPerSecond("Money per second", "Your highest achieved income.", true, new double[] { 0, 5, 30, 100, 200, 1000 }),
-		new ATotalMoney("Total wealth", "Your highest achieved wealth.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
+	public static List<Achievement> listOfWealthAchievements = new List<Achievement>  {
+		new AMoneyPerSecond("Money per second", "Your highest achieved income.", true, new double[] { 0, 10, 30, 100, 200, 1000 }),
+		new ATotalMoney("Total wealth", "Your highest achieved wealth.", true, new double[] { 0, 5, 10, 15, 20, 25 })
 	};
 
-	public static Achievement[] listOfTimeAchievements = new Achievement[]  {
-		new ALongestSession("Longest playing session", "Your longest achieved playing session.", true, new double[] { 0, 10, 30, 100, 200, 1000 }),
-		new ATotalTime("Total time", "Your total time spent playing the game.", true, new double[] { 0, 10, 50, 500, 5000, 50000 })
+	public static List<Achievement> listOfTimeAchievements = new List<Achievement>  {
+		new ALongestSession("Longest playing session", "Your longest achieved playing session.", true, new double[] { 0, 15, 30, 100, 200, 1000 }),
+		new ATotalTime("Total time", "Your total time spent playing the game.", true, new double[] { 0, 25, 50, 500, 5000, 50000 })
+	};
+
+	public static List<Achievement> listOfConstructionsAchievements = new List<Achievement>  {
+		new AConstructionsNumber("Number of constructions", "How many constructions you've built.", true, new double [] { 5, 10, 15 })
+	};
+
+	public static List<Achievement> listOfUpgradesAchievements = new List<Achievement>  {
+		new AUpgradesNumber("Number of upgrades", "How many upgrades you've bought.", true, new double [] { 5, 10, 15 })
 	};
 
 	#endregion

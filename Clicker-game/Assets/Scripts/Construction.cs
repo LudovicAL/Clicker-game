@@ -68,7 +68,7 @@ public class Construction {
 			AddNConstructions(numberOfConstructionsToBuild);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
 			dm.CalculateTotalFarmingReward ();
-			dm.CalculateCurrentTotalNumberOfConstruction ();
+			dm.CalculateCurrentTotalNumberOfConstructions ();
 			foreach (Construction c in PersistentData.listOfConstructions) {
 				c.CalculateContribution ();
 				c.UpdateButtonDisplayedContribution ();
