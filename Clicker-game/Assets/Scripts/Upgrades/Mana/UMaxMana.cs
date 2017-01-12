@@ -8,7 +8,7 @@ public class UMaxMana : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.maxMana += 50;
+		PersistentData.maxMana = 100 + ((float)currentLevel * 50);
 		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 	}
 

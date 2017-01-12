@@ -8,7 +8,7 @@ public class UBonusPerInvestorUpgrade : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.bonusPerInvestor += 0.01f;
+		PersistentData.bonusPerInvestor = 0.01f + ((float)currentLevel * 0.01f);
 		scriptsBucket.GetComponent<InvestorsPanel> ().UpdateInvestorsData ();
 		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 	}

@@ -109,7 +109,6 @@ public static class PersistentData {
 			for (int i = 0, max = listOfConstructions.Count; i < max; i++) {
 				if (listOfConstructions[i] != null) {
 					listOfConstructions [i].AddNConstructions(storedData.constructionsQuantities [i] - listOfConstructions [i].quantity);
-					listOfConstructions [i].AddNUpgrades(storedData.constructionsUpgradesLevels [i] - listOfConstructions [i].upgradeLevel);
 				}
 			}
 			CommonTools.UpdateNumbersNotations ();

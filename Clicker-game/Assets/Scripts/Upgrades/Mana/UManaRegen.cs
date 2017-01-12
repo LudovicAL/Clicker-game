@@ -8,7 +8,7 @@ public class UManaRegen : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.manaRegenRate += 0.5f;
+		PersistentData.manaRegenRate = 1.0f + ((float)currentLevel * 0.5f);
 		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 	}
 

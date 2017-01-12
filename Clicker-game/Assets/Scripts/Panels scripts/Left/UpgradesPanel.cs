@@ -13,7 +13,7 @@ public class UpgradesPanel : MonoBehaviour {
 
 	public GameObject thisPanel;
 	public GameObject panelRaces;
-	public GameObject panelConstructionUpgrades;
+	public GameObject panelConstructionsUpgrades;
 	public GameObject panelPointerUpgrades;
 	public GameObject panelManaUpgrades;
 	public GameObject panelInvestorsUpgrades;
@@ -26,7 +26,7 @@ public class UpgradesPanel : MonoBehaviour {
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
 		SetPanelState (AvailablePanelStates.Playing);
 		UpdateUpgradeButtons (PersistentData.listOfRacesUpgrades, panelRaces);
-		UpdateConstructionsUpgradesButtons ();
+		UpdateUpgradeButtons (PersistentData.listOfConstructionsUpgrades, panelConstructionsUpgrades);
 		UpdateUpgradeButtons (PersistentData.listOfPointerUpgrades, panelPointerUpgrades);
 		UpdateUpgradeButtons (PersistentData.listOfManaUpgrades, panelManaUpgrades);
 		UpdateUpgradeButtons (PersistentData.listOfInvestorsUpgrades, panelInvestorsUpgrades);
@@ -35,12 +35,11 @@ public class UpgradesPanel : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			foreach (Construction c in PersistentData.listOfConstructions) {
-				if (c.constructionAvailability) {
-					c.upgradeButton.interactable = c.CanAffordUpgrade ();
-				}
-			}
 			foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+				u.UpdateButtonAvailability ();
+				u.UpdateButtonInteractivity ();
+			}
+			foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
@@ -93,39 +92,6 @@ public class UpgradesPanel : MonoBehaviour {
 			EventTrigger.Entry entryA = new EventTrigger.Entry();
 			entryA.eventID = EventTriggerType.PointerEnter;
 			entryA.callback.AddListener ((data) => { u.OnMouseOver(this.GetComponent<ToolTip>()); });
-			trigger.triggers.Add (entryA);
-			//OnMouseExit
-			EventTrigger.Entry entryB = new EventTrigger.Entry();
-			entryB.eventID = EventTriggerType.PointerExit;
-			entryB.callback.AddListener ((data) => { OnMouseExitUpgradeButton(); });
-			trigger.triggers.Add (entryB);
-		}
-	}
-
-	#endregion
-
-	#region ConstructionUpgradesButtons
-
-	//Deletes all previously existing buttons, creates new ones and updates their display
-	public void UpdateConstructionsUpgradesButtons() {
-		for (int i = panelConstructionUpgrades.transform.childCount; i > 0; i--) {
-			GameObject.Destroy (panelConstructionUpgrades.transform.GetChild (i - 1).gameObject);
-		}
-		foreach (Construction c in PersistentData.listOfConstructions) {
-			GameObject go = (GameObject)Instantiate (upgradeButtonPrefab, panelConstructionUpgrades.transform, false);
-			Button b = go.GetComponent<Button> ();
-			c.upgradeButton = b;
-			c.UpdateUpgradeButtonAvailability ();
-			c.UpdateUpgradeButtonImage ();
-			//OnClick
-			b.onClick.AddListener(delegate() { c.BuyUpgrade(this.GetComponent<DataManager>()); });
-			b.onClick.AddListener(delegate() { OnMouseExitUpgradeButton (); });
-			b.onClick.AddListener(delegate() { Update (); });
-			//OnMouseEnter
-			EventTrigger trigger = go.GetComponent<EventTrigger> ();
-			EventTrigger.Entry entryA = new EventTrigger.Entry();
-			entryA.eventID = EventTriggerType.PointerEnter;
-			entryA.callback.AddListener ((data) => { c.OnMouseOverUpgradeButton(this.GetComponent<ToolTip> ()); });
 			trigger.triggers.Add (entryA);
 			//OnMouseExit
 			EventTrigger.Entry entryB = new EventTrigger.Entry();

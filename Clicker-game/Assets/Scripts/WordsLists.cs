@@ -342,12 +342,14 @@ public static class WordsLists {
 	        "No race",
 	        "No description",
 			new List<Construction> {
-				new Construction ("Shovels", 1, 1.15f, true, 25),
-				new Construction ("Pickaxes", 2, 1.15f, true, 25),
-				new Construction ("Jack Hammers", 3, 1.15f, true, 25)
+				new Construction ("Shovels", 1, 1.15f, true, 2),
+				new Construction ("Pickaxes", 2, 1.15f, true, 2),
+				new Construction ("Jack Hammers", 3, 1.15f, true, 2)
 			},
 			new List<Upgrade> {
-				
+				new UConstruction("Shovels", "Doubles every shovel production.", 1),
+				new UConstruction("Pickaxes", "Doubles every pickaxe production.", 2),
+				new UConstruction("Jack Hammers", "Doubles every jack hammer production.", 3)
 			},
 			new List<Ability>()  {
 				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),

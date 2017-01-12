@@ -142,9 +142,11 @@ public class DataManager : MonoBehaviour {
 	public void Restart() {
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			c.AddNConstructions (-c.quantity);
-			c.AddNUpgrades (-c.upgradeLevel);
 		}
 		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+			u.AddNLevel (-u.currentLevel, this.gameObject);
+		}
+		foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
 		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {

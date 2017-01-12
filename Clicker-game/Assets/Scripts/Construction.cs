@@ -17,7 +17,7 @@ public class Construction {
 	public Button upgradeButton { get; set; }
 	public int upgradeLevel { get; private set; }
 	public double upgradeCost { get; private set; }
-	private int upgradesInterval;
+	public int upgradesInterval { get; private set; }
 
 	#region Constructor
 
@@ -36,7 +36,7 @@ public class Construction {
 		this.upgradeCost = 1;
 		this.constructionAvailability = constructionAvailability;
 		this.upgradesInterval = upgradesInterval;
-		Sprite[] constructionIcons = Resources.LoadAll<Sprite> ("ConstructionIcons");
+		Sprite[] constructionIcons = Resources.LoadAll<Sprite> ("ConstructionsIcons");
 		foreach (Sprite s in constructionIcons) {
 			if (string.Compare(s.name.ToString(), name) == 0) {
 				this.icon = s;
@@ -58,7 +58,6 @@ public class Construction {
 		CalculateCostForNCopiesOfThisConstruction ();
 		CalculateProduction ();
 		UpdateButtonDisplayedQuantity ();
-		UpdateUpgradeButtonAvailability ();
 	}
 
 	//Buys a construction
@@ -116,46 +115,6 @@ public class Construction {
 				)
 			)
 		);
-	}
-
-	#endregion
-
-	#region Upgrade
-
-	//Buys an upgrade
-	public void BuyUpgrade(DataManager dm) {
-		if (CanAffordUpgrade()) {
-			PersistentData.storedData.currentMoney -= upgradeCost;
-			AddNUpgrades(1);
-			//Not all calculations are performed here, but rather only those that effect every button due to the change
-			dm.CalculateTotalFarmingReward ();
-			foreach (Construction c in PersistentData.listOfConstructions) {
-				c.CalculateContribution ();
-				c.UpdateButtonDisplayedContribution ();
-				c.UpdateButtonDisplayedCost ();
-			}
-		}
-	}
-
-	//Add N upgrades to those already possessed
-	public void AddNUpgrades(int numberOfUpgradesToAdd) {
-		upgradeLevel += numberOfUpgradesToAdd;
-		PersistentData.storedData.constructionsUpgradesLevels [id - 1] = upgradeLevel;
-		//Not all required calculations are performed here, but rather only those that effect this construction alone
-		CalculateNextUpgradeCost ();
-		CalculateProduction ();
-		UpdateUpgradeButtonColor ();
-		UpdateUpgradeButtonAvailability ();
-	}
-		
-	//Calculates the cost of the next upgrade
-	public void CalculateNextUpgradeCost() {
-		upgradeCost = (double)((upgradeLevel + 1) * id);
-	}
-
-	//Returns true if the player can afford the construction upgrade
-	public bool CanAffordUpgrade() {
-		return (PersistentData.storedData.currentMoney >= upgradeCost);
 	}
 
 	#endregion
@@ -242,57 +201,6 @@ public class Construction {
 
 	#endregion
 
-	#region Upgrade Button
-
-	//Updates the upgrade button availability
-	public void UpdateUpgradeButtonAvailability() {
-		if (upgradeButton != null) {
-			if (constructionAvailability) {
-				upgradeButton.gameObject.SetActive(quantity >= ((upgradeLevel + 1) * upgradesInterval));
-			} else {
-				upgradeButton.gameObject.SetActive(false);
-			}
-		}
-	}
-
-	//Updates the upgrade button image color
-	private void UpdateUpgradeButtonColor() {
-		if (upgradeButton != null) {
-			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
-			foreach (Image i in imageComponentsArray) {
-				if (i.gameObject.CompareTag("Plus")) {
-					i.GetComponent<Image> ().color = WordsLists.upgradesColors [upgradeLevel];
-					break;
-				}
-			}
-		}
-	}
-
-	//Updates the upgrade button's image
-	public void UpdateUpgradeButtonImage() {
-		if (upgradeButton != null) {
-			Component[] imageComponentsArray = upgradeButton.GetComponentsInChildren<Image> ();
-			foreach (Image i in imageComponentsArray) {
-				if (i.gameObject.CompareTag("Image")) {
-					i.GetComponent<Image> ().sprite = icon;
-					break;
-				}
-			}
-		}
-	}
-
-	//When the mouse hover over the upgrade button
-	public void OnMouseOverUpgradeButton(ToolTip tt) {
-		tt.TurnToolTipOn (
-			upgradeButton.gameObject,
-			WordsLists.upgradesAdjectives[upgradeLevel] + name,
-			CommonTools.DoubleToString(upgradeCost) + " $",
-			name + " production is doubled."
-		);
-	}
-
-	#endregion
-
 	#region OtherCalulations
 
 	//Calculates the amount of money produced by this construction per second
@@ -301,7 +209,7 @@ public class Construction {
 	}
 
 	//Calculates the contribution of this specific constructions among all constructions
-	private void CalculateContribution() {
+	public void CalculateContribution() {
 		if (PersistentData.farmingRewardFromConstructions != 0) {
 			contribution = (float)(production / PersistentData.farmingRewardFromConstructions);
 		}

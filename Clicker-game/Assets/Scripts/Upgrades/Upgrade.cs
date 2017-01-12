@@ -22,6 +22,15 @@ public abstract class Upgrade {
 				break;
 			}
 		}
+		if (this.icon == null) {
+			raceIcons = Resources.LoadAll<Sprite> ("ConstructionsIcons");
+			foreach (Sprite s in raceIcons) {
+				if (string.Compare(s.name.ToString(), name) == 0) {
+					this.icon = s;
+					break;
+				}
+			}
+		}
 	}
 
 	public bool CanAffordUpgrade() {
