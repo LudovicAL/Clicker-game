@@ -349,6 +349,7 @@ public static class WordsLists {
 			new List<Ability>()  {
 				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),
 			},
+			0,
 			0
 	    ),
 		new Race (
@@ -366,7 +367,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			50
+			50,
+			0
 	    ),
 		new Race (
 			"Martians",
@@ -383,7 +385,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			100
+			100,
+			0
 		),
 		new Race (
 			"Venusians",
@@ -400,7 +403,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			100
+			100,
+			0
 		),
 		new Race (
 			"Outer Space Civilization",
@@ -417,7 +421,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			200
+			200,
+			0
 		),
 		new Race (
 			"Robots",
@@ -434,7 +439,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			300
+			300,
+			0
 		),
 		new Race (
 			"Etheral Beings",
@@ -451,7 +457,8 @@ public static class WordsLists {
 			new List<Ability>() {
 				//Insert abilities here
 			},
-			400
+			400,
+			0
 		)
 	};
 
@@ -619,6 +626,14 @@ public static class WordsLists {
 	public static List<Upgrade> listOfManaUpgrades = new List<Upgrade>  {
 		new MaxMana ("Maximum Mana", "Adds 50 to your maximum mana."),
 		new ManaRegen ("Mana Regeneration", "Adds 0.5 to you mana regeneration rate per second.")
+	};
+
+	#endregion
+
+	#region InvestorsUpgrades
+
+	public static List<Upgrade> listOfInvestorsUpgrades = new List<Upgrade>  {
+		new BonusPerInvestorUpgrade ("Bonus per investor", "Adds 1% to your bonus per investor."),
 	};
 
 	#endregion

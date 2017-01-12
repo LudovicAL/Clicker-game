@@ -64,8 +64,8 @@ public class DataManager : MonoBehaviour {
 	//Calculates the total clicking reward (and the base clicking reward and clicking multiplier in the process)
 	public void CalculateTotalClickingReward() {
 		PersistentData.baseClickingReward = Mathf.Exp(PersistentData.listOfPointerUpgrades[0].currentLevel);
-		PersistentData.clickingMultiplier = (PersistentData.listOfPointerUpgrades[1].currentLevel + 1);
-		PersistentData.storedData.totalClickingReward = PersistentData.baseClickingReward * PersistentData.clickingMultiplier;
+		PersistentData.clickingMultiplier = (float)(PersistentData.listOfPointerUpgrades[1].currentLevel + (PersistentData.storedData.currentInvestors * PersistentData.bonusPerInvestor) + 1);
+		PersistentData.storedData.totalClickingReward = PersistentData.baseClickingReward * (double)PersistentData.clickingMultiplier;
 	}
 
 	#endregion
@@ -78,7 +78,7 @@ public class DataManager : MonoBehaviour {
 		foreach (Construction c in PersistentData.listOfConstructions) {
 			PersistentData.farmingRewardFromConstructions += c.production; 
 		}
-		PersistentData.storedData.totalFarmingReward = PersistentData.farmingRewardFromConstructions;
+		PersistentData.storedData.totalFarmingReward = PersistentData.farmingRewardFromConstructions * (PersistentData.storedData.currentInvestors * (double)PersistentData.bonusPerInvestor + 1);
 		if (PersistentData.storedData.totalFarmingReward > PersistentData.storedData.highestTotalFarmingReward) {
 			PersistentData.storedData.highestTotalFarmingReward = PersistentData.storedData.totalFarmingReward;
 		}

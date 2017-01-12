@@ -12,6 +12,7 @@ public class InvestorsPanel : MonoBehaviour {
 
 	public GameObject thisPanel;
 	public Text currentInvestors;
+	public Text bonusPerInvestor;
 	public Text potentialInvestors;
 	private AvailablePanelStates panelState;
 
@@ -23,7 +24,7 @@ public class InvestorsPanel : MonoBehaviour {
 	
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			UpdatePotentialInvestors();
+			UpdateInvestorsData();
 		}
 	}
 
@@ -40,9 +41,10 @@ public class InvestorsPanel : MonoBehaviour {
 	}
 
 	//Updates the number of potential investors
-	public void UpdatePotentialInvestors() {
+	public void UpdateInvestorsData() {
 		PersistentData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (PersistentData.storedData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
 		potentialInvestors.text = CommonTools.DoubleToString(PersistentData.potentialInvestors);
+		bonusPerInvestor.text = PersistentData.bonusPerInvestor.ToString ("p0");
 	}
 
 	//When the user clicks expand

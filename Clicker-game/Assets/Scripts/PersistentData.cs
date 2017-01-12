@@ -13,12 +13,14 @@ public static class PersistentData {
 
 	//INVESTORS
 	public static double potentialInvestors = 0;
+	public static float bonusPerInvestor = 0.01f;
+	public static List<Upgrade> listOfInvestorsUpgrades = WordsLists.listOfInvestorsUpgrades;
 
 	//PLANET
 
 	//CLICKING
 	public static double baseClickingReward = 1;
-	public static int clickingMultiplier = 1;
+	public static float clickingMultiplier = 1;
 	public static double currentNumberOfClicks = 0;
 
 	//FARMING

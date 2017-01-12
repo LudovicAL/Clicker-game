@@ -6,7 +6,7 @@ public abstract class Upgrade {
 	public string description { get; protected set; }
 	public int currentLevel { get; protected  set; }
 	public double costOfNextLevel { get; protected set; }
-	public double costOfAvailibility { get; protected set; }
+	public double costOfAvailability { get; protected set; }
 	public Button uButton { get; set; }
 	public Sprite icon { get; set; }
 
