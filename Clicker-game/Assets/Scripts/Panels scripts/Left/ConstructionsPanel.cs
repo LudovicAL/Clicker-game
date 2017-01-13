@@ -23,11 +23,9 @@ public class ConstructionsPanel : MonoBehaviour {
 	void Update () {
 		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
 			foreach (Construction c in PersistentData.listOfConstructions) {
-				if (c.constructionAvailability) {
-					c.CalculateNumberOfConstructionsToBuild ();
-					c.UpdateButtonDisplayedCost ();
-					c.constructionButton.interactable = c.CanAffordConstruction();
-				}
+				c.CalculateNumberOfConstructionsToBuild ();
+				c.UpdateButtonDisplayedCost ();
+				c.constructionButton.interactable = c.CanAffordConstruction();
 			}
 		}
 	}
@@ -55,7 +53,6 @@ public class ConstructionsPanel : MonoBehaviour {
 			b.onClick.AddListener(delegate() { c.BuyConstruction(this.GetComponent<DataManager>()); });
 			b.onClick.AddListener(delegate() { Update(); });
 			c.constructionButton = b;
-			c.UpdateConstructionButtonAvailability ();
 			c.UpdateButtonDisplayedName ();
 			c.UpdateButtonDisplayedCost ();
 			c.UpdateButtonDisplayedQuantity ();

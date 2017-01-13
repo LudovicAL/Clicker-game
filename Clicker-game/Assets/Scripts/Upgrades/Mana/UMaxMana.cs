@@ -6,6 +6,11 @@ public class UMaxMana : Upgrade {
 
 	}
 
+	//Returns the upgrade description
+	public override string getName() {
+		return name;
+	}
+
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.maxMana = 100 + ((float)currentLevel * 50);

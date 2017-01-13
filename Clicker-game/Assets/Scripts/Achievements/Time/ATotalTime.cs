@@ -8,9 +8,9 @@ public class ATotalTime : Achievement {
 	}
 
 	//Updates the achievement progress and display
-	public override void UpdateAchievement() {
+	public override void UpdateAchievement(GameObject scriptsBucket) {
 		currentValue = PersistentData.storedData.totalTimeSpentPlaying.TotalSeconds;
-		CalculateCurrentLevel ();
+		CalculateCurrentLevel (scriptsBucket);
 		CalculateProgress ();
 		UpdateProgressBar ();
 	}

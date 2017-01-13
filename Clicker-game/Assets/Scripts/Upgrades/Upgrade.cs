@@ -94,13 +94,16 @@ public abstract class Upgrade {
 	public void OnMouseOver(ToolTip tt) {
 		tt.TurnToolTipOn (
 			uButton.gameObject,
-			name,
+			getName(),
 			"Lvl " + (currentLevel + 1).ToString(),
 			description,
 			"Cost:",
 			CommonTools.DoubleToString(costOfNextLevel) + " $"
 		);
 	}
+
+	//Returns the upgrade name
+	public abstract string getName();
 
 	//Is the upgrade available
 	public abstract bool IsUpgradeAvailable();

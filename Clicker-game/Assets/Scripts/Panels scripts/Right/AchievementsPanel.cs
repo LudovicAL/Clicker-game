@@ -57,7 +57,7 @@ public class AchievementsPanel : MonoBehaviour {
 			GameObject go = (GameObject)Instantiate (achievementPanelPrefab, aPanel.transform, false);
 			a.aPanel = go;
 			a.aProgressBar = go.transform.GetChild (0).GetChild (0).gameObject.GetComponent<Image>();
-			a.UpdateAchievement ();
+			a.UpdateAchievement (this.gameObject);
 			//OnMouseEnter
 			EventTrigger trigger = go.GetComponent<EventTrigger> ();
 			EventTrigger.Entry entryA = new EventTrigger.Entry();
@@ -75,7 +75,7 @@ public class AchievementsPanel : MonoBehaviour {
 	//Updates every achievements in a given list
 	public void CheckAchievementsInList<T>(List<T> achievementsList) where T : Achievement {
 		foreach(Achievement a in achievementsList) {
-			a.UpdateAchievement ();
+			a.UpdateAchievement (this.gameObject);
 		}
 	}
 

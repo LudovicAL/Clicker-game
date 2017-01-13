@@ -6,6 +6,11 @@ public class UPointerBase : Upgrade {
 
 	}
 
+	//Returns the upgrade description
+	public override string getName() {
+		return name;
+	}
+
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.baseClickingReward = currentLevel;

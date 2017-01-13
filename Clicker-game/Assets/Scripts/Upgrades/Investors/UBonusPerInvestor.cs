@@ -6,6 +6,11 @@ public class UBonusPerInvestorUpgrade : Upgrade {
 
 	}
 
+	//Returns the upgrade description
+	public override string getName() {
+		return name;
+	}
+
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.bonusPerInvestor = 0.01f + ((float)currentLevel * 0.01f);

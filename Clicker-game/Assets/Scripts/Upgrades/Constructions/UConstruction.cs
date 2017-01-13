@@ -5,9 +5,14 @@ public class UConstruction : Upgrade {
 	public int id { get; private set; }
 	public int upgradeInterval { get; private set; }
 
-	public UConstruction(string name, string description, int id, int upgradeInvterval): base (name, description) {
+	public UConstruction(string name, string description, int id, int upgradeInterval): base (name, description) {
 		this.id = id;
 		this.upgradeInterval = upgradeInterval;
+	}
+
+	//Returns the upgrade description
+	public override string getName() {
+		return WordsLists.upgradesAdjectives[currentLevel] + " " + name;
 	}
 
 	//Applies the upgrade effect

@@ -6,7 +6,6 @@ public class Construction {
 	public string name { get; private set; }
 	public int quantity { get; private set; }
 	public double constructionCost { get; private set; }
-	public bool constructionAvailability { get; set; }
 	public double production { get; private set; }
 	public float contribution { get; private set; }
 	private int numberOfConstructionsToBuild;
@@ -16,7 +15,7 @@ public class Construction {
 
 	#region Constructor
 
-	public Construction(string name, int id, float constructionCostModifier, bool constructionAvailability) {
+	public Construction(string name, int id, float constructionCostModifier) {
 		this.name = name;
 		this.quantity = 0;
 		this.id = id;
@@ -26,7 +25,6 @@ public class Construction {
 		this.numberOfConstructionsToBuild = 0;
 		this.constructionCost = 1;
 		this.production = 0;
-		this.constructionAvailability = constructionAvailability;
 		Sprite[] constructionIcons = Resources.LoadAll<Sprite> ("ConstructionsIcons");
 		foreach (Sprite s in constructionIcons) {
 			if (string.Compare(s.name.ToString(), name) == 0) {
@@ -79,13 +77,13 @@ public class Construction {
 	//Calculates the cost to build one copy of this construction
 	//A * C ^ B  ... Where A = id, B = quantity, C = costModifier
 	private double CalculateCostForOne() {
-		return System.Math.Pow(id + 1, constructionCostModifier + 4) * System.Math.Pow(constructionCostModifier, quantity);
+		return System.Math.Floor(System.Math.Pow(id + 1, constructionCostModifier + 4) * System.Math.Pow(constructionCostModifier, quantity));
 	}
 
 	//Calculates the cost to build N copies of this construction
 	//((costForOne * ((C ^ N) - 1)) / (C - 1) ... Where C = costModifier, N = N
 	public void CalculateCostForNCopiesOfThisConstruction() {
-		constructionCost = (CalculateCostForOne() * ((System.Math.Pow(constructionCostModifier, numberOfConstructionsToBuild)) - 1))/(constructionCostModifier - 1);
+		constructionCost = System.Math.Floor((CalculateCostForOne() * ((System.Math.Pow(constructionCostModifier, numberOfConstructionsToBuild)) - 1))/(constructionCostModifier - 1));
 	}
 
 	//Returns the maximum number of copies of this construction the player can afford at the moment with his current money
@@ -111,13 +109,6 @@ public class Construction {
 	#endregion
 
 	#region Construction Button
-
-	//Updates the construction button Active state
-	public void UpdateConstructionButtonAvailability() {
-		if (constructionButton != null) {
-			constructionButton.gameObject.SetActive (constructionAvailability);
-		}
-	}
 
 	//Updates the button displaying the cost of the next copies of this construction
 	public void UpdateButtonDisplayedCost() {

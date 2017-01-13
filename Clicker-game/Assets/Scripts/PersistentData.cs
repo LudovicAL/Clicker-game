@@ -60,6 +60,13 @@ public static class PersistentData {
 	public static List<Achievement> listOfTimeAchievements = WordsLists.listOfTimeAchievements;
 	public static List<Achievement> listOfConstructionsAchievements = WordsLists.listOfConstructionsAchievements;
 	public static List<Achievement> listOfUpgradesAchievements = WordsLists.listOfUpgradesAchievements;
+	public static List<List<Achievement>> listOfListOfAchievements = new List<List<Achievement>> {
+		listOfWealthAchievements,
+		listOfTimeAchievements,
+		listOfConstructionsAchievements,
+		listOfUpgradesAchievements
+	};
+	public static int currentTotalNumberOfAchievements = 0;
 
 	//NOTIFICATIONS
 	public static List<Achievement> notificationList = new List<Achievement> ();

@@ -99,6 +99,16 @@ public class DataManager : MonoBehaviour {
 		}
 	}
 
+	public void CalculateCurrentTotalNumberOfAchievements() {
+		int total = 0;
+		foreach (List<Achievement> la in PersistentData.listOfListOfAchievements) {
+			foreach (Achievement a in la) {
+				total += a.currentLevel;
+			}
+		}
+		PersistentData.currentTotalNumberOfAchievements = total;
+	}
+
 	//Calculates the current total number of upgrades
 	public void CalculateCurrentTotalNumberOfUpgrades() {
 		int total = 0;

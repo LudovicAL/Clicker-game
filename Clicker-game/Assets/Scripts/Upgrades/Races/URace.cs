@@ -14,9 +14,20 @@ public class URace : Upgrade {
 		this.costOfAvailability = costOfAvailability;
 	}
 
+	//Returns the upgrade description
+	public override string getName() {
+		return name;
+	}
+
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		PersistentData.currentRace = this;
+		PersistentData.listOfConstructions.AddRange (constructions);
+		PersistentData.listOfConstructionsUpgrades.AddRange (upgrades);
+		PersistentData.listOfAbilities.AddRange (abilities);
+		scriptsBucket.GetComponent<ConstructionsPanel> ().UpdateConstructionButtons ();
+		scriptsBucket.GetComponent<UpgradesPanel> ().UpdateUpgradeButtons (PersistentData.listOfConstructionsUpgrades, scriptsBucket.GetComponent<UpgradesPanel> ().panelConstructionsUpgrades);
+		scriptsBucket.GetComponent<AbilitiesPanel> ().UpdateAbilityButtons ();
 		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
 	}
 

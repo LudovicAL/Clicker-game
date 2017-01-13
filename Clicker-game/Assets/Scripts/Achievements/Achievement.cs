@@ -33,10 +33,11 @@ public abstract class Achievement {
 	}
 
 	//Calculates the current achievement level
-	public void CalculateCurrentLevel() {
+	public void CalculateCurrentLevel(GameObject scriptsBucket) {
 		for (int i = currentLevel, max = valuesTable.Length - 1; i < max; i++) {
 			if (currentValue > valuesTable[i + 1]) {
 				currentLevel = i + 1;
+				scriptsBucket.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfAchievements ();
 				if (PersistentData.storedData.achievementsNotifications && !PersistentData.notificationList.Contains(this)) {
 					PersistentData.notificationList.Add (this);
 				}
@@ -57,5 +58,5 @@ public abstract class Achievement {
 	}
 
 	//Updates the achievement progress and display
-	public abstract void UpdateAchievement();
+	public abstract void UpdateAchievement(GameObject scriptsBucket);
 }
