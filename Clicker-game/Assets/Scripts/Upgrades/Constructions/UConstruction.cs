@@ -3,9 +3,11 @@
 public class UConstruction : Upgrade {
 
 	public int id { get; private set; }
+	public int upgradeInterval { get; private set; }
 
-	public UConstruction(string name, string description, int id): base (name, description) {
+	public UConstruction(string name, string description, int id, int upgradeInvterval): base (name, description) {
 		this.id = id;
+		this.upgradeInterval = upgradeInterval;
 	}
 
 	//Applies the upgrade effect
@@ -25,6 +27,6 @@ public class UConstruction : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		return (PersistentData.listOfConstructions[id - 1].quantity >= ((currentLevel + 1) * PersistentData.listOfConstructions[id - 1].upgradesInterval));
+		return (PersistentData.listOfConstructions[id - 1].quantity >= ((currentLevel + 1) * upgradeInterval));
 	}
 }

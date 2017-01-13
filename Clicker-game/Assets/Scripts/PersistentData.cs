@@ -87,7 +87,9 @@ public static class PersistentData {
 		storedData.timeAtLastSave = System.DateTime.Now;
 		for (int i = 0, max = listOfConstructions.Count; i < max; i++) {
 			storedData.constructionsQuantities[i] = listOfConstructions [i].quantity;
-			storedData.constructionsUpgradesLevels[i] = listOfConstructions [i].upgradeLevel;
+		}
+		for (int i = 0, max = listOfConstructionsUpgrades.Count; i < max; i++) {
+			storedData.constructionsUpgradesLevels[i] = listOfConstructionsUpgrades [i].currentLevel;
 		}
 		bf.Serialize (file, storedData);
 		file.Close ();
@@ -97,7 +99,7 @@ public static class PersistentData {
 
 	#region LoadData
 
-	public static void LoadData() {
+	public static void LoadData(GameObject scriptsBucket) {
 		if (!System.IO.File.Exists(Application.persistentDataPath + "/storedGameData.dat")) {
 			SaveData ();
 		} else {
@@ -107,9 +109,10 @@ public static class PersistentData {
 			file.Close ();
 			timeSinceLastSave = System.DateTime.Now - storedData.timeAtLastSave;
 			for (int i = 0, max = listOfConstructions.Count; i < max; i++) {
-				if (listOfConstructions[i] != null) {
-					listOfConstructions [i].AddNConstructions(storedData.constructionsQuantities [i] - listOfConstructions [i].quantity);
-				}
+				listOfConstructions [i].AddNConstructions(storedData.constructionsQuantities [i] - listOfConstructions [i].quantity);
+			}
+			for (int i = 0, max = listOfConstructionsUpgrades.Count; i < max; i++) {
+				listOfConstructionsUpgrades [i].AddNLevel(storedData.constructionsUpgradesLevels [i] - listOfConstructionsUpgrades [i].currentLevel, scriptsBucket);
 			}
 			CommonTools.UpdateNumbersNotations ();
 		}

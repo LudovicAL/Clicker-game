@@ -342,14 +342,14 @@ public static class WordsLists {
 	        "No race",
 	        "No description",
 			new List<Construction> {
-				new Construction ("Shovels", 1, 1.15f, true, 2),
-				new Construction ("Pickaxes", 2, 1.15f, true, 2),
-				new Construction ("Jack Hammers", 3, 1.15f, true, 2)
+				new Construction ("Shovels", 1, 1.15f, true),
+				new Construction ("Pickaxes", 2, 1.15f, true),
+				new Construction ("Jack Hammers", 3, 1.15f, true)
 			},
 			new List<Upgrade> {
-				new UConstruction("Shovels", "Doubles every shovel production.", 1),
-				new UConstruction("Pickaxes", "Doubles every pickaxe production.", 2),
-				new UConstruction("Jack Hammers", "Doubles every jack hammer production.", 3)
+				new UConstruction("Shovels", "Doubles every shovel production.", 1, 2),
+				new UConstruction("Pickaxes", "Doubles every pickaxe production.", 2, 2),
+				new UConstruction("Jack Hammers", "Doubles every jack hammer production.", 3, 2)
 			},
 			new List<Ability>()  {
 				new DefaultAbility("Enhanced working effort", "Provide your workers with incentives to produce more.", 10.0f),
@@ -361,13 +361,13 @@ public static class WordsLists {
 	        "Humans",
 	        "Beings like you and me.",
 			new List<Construction> {
-				new Construction ("Metal detectors", 4, 1.15f, false, 25),
-				new Construction ("Excavators", 5, 1.15f, false, 25),
-				new Construction ("Dump trucks", 6, 1.15f, false, 25),
-				new Construction ("Conveyors", 7, 1.15f, false, 25),
-				new Construction ("Refineries", 8, 1.15f, false, 25),
-				new Construction ("Explosives", 9, 1.15f, false, 25),
-				new Construction ("Tunnel Borers", 10, 1.15f, false, 25)
+				new Construction ("Metal detectors", 4, 1.15f, false),
+				new Construction ("Excavators", 5, 1.15f, false),
+				new Construction ("Dump trucks", 6, 1.15f, false),
+				new Construction ("Conveyors", 7, 1.15f, false),
+				new Construction ("Refineries", 8, 1.15f, false),
+				new Construction ("Explosives", 9, 1.15f, false),
+				new Construction ("Tunnel Borers", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 
@@ -382,13 +382,13 @@ public static class WordsLists {
 			"Martians",
 			"Traders from planet Mars.",
 			new List<Construction> {
-				new Construction ("Cave Dwellers", 4, 1.15f, false, 25),
-				new Construction ("Solar Panels", 5, 1.15f, false, 25),
-				new Construction ("Air Filters", 6, 1.15f, false, 25),
-				new Construction ("Incinerators", 7, 1.15f, false, 25),
-				new Construction ("Motherships", 8, 1.15f, false, 25),
-				new Construction ("Alpha Canons", 9, 1.15f, false, 25),
-				new Construction ("Cyborgs", 10, 1.15f, false, 25)
+				new Construction ("Cave Dwellers", 4, 1.15f, false),
+				new Construction ("Solar Panels", 5, 1.15f, false),
+				new Construction ("Air Filters", 6, 1.15f, false),
+				new Construction ("Incinerators", 7, 1.15f, false),
+				new Construction ("Motherships", 8, 1.15f, false),
+				new Construction ("Alpha Canons", 9, 1.15f, false),
+				new Construction ("Cyborgs", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 
@@ -403,13 +403,13 @@ public static class WordsLists {
 			"Venusians",
 			"Contractors from planet Venus.",
 			new List<Construction> {
-				new Construction ("Troglodytes", 4, 1.15f, false, 25),
-				new Construction ("Water Turbines", 5, 1.15f, false, 25),
-				new Construction ("Dust Collectors", 6, 1.15f, false, 25),
-				new Construction ("Compressors", 7, 1.15f, false, 25),
-				new Construction ("Cargo Vessels", 8, 1.15f, false, 25),
-				new Construction ("Gamma Canons", 9, 1.15f, false, 25),
-				new Construction ("Space Elevators", 10, 1.15f, false, 25)
+				new Construction ("Troglodytes", 4, 1.15f, false),
+				new Construction ("Water Turbines", 5, 1.15f, false),
+				new Construction ("Dust Collectors", 6, 1.15f, false),
+				new Construction ("Compressors", 7, 1.15f, false),
+				new Construction ("Cargo Vessels", 8, 1.15f, false),
+				new Construction ("Gamma Canons", 9, 1.15f, false),
+				new Construction ("Space Elevators", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 
@@ -424,13 +424,13 @@ public static class WordsLists {
 			"Outer Space Civilization",
 			"Entrepreneurs from outer space.",
 			new List<Construction> {
-				new Construction ("Empty", 4, 1.15f, false, 25),
-				new Construction ("Fusion Reactors", 5, 1.15f, false, 25),
-				new Construction ("Empty", 6, 1.15f, false, 25),
-				new Construction ("Empty", 7, 1.15f, false, 25),
-				new Construction ("Quantic Excavators", 8, 1.15f, false, 25),
-				new Construction ("Pulse Canons", 9, 1.15f, false, 25),
-				new Construction ("Tractor Beams", 10, 1.15f, false, 25)
+				new Construction ("Empty", 4, 1.15f, false),
+				new Construction ("Fusion Reactors", 5, 1.15f, false),
+				new Construction ("Empty", 6, 1.15f, false),
+				new Construction ("Empty", 7, 1.15f, false),
+				new Construction ("Quantic Excavators", 8, 1.15f, false),
+				new Construction ("Pulse Canons", 9, 1.15f, false),
+				new Construction ("Tractor Beams", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 
@@ -445,13 +445,13 @@ public static class WordsLists {
 			"Robots",
 			"Unremitting robots working around the clock.",
 			new List<Construction> {
-				new Construction ("Hydrolic Arms", 4, 1.15f, false, 25),
-				new Construction ("Laser Eyes", 5, 1.15f, false, 25),
-				new Construction ("Space Conveyors", 6, 1.15f, false, 25),
-				new Construction ("Nuclear Reactors", 7, 1.15f, false, 25),
-				new Construction ("Microwaves Canons", 8, 1.15f, false, 25),
-				new Construction ("Planet Shredders", 9, 1.15f, false, 25),
-				new Construction ("Artificial Intelligences", 10, 1.15f, false, 25)
+				new Construction ("Hydrolic Arms", 4, 1.15f, false),
+				new Construction ("Laser Eyes", 5, 1.15f, false),
+				new Construction ("Space Conveyors", 6, 1.15f, false),
+				new Construction ("Nuclear Reactors", 7, 1.15f, false),
+				new Construction ("Microwaves Canons", 8, 1.15f, false),
+				new Construction ("Planet Shredders", 9, 1.15f, false),
+				new Construction ("Artificial Intelligences", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 
@@ -466,13 +466,13 @@ public static class WordsLists {
 			"Etheral Beings",
 			"Intagible beings with underfined objectives.",
 			new List<Construction> {
-				new Construction ("Soil Obliterators", 4, 1.15f, false, 25),
-				new Construction ("Black Matter Collectors", 5, 1.15f, false, 25),
-				new Construction ("Teleporters", 6, 1.15f, false, 25),
-				new Construction ("Gravitational Controlers", 7, 1.15f, false, 25),
-				new Construction ("Physic Alterators", 8, 1.15f, false, 25),
-				new Construction ("Empty", 9, 1.15f, false, 25),
-				new Construction ("Empty", 10, 1.15f, false, 25)
+				new Construction ("Soil Obliterators", 4, 1.15f, false),
+				new Construction ("Black Matter Collectors", 5, 1.15f, false),
+				new Construction ("Teleporters", 6, 1.15f, false),
+				new Construction ("Gravitational Controlers", 7, 1.15f, false),
+				new Construction ("Physic Alterators", 8, 1.15f, false),
+				new Construction ("Empty", 9, 1.15f, false),
+				new Construction ("Empty", 10, 1.15f, false)
 			},
 			new List<Upgrade> {
 

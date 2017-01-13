@@ -14,28 +14,19 @@ public class Construction {
 	public Sprite icon { get; set; }
 	public Button constructionButton { get; set; }
 
-	public Button upgradeButton { get; set; }
-	public int upgradeLevel { get; private set; }
-	public double upgradeCost { get; private set; }
-	public int upgradesInterval { get; private set; }
-
 	#region Constructor
 
-	public Construction(string name, int id, float constructionCostModifier, bool constructionAvailability, int upgradesInterval) {
+	public Construction(string name, int id, float constructionCostModifier, bool constructionAvailability) {
 		this.name = name;
 		this.quantity = 0;
 		this.id = id;
 		this.constructionButton = null;
-		this.upgradeButton = null;
 		this.constructionCostModifier = constructionCostModifier;
 		this.contribution = 0;
 		this.numberOfConstructionsToBuild = 0;
 		this.constructionCost = 1;
 		this.production = 0;
-		this.upgradeLevel = 0;
-		this.upgradeCost = 1;
 		this.constructionAvailability = constructionAvailability;
-		this.upgradesInterval = upgradesInterval;
 		Sprite[] constructionIcons = Resources.LoadAll<Sprite> ("ConstructionsIcons");
 		foreach (Sprite s in constructionIcons) {
 			if (string.Compare(s.name.ToString(), name) == 0) {
@@ -205,7 +196,7 @@ public class Construction {
 
 	//Calculates the amount of money produced by this construction per second
 	public void CalculateProduction() {
-		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(upgradeLevel));
+		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(PersistentData.listOfConstructionsUpgrades[id - 1].currentLevel));
 	}
 
 	//Calculates the contribution of this specific constructions among all constructions

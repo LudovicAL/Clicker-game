@@ -105,8 +105,8 @@ public class DataManager : MonoBehaviour {
 		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
 			total += u.currentLevel;
 		}
-		foreach (Construction c in PersistentData.listOfConstructions) {
-			total += c.upgradeLevel;
+		foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
+			total += u.currentLevel;
 		}
 		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
 			total += u.currentLevel;

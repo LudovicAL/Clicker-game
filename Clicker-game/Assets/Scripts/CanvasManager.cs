@@ -50,7 +50,7 @@ public class CanvasManager : MonoBehaviour {
 
 	//Load the saved game
 	public void OnLoadButtonClick() {
-		PersistentData.LoadData ();
+		PersistentData.LoadData (this.gameObject);
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
 		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
