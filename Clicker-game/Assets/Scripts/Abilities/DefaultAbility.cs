@@ -14,8 +14,8 @@ public class DefaultAbility : Ability {
 
 	//Uses the ability
 	public override void UseAbility() {
-		if (PersistentData.currentMana >= manaCost) {
-			PersistentData.currentMana -= manaCost;
+		if (StaticData.currentMana >= manaCost) {
+			StaticData.currentMana -= manaCost;
 			UpdateButtonInteractivity ();
 		}
 	}

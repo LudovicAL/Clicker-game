@@ -7,13 +7,8 @@ using UnityEngine.EventSystems;
 
 public class AchievementsPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 	public GameObject achievementPanelPrefab;
 	public GameObject panelWealthAchievements;
 	public GameObject panelTimeAchievements;
@@ -23,28 +18,28 @@ public class AchievementsPanel : MonoBehaviour {
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
-		UpdateAchievementPanels (PersistentData.listOfWealthAchievements, panelWealthAchievements);
-		UpdateAchievementPanels (PersistentData.listOfTimeAchievements, panelTimeAchievements);
-		UpdateAchievementPanels (PersistentData.listOfConstructionsAchievements, panelConstructionsAchievements);
-		UpdateAchievementPanels (PersistentData.listOfUpgradesAchievements, panelUpgradesAchievements);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
+		UpdateAchievementPanels (StaticData.listOfWealthAchievements, panelWealthAchievements);
+		UpdateAchievementPanels (StaticData.listOfTimeAchievements, panelTimeAchievements);
+		UpdateAchievementPanels (StaticData.listOfConstructionsAchievements, panelConstructionsAchievements);
+		UpdateAchievementPanels (StaticData.listOfUpgradesAchievements, panelUpgradesAchievements);
 	}
 
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			CheckAchievementsInList (PersistentData.listOfTimeAchievements);
+		if (panelState == StaticData.AvailableGameStates.Playing && thisPanel.activeSelf) {
+			CheckAchievementsInList (StaticData.listOfTimeAchievements);
 		}
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
@@ -81,15 +76,15 @@ public class AchievementsPanel : MonoBehaviour {
 
 	//When the mouse hover over a Wealth achieveent
 	public void OnMouseOverWealthAchievement(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {
-			PersistentData.listOfWealthAchievements [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
+		if (panelState == StaticData.AvailableGameStates.Playing) {
+			StaticData.listOfWealthAchievements [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
 		}
 	}
 
 	//When the mouse hover over an achieveent
 	public void OnMouseOverTimeAchievement(int buttonNo) {
-		if (panelState == AvailablePanelStates.Playing) {			
-			PersistentData.listOfTimeAchievements [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
+		if (panelState == StaticData.AvailableGameStates.Playing) {			
+			StaticData.listOfTimeAchievements [buttonNo].OnMouseOver (this.GetComponent<ToolTip> ());
 		}
 	}
 

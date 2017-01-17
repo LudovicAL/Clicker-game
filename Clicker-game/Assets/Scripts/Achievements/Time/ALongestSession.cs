@@ -9,7 +9,7 @@ public class ALongestSession : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement(GameObject scriptsBucket) {
-		currentValue = PersistentData.storedData.longestPlayingSession.TotalSeconds;
+		currentValue = StaticData.storedData.longestPlayingSession.TotalSeconds;
 		CalculateCurrentLevel (scriptsBucket);
 		CalculateProgress ();
 		UpdateProgressBar ();

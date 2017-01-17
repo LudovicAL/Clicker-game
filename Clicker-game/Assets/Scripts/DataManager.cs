@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour {
 	void Start () {
 		this.GetComponent<CanvasManager> ().OnLoadButtonClick ();
 		InvokeRepeating("TimedUpdate", 1.0f, 1.0f);
-		if (PersistentData.storedData.planetName.Length == 0) {
+		if (StaticData.storedData.planetName.Length == 0) {
 			this.GetComponent<MainPanel> ().RandomizePlanet ();
 		}
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
@@ -24,15 +24,15 @@ public class DataManager : MonoBehaviour {
 
 	//Launched every second
 	void TimedUpdate() {
-		AddMoney(PersistentData.storedData.totalFarmingReward);
-		AddMana (PersistentData.manaRegenRate);
+		AddMoney(StaticData.storedData.totalFarmingReward);
+		AddMana (StaticData.manaRegenRate);
 	}
 
 	#region ManaStuff
 
 	//Adds mana to the mana pool
 	public void AddMana(float manaToAdd) {
-		PersistentData.currentMana = System.Math.Min (PersistentData.currentMana + manaToAdd, PersistentData.maxMana);
+		StaticData.currentMana = System.Math.Min (StaticData.currentMana + manaToAdd, StaticData.maxMana);
 	}
 
 	#endregion
@@ -41,32 +41,32 @@ public class DataManager : MonoBehaviour {
 
 	//Adds money to the player current money
 	public void AddMoney(double moneyToAdd) {
-		PersistentData.storedData.currentMoney += moneyToAdd;
-		if (PersistentData.storedData.currentMoney > PersistentData.storedData.highestMoneyAchieved) {
-			PersistentData.storedData.highestMoneyAchieved = PersistentData.storedData.currentMoney;
-			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
+		StaticData.storedData.currentMoney += moneyToAdd;
+		if (StaticData.storedData.currentMoney > StaticData.storedData.highestMoneyAchieved) {
+			StaticData.storedData.highestMoneyAchieved = StaticData.storedData.currentMoney;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfWealthAchievements);
 		}
 	}
 
 	//Simulates a pointer click
 	public void AddClick() {
-		PersistentData.currentNumberOfClicks += 1;
-		PersistentData.storedData.totalNumberOfClicks += 1;
-		AddMoney(PersistentData.storedData.totalClickingReward);
+		StaticData.currentNumberOfClicks += 1;
+		StaticData.storedData.totalNumberOfClicks += 1;
+		AddMoney(StaticData.storedData.totalClickingReward);
 	}
 
 	//Simulates n pointer clicks
 	public void AddClicks(int numberOfClicks) {
-		PersistentData.currentNumberOfClicks += numberOfClicks;
-		PersistentData.storedData.totalNumberOfClicks += numberOfClicks;
-		AddMoney(PersistentData.storedData.totalClickingReward * numberOfClicks);
+		StaticData.currentNumberOfClicks += numberOfClicks;
+		StaticData.storedData.totalNumberOfClicks += numberOfClicks;
+		AddMoney(StaticData.storedData.totalClickingReward * numberOfClicks);
 	}
 
 	//Calculates the total clicking reward (and the base clicking reward and clicking multiplier in the process)
 	public void CalculateTotalClickingReward() {
-		PersistentData.baseClickingReward = Mathf.Exp(PersistentData.listOfPointerUpgrades[0].currentLevel);
-		PersistentData.clickingMultiplier = (float)(PersistentData.listOfPointerUpgrades[1].currentLevel + (PersistentData.storedData.currentInvestors * PersistentData.bonusPerInvestor) + 1);
-		PersistentData.storedData.totalClickingReward = PersistentData.baseClickingReward * (double)PersistentData.clickingMultiplier;
+		StaticData.baseClickingReward = Mathf.Exp(StaticData.listOfPointerUpgrades[0].currentLevel);
+		StaticData.clickingMultiplier = (float)(StaticData.listOfPointerUpgrades[1].currentLevel + (StaticData.storedData.currentInvestors * StaticData.bonusPerInvestor) + 1);
+		StaticData.storedData.totalClickingReward = StaticData.baseClickingReward * (double)StaticData.clickingMultiplier;
 	}
 
 	#endregion
@@ -75,62 +75,62 @@ public class DataManager : MonoBehaviour {
 
 	//Calculates the total farming reward
 	public void CalculateTotalFarmingReward() {
-		PersistentData.farmingRewardFromConstructions = 0;
-		foreach (Construction c in PersistentData.listOfConstructions) {
-			PersistentData.farmingRewardFromConstructions += c.production; 
+		StaticData.farmingRewardFromConstructions = 0;
+		foreach (Construction c in StaticData.listOfConstructions) {
+			StaticData.farmingRewardFromConstructions += c.production; 
 		}
-		PersistentData.storedData.totalFarmingReward = PersistentData.farmingRewardFromConstructions * (PersistentData.storedData.currentInvestors * (double)PersistentData.bonusPerInvestor + 1);
-		if (PersistentData.storedData.totalFarmingReward > PersistentData.storedData.highestTotalFarmingReward) {
-			PersistentData.storedData.highestTotalFarmingReward = PersistentData.storedData.totalFarmingReward;
-			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
+		StaticData.storedData.totalFarmingReward = StaticData.farmingRewardFromConstructions * (StaticData.storedData.currentInvestors * (double)StaticData.bonusPerInvestor + 1);
+		if (StaticData.storedData.totalFarmingReward > StaticData.storedData.highestTotalFarmingReward) {
+			StaticData.storedData.highestTotalFarmingReward = StaticData.storedData.totalFarmingReward;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfWealthAchievements);
 		}
 	}
 
 	//Calculates the current total number of construction
 	public void CalculateCurrentTotalNumberOfConstructions() {
 		int total = 0;
-		foreach (Construction c in PersistentData.listOfConstructions) {
+		foreach (Construction c in StaticData.listOfConstructions) {
 			total += c.quantity;
 		}
-		PersistentData.currentTotalNumberOfConstructions = total;
-		if (PersistentData.storedData.highestTotalNumberOfConstructionsAchieved < PersistentData.currentTotalNumberOfConstructions) {
-			PersistentData.storedData.highestTotalNumberOfConstructionsAchieved = PersistentData.currentTotalNumberOfConstructions;
-			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfConstructionsAchievements);
+		StaticData.currentTotalNumberOfConstructions = total;
+		if (StaticData.storedData.highestTotalNumberOfConstructionsAchieved < StaticData.currentTotalNumberOfConstructions) {
+			StaticData.storedData.highestTotalNumberOfConstructionsAchieved = StaticData.currentTotalNumberOfConstructions;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfConstructionsAchievements);
 		}
 	}
 
 	public void CalculateCurrentTotalNumberOfAchievements() {
 		int total = 0;
-		foreach (List<Achievement> la in PersistentData.listOfListOfAchievements) {
+		foreach (List<Achievement> la in StaticData.listOfListOfAchievements) {
 			foreach (Achievement a in la) {
 				total += a.currentLevel;
 			}
 		}
-		PersistentData.currentTotalNumberOfAchievements = total;
+		StaticData.currentTotalNumberOfAchievements = total;
 	}
 
 	//Calculates the current total number of upgrades
 	public void CalculateCurrentTotalNumberOfUpgrades() {
 		int total = 0;
-		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+		foreach (Upgrade u in StaticData.listOfRacesUpgrades) {
 			total += u.currentLevel;
 		}
-		foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
+		foreach (Upgrade u in StaticData.listOfConstructionsUpgrades) {
 			total += u.currentLevel;
 		}
-		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+		foreach (Upgrade u in StaticData.listOfPointerUpgrades) {
 			total += u.currentLevel;
 		}
-		foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+		foreach (Upgrade u in StaticData.listOfManaUpgrades) {
 			total += u.currentLevel;
 		}
-		foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
+		foreach (Upgrade u in StaticData.listOfInvestorsUpgrades) {
 			total += u.currentLevel;
 		}
-		PersistentData.currentTotalNumberOfUpgrades = total;
-		if (PersistentData.storedData.highestTotalNumberOfUpgradesAchieved < PersistentData.currentTotalNumberOfUpgrades) {
-			PersistentData.storedData.highestTotalNumberOfUpgradesAchieved = PersistentData.currentTotalNumberOfUpgrades;
-			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
+		StaticData.currentTotalNumberOfUpgrades = total;
+		if (StaticData.storedData.highestTotalNumberOfUpgradesAchieved < StaticData.currentTotalNumberOfUpgrades) {
+			StaticData.storedData.highestTotalNumberOfUpgradesAchieved = StaticData.currentTotalNumberOfUpgrades;
+			this.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfUpgradesAchievements);
 		}
 	}
 
@@ -140,55 +140,55 @@ public class DataManager : MonoBehaviour {
 
 	//Return the reward the player is entitled to after
 	public double CalculateRewardAfterAbsence() {
-		return (PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.storedData.totalFarmingReward);
+		return (StaticData.timeSinceLastSave.TotalSeconds * StaticData.storedData.totalFarmingReward);
 	}
 
 	//Return the mana of the player after his absence
 	public void UpdateManaAfterAbsence() {
-		AddMana((float)(PersistentData.timeSinceLastSave.TotalSeconds * PersistentData.manaRegenRate));
+		AddMana((float)(StaticData.timeSinceLastSave.TotalSeconds * StaticData.manaRegenRate));
 	}
 
 	//Restart the game
 	public void Restart() {
-		foreach (Construction c in PersistentData.listOfConstructions) {
+		foreach (Construction c in StaticData.listOfConstructions) {
 			c.AddNConstructions (-c.quantity);
 		}
-		foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+		foreach (Upgrade u in StaticData.listOfRacesUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
-		foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
+		foreach (Upgrade u in StaticData.listOfConstructionsUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
-		foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+		foreach (Upgrade u in StaticData.listOfPointerUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
-		foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+		foreach (Upgrade u in StaticData.listOfManaUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
-		foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
+		foreach (Upgrade u in StaticData.listOfInvestorsUpgrades) {
 			u.AddNLevel (-u.currentLevel, this.gameObject);
 		}
-		PersistentData.bonusPerInvestor = 0.01f;
-		PersistentData.baseClickingReward = 1;
-		PersistentData.clickingMultiplier = 1;
-		PersistentData.currentNumberOfClicks = 0;
-		PersistentData.currentNumberOfAbilitiesUsed = 0;
-		PersistentData.listOfAbilities = WordsLists.listOfRacesUpgrades [0].abilities;
-		PersistentData.currentRace = WordsLists.listOfRacesUpgrades [0];
-		PersistentData.timeSpentPlayingWithCurrentSession = System.TimeSpan.Zero;
-		PersistentData.listOfConstructions = WordsLists.listOfRacesUpgrades[0].constructions;
-		PersistentData.notificationList = new List<Achievement> ();
-		PersistentData.currentMana = 100;
-		PersistentData.maxMana = 100;
-		PersistentData.manaRegenRate = 1;
-		PersistentData.storedData.currentMoney = 0;
-		PersistentData.currentTotalNumberOfConstructions = 0;
-		PersistentData.currentTotalNumberOfUpgrades = 0;
-		PersistentData.storedData.constructionsQuantities = new int[10];
-		PersistentData.storedData.constructionsUpgradesLevels = new int[10];
+		StaticData.bonusPerInvestor = 0.01f;
+		StaticData.baseClickingReward = 1;
+		StaticData.clickingMultiplier = 1;
+		StaticData.currentNumberOfClicks = 0;
+		StaticData.currentNumberOfAbilitiesUsed = 0;
+		StaticData.listOfAbilities = WordsLists.listOfRacesUpgrades [0].abilities;
+		StaticData.currentRace = WordsLists.listOfRacesUpgrades [0];
+		StaticData.timeSpentPlayingWithCurrentSession = System.TimeSpan.Zero;
+		StaticData.listOfConstructions = WordsLists.listOfRacesUpgrades[0].constructions;
+		StaticData.notificationList = new List<Achievement> ();
+		StaticData.currentMana = 100;
+		StaticData.maxMana = 100;
+		StaticData.manaRegenRate = 1;
+		StaticData.storedData.currentMoney = 0;
+		StaticData.currentTotalNumberOfConstructions = 0;
+		StaticData.currentTotalNumberOfUpgrades = 0;
+		StaticData.storedData.constructionsQuantities = new int[10];
+		StaticData.storedData.constructionsUpgradesLevels = new int[10];
 		CalculateTotalClickingReward ();
 		CalculateTotalFarmingReward ();
-		PersistentData.SaveData ();
+		StaticData.SaveData ();
 	}
 
 	#endregion

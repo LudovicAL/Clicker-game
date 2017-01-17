@@ -41,7 +41,7 @@ public class Construction {
 	//Add N constructions to those already possessed
 	public void AddNConstructions(int numberOfConstructionsAdded) {
 		quantity += numberOfConstructionsAdded;
-		PersistentData.storedData.constructionsQuantities [id - 1] = quantity;
+		StaticData.storedData.constructionsQuantities [id - 1] = quantity;
 		//Not all required calculations are performed here, but rather only those that effect this construction alone
 		CalculateNumberOfConstructionsToBuild ();
 		CalculateCostForNCopiesOfThisConstruction ();
@@ -52,12 +52,12 @@ public class Construction {
 	//Buys a construction
 	public void BuyConstruction(DataManager dm) {
 		if (CanAffordConstruction()) {
-			PersistentData.storedData.currentMoney -= constructionCost;
+			StaticData.storedData.currentMoney -= constructionCost;
 			AddNConstructions(numberOfConstructionsToBuild);
 			//Not all calculations are performed here, but rather only those that effect every button due to the change
 			dm.CalculateTotalFarmingReward ();
 			dm.CalculateCurrentTotalNumberOfConstructions ();
-			foreach (Construction c in PersistentData.listOfConstructions) {
+			foreach (Construction c in StaticData.listOfConstructions) {
 				c.CalculateContribution ();
 				c.UpdateButtonDisplayedContribution ();
 				c.UpdateButtonDisplayedCost ();
@@ -70,7 +70,7 @@ public class Construction {
 		if (constructionCost == 0) {
 			return false;
 		} else {
-			return (PersistentData.storedData.currentMoney >= constructionCost);
+			return (StaticData.storedData.currentMoney >= constructionCost);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class Construction {
 				if (t.gameObject.CompareTag("Cost")) {
 					CalculateNumberOfConstructionsToBuild ();
 					CalculateCostForNCopiesOfThisConstruction();
-					if (PersistentData.bulkBuyer.Quantity == 0) {
+					if (StaticData.bulkBuyer.Quantity == 0) {
 						t.text = "(" + numberOfConstructionsToBuild.ToString() + "x) " + CommonTools.DoubleToString(constructionCost) + " $";
 					} else {
 						t.text = CommonTools.DoubleToString(constructionCost) + " $";
@@ -187,22 +187,22 @@ public class Construction {
 
 	//Calculates the amount of money produced by this construction per second
 	public void CalculateProduction() {
-		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(PersistentData.listOfConstructionsUpgrades[id - 1].currentLevel));
+		production = System.Math.Pow (id + 1, 2.0f) * quantity * System.Math.Pow(2, (double)(StaticData.listOfConstructionsUpgrades[id - 1].currentLevel));
 	}
 
 	//Calculates the contribution of this specific constructions among all constructions
 	public void CalculateContribution() {
-		if (PersistentData.farmingRewardFromConstructions != 0) {
-			contribution = (float)(production / PersistentData.farmingRewardFromConstructions);
+		if (StaticData.farmingRewardFromConstructions != 0) {
+			contribution = (float)(production / StaticData.farmingRewardFromConstructions);
 		}
 	}
 
 	//Calculates the number of constructions to build according to the bulk buying roulette button
 	public void CalculateNumberOfConstructionsToBuild() {
-		if (PersistentData.bulkBuyer.Quantity == 0) {
-			numberOfConstructionsToBuild = CalculateMaxBuyable(PersistentData.storedData.currentMoney);
+		if (StaticData.bulkBuyer.Quantity == 0) {
+			numberOfConstructionsToBuild = CalculateMaxBuyable(StaticData.storedData.currentMoney);
 		} else {
-			numberOfConstructionsToBuild = PersistentData.bulkBuyer.Quantity;
+			numberOfConstructionsToBuild = StaticData.bulkBuyer.Quantity;
 		}
 	}
 

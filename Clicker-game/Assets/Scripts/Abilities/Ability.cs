@@ -18,7 +18,7 @@ public abstract class Ability {
 
 	//Updates the enabled status of the button
 	public void UpdateButtonInteractivity() {
-		aButton.enabled = PersistentData.currentMana >= manaCost;
+		aButton.enabled = StaticData.currentMana >= manaCost;
 	}
 
 	//Updates the active status of the button

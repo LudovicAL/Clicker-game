@@ -9,7 +9,7 @@ public class ATotalMoney : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement(GameObject scriptsBucket) {
-		currentValue = PersistentData.storedData.highestMoneyAchieved;
+		currentValue = StaticData.storedData.highestMoneyAchieved;
 		CalculateCurrentLevel (scriptsBucket);
 		CalculateProgress ();
 		UpdateProgressBar ();

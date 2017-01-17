@@ -6,7 +6,7 @@ public static class CommonTools {
 
 	//Updates the current number notation
 	public static void UpdateNumbersNotations() {
-		if (PersistentData.storedData.shortNumbers) {
+		if (StaticData.storedData.shortNumbers) {
 			numbersNotations = WordsLists.numbersAbreviations;
 		} else {
 			numbersNotations = WordsLists.numbersNames;

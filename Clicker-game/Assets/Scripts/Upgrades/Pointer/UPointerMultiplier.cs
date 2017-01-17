@@ -13,10 +13,10 @@ public class UPointerMultiplier : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.clickingMultiplier = currentLevel;
+		StaticData.clickingMultiplier = currentLevel;
 		scriptsBucket.GetComponent<DataManager> ().CalculateTotalClickingReward ();
-		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
-		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfWealthAchievements);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfUpgradesAchievements);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfWealthAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade
@@ -27,7 +27,7 @@ public class UPointerMultiplier : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		return (PersistentData.storedData.currentMoney >= costOfAvailability) ? true : false;
+		return (StaticData.storedData.currentMoney >= costOfAvailability) ? true : false;
 	}
 
 }

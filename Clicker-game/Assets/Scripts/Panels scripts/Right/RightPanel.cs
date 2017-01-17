@@ -4,20 +4,15 @@ using UnityEngine.UI;
 
 public class RightPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
 	public Button[] menuButtonsList;
 	public GameObject[] innerPanelsList;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 		updateMenuButtonColors (0);
 	}
 
@@ -26,20 +21,20 @@ public class RightPanel : MonoBehaviour {
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
 	//When the player clicks a menu button from the panel
 	public void OnMenuButtonClic(int menuNo) {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			bool isHidden = thisPanel.GetComponent<Animator> ().GetBool ("isHidden");
 			if (isHidden || innerPanelsList[menuNo].activeSelf) {
 				thisPanel.GetComponent<Animator> ().SetBool("isHidden", !isHidden);

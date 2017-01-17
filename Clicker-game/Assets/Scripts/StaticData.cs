@@ -4,7 +4,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PersistentData {
+public static class StaticData {
+
+	public enum AvailableGameStates {
+		Paused,	//Player is paused
+		Playing,	//Game is playing
+	};
 
 	#region Variables
 
@@ -79,14 +84,12 @@ public static class PersistentData {
 	public static float maxMana = 100;
 	public static float manaRegenRate = 1;
 
-	//STATIC CONSTRUCTOR
-	static PersistentData() {
-		//Nothing here yet...
-	}
-
 	#endregion
 
-	#region SaveData
+	//STATIC CONSTRUCTOR
+	static StaticData() {
+		//Nothing here yet...
+	}
 
 	public static void SaveData() {
 		BinaryFormatter bf = new BinaryFormatter ();
@@ -101,10 +104,6 @@ public static class PersistentData {
 		bf.Serialize (file, storedData);
 		file.Close ();
 	}
-
-	#endregion
-
-	#region LoadData
 
 	public static void LoadData(GameObject scriptsBucket) {
 		if (!System.IO.File.Exists(Application.persistentDataPath + "/storedGameData.dat")) {
@@ -124,6 +123,4 @@ public static class PersistentData {
 			CommonTools.UpdateNumbersNotations ();
 		}
 	}
-
-	#endregion
 }

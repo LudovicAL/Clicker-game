@@ -4,11 +4,6 @@ using UnityEngine.UI;
 
 public class ToolTip : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject ttSmallPanel;
 	public Text ttSmallTopLeft;
 	public Text ttSmallTopRight;
@@ -23,12 +18,12 @@ public class ToolTip : MonoBehaviour {
 
 	public GameObject ttCustomPanel;
 
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 		TurnToolTipOff ();
 	}
 	
@@ -39,20 +34,20 @@ public class ToolTip : MonoBehaviour {
 	*/
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
 	//Turns on the small tooltip
 	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description) {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			ttSmallTopLeft.text = topLeft;
 			ttSmallTopRight.text = topRight;
 			ttSmallDescription.text = description;
@@ -63,7 +58,7 @@ public class ToolTip : MonoBehaviour {
 
 	//Turns on the long tooltip
 	public void TurnToolTipOn(GameObject go, string topLeft, string topRight, string description, string bottomLeft, string bottomRight) {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			ttLongTopLeft.text = topLeft;
 			ttLongTopRight.text = topRight;
 			ttLongDescription.text = description;
@@ -76,7 +71,7 @@ public class ToolTip : MonoBehaviour {
 
 	//Turns on the custom tooltip
 	public void TurnToolTipOn(GameObject go, string[] texts) {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			for (int i = 0, maxA = ttCustomPanel.transform.childCount, maxB = texts.Length; i < maxA; i++) {
 				if (i < maxB) {
 					ttCustomPanel.transform.GetChild (i).GetComponent<Text> ().text = texts [i];

@@ -13,8 +13,8 @@ public class UManaRegen : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.manaRegenRate = 1.0f + ((float)currentLevel * 0.5f);
-		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
+		StaticData.manaRegenRate = 1.0f + ((float)currentLevel * 0.5f);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfUpgradesAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade
@@ -25,6 +25,6 @@ public class UManaRegen : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		return (PersistentData.storedData.currentMoney >= costOfAvailability) ? true : false;
+		return (StaticData.storedData.currentMoney >= costOfAvailability) ? true : false;
 	}
 }

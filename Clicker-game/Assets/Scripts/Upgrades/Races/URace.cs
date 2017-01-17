@@ -21,14 +21,14 @@ public class URace : Upgrade {
 
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
-		PersistentData.currentRace = this;
-		PersistentData.listOfConstructions.AddRange (constructions);
-		PersistentData.listOfConstructionsUpgrades.AddRange (upgrades);
-		PersistentData.listOfAbilities.AddRange (abilities);
+		StaticData.currentRace = this;
+		StaticData.listOfConstructions.AddRange (constructions);
+		StaticData.listOfConstructionsUpgrades.AddRange (upgrades);
+		StaticData.listOfAbilities.AddRange (abilities);
 		scriptsBucket.GetComponent<ConstructionsPanel> ().UpdateConstructionButtons ();
-		scriptsBucket.GetComponent<UpgradesPanel> ().UpdateUpgradeButtons (PersistentData.listOfConstructionsUpgrades, scriptsBucket.GetComponent<UpgradesPanel> ().panelConstructionsUpgrades);
+		scriptsBucket.GetComponent<UpgradesPanel> ().UpdateUpgradeButtons (StaticData.listOfConstructionsUpgrades, scriptsBucket.GetComponent<UpgradesPanel> ().panelConstructionsUpgrades);
 		scriptsBucket.GetComponent<AbilitiesPanel> ().UpdateAbilityButtons ();
-		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (PersistentData.listOfUpgradesAchievements);
+		scriptsBucket.GetComponent<AchievementsPanel> ().CheckAchievementsInList (StaticData.listOfUpgradesAchievements);
 	}
 
 	//Calculates the cost of the next level for this upgrade
@@ -38,9 +38,9 @@ public class URace : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		if ((this != PersistentData.listOfRacesUpgrades [0]) &&	//Checks that it is not upgrade 0
-		    (PersistentData.currentRace == PersistentData.listOfRacesUpgrades [0]) &&	//Checks that 'currentUpgrade' is upgrade 0
-		    (PersistentData.storedData.currentInvestors >= costOfAvailability)) {	//Checks that the costOfAvailibility requirement is met
+		if ((this != StaticData.listOfRacesUpgrades [0]) &&	//Checks that it is not upgrade 0
+		    (StaticData.currentRace == StaticData.listOfRacesUpgrades [0]) &&	//Checks that 'currentUpgrade' is upgrade 0
+		    (StaticData.storedData.currentInvestors >= costOfAvailability)) {	//Checks that the costOfAvailibility requirement is met
 			return true;
 		} else {
 			return false;

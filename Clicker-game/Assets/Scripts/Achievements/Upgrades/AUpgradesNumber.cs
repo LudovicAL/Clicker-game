@@ -9,7 +9,7 @@ public class AUpgradesNumber : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement(GameObject scriptsBucket) {
-		currentValue = PersistentData.currentTotalNumberOfUpgrades;
+		currentValue = StaticData.currentTotalNumberOfUpgrades;
 		CalculateCurrentLevel (scriptsBucket);
 		CalculateProgress ();
 		UpdateProgressBar ();

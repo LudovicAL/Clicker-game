@@ -5,13 +5,8 @@ using UnityEngine.UI;
 
 public class HeaderPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 	public Text currentMoneyText;
 	public Text currentFarmingText;
 
@@ -19,25 +14,25 @@ public class HeaderPanel : MonoBehaviour {
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 	}
 	
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing) {
-			currentMoneyText.text = CommonTools.DoubleToString(PersistentData.storedData.currentMoney) + " $";
-			currentFarmingText.text = CommonTools.DoubleToString(PersistentData.storedData.totalFarmingReward) + " $ / sec.";
+		if (panelState == StaticData.AvailableGameStates.Playing) {
+			currentMoneyText.text = CommonTools.DoubleToString(StaticData.storedData.currentMoney) + " $";
+			currentFarmingText.text = CommonTools.DoubleToString(StaticData.storedData.totalFarmingReward) + " $ / sec.";
 		}
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 }

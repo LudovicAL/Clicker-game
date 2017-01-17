@@ -6,50 +6,45 @@ using UnityEngine.EventSystems;
 
 public class AbilitiesPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
 	public GameObject abilityButtonPanel;
 	public Image manaBar;
 	public Text manaText;
 	public GameObject abilityButtonPrefab;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 		UpdateAbilityButtons ();
 	}
 	
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			manaText.text = PersistentData.currentMana.ToString() + " / " + PersistentData.maxMana.ToString();
-			manaBar.fillAmount = (PersistentData.currentMana / PersistentData.maxMana);
-			foreach (Ability a in PersistentData.listOfAbilities) {
+		if (panelState == StaticData.AvailableGameStates.Playing && thisPanel.activeSelf) {
+			manaText.text = StaticData.currentMana.ToString() + " / " + StaticData.maxMana.ToString();
+			manaBar.fillAmount = (StaticData.currentMana / StaticData.maxMana);
+			foreach (Ability a in StaticData.listOfAbilities) {
 				a.UpdateButtonInteractivity ();
 			}
 		}
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
 	//Deletes all previously existing ability buttons, creates new ones and updates their display
 	public void UpdateAbilityButtons() {
-		foreach (Ability a in PersistentData.listOfAbilities) {
+		foreach (Ability a in StaticData.listOfAbilities) {
 			GameObject go = (GameObject)Instantiate (abilityButtonPrefab, abilityButtonPanel.transform, false);
 			Button b = go.GetComponent<Button> ();
 			a.aButton = b;

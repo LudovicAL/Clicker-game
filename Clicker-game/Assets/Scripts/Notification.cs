@@ -5,12 +5,7 @@ using UnityEngine.UI;
 
 public class Notification : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 	public GameObject thisPanel;
 	public Text thisText;
 	private bool showing;
@@ -19,15 +14,15 @@ public class Notification : MonoBehaviour {
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 		showing = false;
 		tTask = null;
 	}
 	
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			if (!showing) {
-				if (PersistentData.notificationList.Count > 0) {
+				if (StaticData.notificationList.Count > 0) {
 					showing = true;
 					tTask = new Task(showNextNotification ());
 				}
@@ -36,21 +31,21 @@ public class Notification : MonoBehaviour {
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
 	//Shows the next notification in the queue
 	private IEnumerator showNextNotification() {
-		thisText.text = "New achievement completed: " + PersistentData.notificationList[0].name + " lvl " + PersistentData.notificationList[0].currentLevel + ".";
-		PersistentData.notificationList.RemoveAt(0);
+		thisText.text = "New achievement completed: " + StaticData.notificationList[0].name + " lvl " + StaticData.notificationList[0].currentLevel + ".";
+		StaticData.notificationList.RemoveAt(0);
 		thisPanel.GetComponent<Animator> ().SetBool("isHidden", false);
 		yield return new WaitForSeconds(5);
 		thisPanel.GetComponent<Animator> ().SetBool("isHidden", true);
@@ -67,7 +62,7 @@ public class Notification : MonoBehaviour {
 
 	//When the played clicks the notification
 	public void OnButtonClick() {
-		if (panelState == AvailablePanelStates.Playing) {
+		if (panelState == StaticData.AvailableGameStates.Playing) {
 			if (tTask != null) {
 				if (tTask.Running) {
 					tTask.Stop ();

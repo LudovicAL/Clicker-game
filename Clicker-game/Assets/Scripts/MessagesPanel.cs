@@ -26,7 +26,7 @@ public class MessagesPanel : MonoBehaviour {
 	public void ShowRewardAfterAbsence() {
 		panelMessage.SetActive (true);
 		panelRewardAfterAbsence.SetActive (true);
-		textOfRewardAfterAbsence.text = "You were absent for " + PersistentData.timeSinceLastSave.Days.ToString() + "d, " + PersistentData.timeSinceLastSave.Hours + "h and " + PersistentData.timeSinceLastSave.Minutes + "m. Your workers produced " + this.GetComponent<DataManager> ().CalculateRewardAfterAbsence () + " $ in that time.";
+		textOfRewardAfterAbsence.text = "You were absent for " + StaticData.timeSinceLastSave.Days.ToString() + "d, " + StaticData.timeSinceLastSave.Hours + "h and " + StaticData.timeSinceLastSave.Minutes + "m. Your workers produced " + this.GetComponent<DataManager> ().CalculateRewardAfterAbsence () + " $ in that time.";
 	}
 
 	//When the player clicks the claim reward after absence button
@@ -47,14 +47,14 @@ public class MessagesPanel : MonoBehaviour {
 	//When the player submits his desired planet name (or no name at all)
 	public void OnPlanetNameSubmit() {
 		if (inputFieldOfInputDialog.text.Length == 0) {
-			PersistentData.storedData.planetName = CommonTools.GeneratePlanetName ();
+			StaticData.storedData.planetName = CommonTools.GeneratePlanetName ();
 		} else {
-			PersistentData.storedData.planetName = inputFieldOfInputDialog.text;
+			StaticData.storedData.planetName = inputFieldOfInputDialog.text;
 			inputFieldOfInputDialog.text = "";
 		}
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
 		panelInputDialogForPlanetName.SetActive (false);
 		panelMessage.SetActive (false);
-		PersistentData.SaveData ();
+		StaticData.SaveData ();
 	}
 }

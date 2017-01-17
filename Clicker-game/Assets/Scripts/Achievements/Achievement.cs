@@ -38,8 +38,8 @@ public abstract class Achievement {
 			if (currentValue > valuesTable[i + 1]) {
 				currentLevel = i + 1;
 				scriptsBucket.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfAchievements ();
-				if (PersistentData.storedData.achievementsNotifications && !PersistentData.notificationList.Contains(this)) {
-					PersistentData.notificationList.Add (this);
+				if (StaticData.storedData.achievementsNotifications && !StaticData.notificationList.Contains(this)) {
+					StaticData.notificationList.Add (this);
 				}
 			} else {
 				break;

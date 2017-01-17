@@ -9,7 +9,7 @@ public class AConstructionsNumber : Achievement {
 
 	//Updates the achievement progress and display
 	public override void UpdateAchievement(GameObject scriptsBucket) {
-		currentValue = PersistentData.storedData.highestTotalNumberOfConstructionsAchieved;
+		currentValue = StaticData.storedData.highestTotalNumberOfConstructionsAchieved;
 		CalculateCurrentLevel (scriptsBucket);
 		CalculateProgress ();
 		UpdateProgressBar ();

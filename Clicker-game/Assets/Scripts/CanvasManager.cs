@@ -3,39 +3,35 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour {
-	public enum AvailableCanvasStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
 
 	public GameObject toolTipPanel;
 	public ColorBlock enabledColorBlock;
 	public ColorBlock disabledColorBlock;
-	private AvailableCanvasStates canvasState;
+	private StaticData.AvailableGameStates gameState;
 
 	void Start () {
 		CommonTools.UpdateNumbersNotations ();
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetCanvasState (AvailableCanvasStates.Playing);
+		SetCanvasState (this.GetComponent<GameStatesManager> ().gameState);
 	}
 
 	void Update () {
-		if (canvasState == AvailableCanvasStates.Playing) {
+		if (gameState == StaticData.AvailableGameStates.Playing) {
 
 		}
 	}
 
 	protected void OnPlaying() {
-		SetCanvasState (AvailableCanvasStates.Playing);
+		SetCanvasState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetCanvasState (AvailableCanvasStates.Paused);
+		SetCanvasState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetCanvasState(AvailableCanvasStates state) {
-		canvasState = state;
+	public void SetCanvasState(StaticData.AvailableGameStates state) {
+		gameState = state;
 	}
 
 	//Shows a video ad
@@ -45,18 +41,18 @@ public class CanvasManager : MonoBehaviour {
 
 	//Saves the game
 	public void OnSaveButtonClick() {
-		PersistentData.SaveData ();
+		StaticData.SaveData ();
 	}
 
 	//Load the saved game
 	public void OnLoadButtonClick() {
-		PersistentData.LoadData (this.gameObject);
+		StaticData.LoadData (this.gameObject);
 		this.GetComponent<MainPanel> ().UpdatePlanet ();
 		this.GetComponent<OptionPanel> ().UpdateAllOptionButtons ();
 		this.GetComponent<DataManager> ().CalculateTotalClickingReward ();
 		this.GetComponent<DataManager> ().CalculateTotalFarmingReward ();
 		this.GetComponent<DataManager> ().CalculateCurrentTotalNumberOfConstructions ();
-		if (PersistentData.timeSinceLastSave != System.TimeSpan.Zero) {
+		if (StaticData.timeSinceLastSave != System.TimeSpan.Zero) {
 			this.GetComponent<MessagesPanel> ().ShowRewardAfterAbsence ();
 			this.GetComponent<DataManager> ().UpdateManaAfterAbsence ();
 		}

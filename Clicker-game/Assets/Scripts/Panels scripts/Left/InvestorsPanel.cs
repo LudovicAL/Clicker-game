@@ -5,51 +5,46 @@ using UnityEngine.UI;
 
 public class InvestorsPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
 	public Text currentInvestors;
 	public Text bonusPerInvestor;
 	public Text potentialInvestors;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);	
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);	
 	}
 	
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
+		if (panelState == StaticData.AvailableGameStates.Playing && thisPanel.activeSelf) {
 			UpdateInvestorsData();
 		}
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
 	//Updates the number of potential investors
 	public void UpdateInvestorsData() {
-		PersistentData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (PersistentData.storedData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
-		potentialInvestors.text = CommonTools.DoubleToString(PersistentData.potentialInvestors);
-		bonusPerInvestor.text = PersistentData.bonusPerInvestor.ToString ("p0");
+		StaticData.potentialInvestors = System.Math.Max(0, System.Math.Floor((-1 + System.Math.Pow(1 + 8 * (StaticData.storedData.currentMoney / 1000000000000), 0.5)) / 2));//geometric progression
+		potentialInvestors.text = CommonTools.DoubleToString(StaticData.potentialInvestors);
+		bonusPerInvestor.text = StaticData.bonusPerInvestor.ToString ("p0");
 	}
 
 	//When the user clicks expand
 	public void OnExpandButtonClic() {
-		PersistentData.storedData.currentInvestors += PersistentData.potentialInvestors;
+		StaticData.storedData.currentInvestors += StaticData.potentialInvestors;
 		this.GetComponent<DataManager>().Restart ();
 	}
 }

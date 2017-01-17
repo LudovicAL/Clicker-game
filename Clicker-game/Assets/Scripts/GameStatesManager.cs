@@ -4,23 +4,22 @@ using UnityEngine.Events;
 
 public class GameStatesManager : MonoBehaviour {
 
-	public enum AvailableGameStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public UnityEvent PausedGameState;
 	public UnityEvent PlayingGameState;
-	private AvailableGameStates gameState;
+	public StaticData.AvailableGameStates gameState { get; private set;}
 
-	void Start () {
+	void Awake () {
 		if (PlayingGameState == null) {
 			PlayingGameState = new UnityEvent();
 		}
 		if (PausedGameState == null) {
 			PausedGameState = new UnityEvent();
 		}
-		ChangeGameState(AvailableGameStates.Playing);
+		ChangeGameState(StaticData.AvailableGameStates.Playing);
+	}
+
+	void start() {
+
 	}
 
 	void Update () {
@@ -30,13 +29,13 @@ public class GameStatesManager : MonoBehaviour {
 	}
 
 	//Call this to change the game state
-	public void ChangeGameState(AvailableGameStates desiredState) {
+	public void ChangeGameState(StaticData.AvailableGameStates desiredState) {
 		gameState = desiredState;
 		switch(desiredState) {
-			case AvailableGameStates.Playing:
+			case StaticData.AvailableGameStates.Playing:
 				PlayingGameState.Invoke ();
 				break;
-			case AvailableGameStates.Paused:
+			case StaticData.AvailableGameStates.Paused:
 				PausedGameState.Invoke ();
 				break;
 		}
@@ -44,20 +43,10 @@ public class GameStatesManager : MonoBehaviour {
 
 	//Called when users presses the escape key
 	public void OnEscapeKeyPressed() {
-		if (gameState == AvailableGameStates.Playing) {
-			ChangeGameState (AvailableGameStates.Paused);
-		} else if (gameState == AvailableGameStates.Paused) {
-			ChangeGameState (AvailableGameStates.Playing);
-		}
-	}
-
-	//Properties
-	public AvailableGameStates GameState {
-		get {
-			return gameState;
-		}
-		set {
-			gameState = value;
+		if (gameState == StaticData.AvailableGameStates.Playing) {
+			ChangeGameState (StaticData.AvailableGameStates.Paused);
+		} else if (gameState == StaticData.AvailableGameStates.Paused) {
+			ChangeGameState (StaticData.AvailableGameStates.Playing);
 		}
 	}
 }

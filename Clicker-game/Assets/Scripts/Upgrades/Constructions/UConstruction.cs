@@ -18,7 +18,7 @@ public class UConstruction : Upgrade {
 	//Applies the upgrade effect
 	public override void ApplyUpgradeEffect(GameObject scriptsBucket) {
 		scriptsBucket.GetComponent<DataManager>().CalculateTotalFarmingReward ();
-		foreach (Construction c in PersistentData.listOfConstructions) {
+		foreach (Construction c in StaticData.listOfConstructions) {
 			c.CalculateContribution ();
 			c.UpdateButtonDisplayedContribution ();
 		}
@@ -32,6 +32,6 @@ public class UConstruction : Upgrade {
 
 	//Is the upgrade available
 	public override bool IsUpgradeAvailable() {
-		return (PersistentData.listOfConstructions[id - 1].quantity >= ((currentLevel + 1) * upgradeInterval));
+		return (StaticData.listOfConstructions[id - 1].quantity >= ((currentLevel + 1) * upgradeInterval));
 	}
 }

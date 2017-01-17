@@ -4,25 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ConstructionsPanel : MonoBehaviour {
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
 
 	public GameObject constructionButtonPrefab;
 	public GameObject thisPanel;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
 		UpdateConstructionButtons ();
 	}
 	
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			foreach (Construction c in PersistentData.listOfConstructions) {
+		if (panelState == StaticData.AvailableGameStates.Playing && thisPanel.activeSelf) {
+			foreach (Construction c in StaticData.listOfConstructions) {
 				c.CalculateNumberOfConstructionsToBuild ();
 				c.UpdateButtonDisplayedCost ();
 				c.constructionButton.interactable = c.CanAffordConstruction();
@@ -31,14 +27,14 @@ public class ConstructionsPanel : MonoBehaviour {
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
@@ -47,7 +43,7 @@ public class ConstructionsPanel : MonoBehaviour {
 		for (int i = thisPanel.transform.childCount; i > 0; i--) {
 			GameObject.Destroy (thisPanel.transform.GetChild (i - 1).gameObject);
 		}
-		foreach (Construction c in PersistentData.listOfConstructions) {
+		foreach (Construction c in StaticData.listOfConstructions) {
 			GameObject go = (GameObject)Instantiate (constructionButtonPrefab, thisPanel.transform, false);
 			Button b = go.GetComponent<Button> ();
 			b.onClick.AddListener(delegate() { c.BuyConstruction(this.GetComponent<DataManager>()); });

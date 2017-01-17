@@ -6,11 +6,6 @@ using UnityEngine.EventSystems;
 
 public class UpgradesPanel : MonoBehaviour {
 
-	public enum AvailablePanelStates {
-		Paused,	//Player is paused
-		Playing,	//Game is playing
-	};
-
 	public GameObject thisPanel;
 	public GameObject panelRaces;
 	public GameObject panelConstructionsUpgrades;
@@ -18,40 +13,40 @@ public class UpgradesPanel : MonoBehaviour {
 	public GameObject panelManaUpgrades;
 	public GameObject panelInvestorsUpgrades;
 	public GameObject upgradeButtonPrefab;
-	private AvailablePanelStates panelState;
+	private StaticData.AvailableGameStates panelState;
 
 	// Use this for initialization
 	void Start () {
 		this.GetComponent<GameStatesManager> ().PlayingGameState.AddListener(OnPlaying);
 		this.GetComponent<GameStatesManager> ().PausedGameState.AddListener(OnPausing);
-		SetPanelState (AvailablePanelStates.Playing);
-		UpdateUpgradeButtons (PersistentData.listOfRacesUpgrades, panelRaces);
-		UpdateUpgradeButtons (PersistentData.listOfConstructionsUpgrades, panelConstructionsUpgrades);
-		UpdateUpgradeButtons (PersistentData.listOfPointerUpgrades, panelPointerUpgrades);
-		UpdateUpgradeButtons (PersistentData.listOfManaUpgrades, panelManaUpgrades);
-		UpdateUpgradeButtons (PersistentData.listOfInvestorsUpgrades, panelInvestorsUpgrades);
+		SetPanelState (this.GetComponent<GameStatesManager> ().gameState);
+		UpdateUpgradeButtons (StaticData.listOfRacesUpgrades, panelRaces);
+		UpdateUpgradeButtons (StaticData.listOfConstructionsUpgrades, panelConstructionsUpgrades);
+		UpdateUpgradeButtons (StaticData.listOfPointerUpgrades, panelPointerUpgrades);
+		UpdateUpgradeButtons (StaticData.listOfManaUpgrades, panelManaUpgrades);
+		UpdateUpgradeButtons (StaticData.listOfInvestorsUpgrades, panelInvestorsUpgrades);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (panelState == AvailablePanelStates.Playing && thisPanel.activeSelf) {
-			foreach (Upgrade u in PersistentData.listOfRacesUpgrades) {
+		if (panelState == StaticData.AvailableGameStates.Playing && thisPanel.activeSelf) {
+			foreach (Upgrade u in StaticData.listOfRacesUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
-			foreach (Upgrade u in PersistentData.listOfConstructionsUpgrades) {
+			foreach (Upgrade u in StaticData.listOfConstructionsUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
-			foreach (Upgrade u in PersistentData.listOfPointerUpgrades) {
+			foreach (Upgrade u in StaticData.listOfPointerUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
-			foreach (Upgrade u in PersistentData.listOfManaUpgrades) {
+			foreach (Upgrade u in StaticData.listOfManaUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
-			foreach (Upgrade u in PersistentData.listOfInvestorsUpgrades) {
+			foreach (Upgrade u in StaticData.listOfInvestorsUpgrades) {
 				u.UpdateButtonAvailability ();
 				u.UpdateButtonInteractivity ();
 			}
@@ -59,14 +54,14 @@ public class UpgradesPanel : MonoBehaviour {
 	}
 
 	protected void OnPlaying() {
-		SetPanelState (AvailablePanelStates.Playing);
+		SetPanelState (StaticData.AvailableGameStates.Playing);
 	}
 
 	protected void OnPausing() {
-		SetPanelState (AvailablePanelStates.Paused);
+		SetPanelState (StaticData.AvailableGameStates.Paused);
 	}
 
-	public void SetPanelState(AvailablePanelStates state) {
+	public void SetPanelState(StaticData.AvailableGameStates state) {
 		panelState = state;
 	}
 
