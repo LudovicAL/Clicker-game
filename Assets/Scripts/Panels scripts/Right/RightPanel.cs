@@ -49,7 +49,13 @@ public class RightPanel : MonoBehaviour {
 	//Updates the menu button current color to highligh the currently visited menu
 	public void updateMenuButtonColors(int highlightedButton) {
 		for (int i = 0; i < menuButtonsList.Length; i++) {
-			menuButtonsList[i].GetComponent<Button>().colors = ((i == highlightedButton) ? this.GetComponent<CanvasManager> ().enabledColorBlock : this.GetComponent<CanvasManager> ().disabledColorBlock);
+			if (i == highlightedButton) {
+				menuButtonsList[i].GetComponent<Button>().colors = this.GetComponent<CanvasManager> ().enabledColorBlock;
+				menuButtonsList[i].GetComponentInChildren<Text>().color = new Color(255, 255, 255);
+			} else  {
+				menuButtonsList[i].GetComponent<Button>().colors = this.GetComponent<CanvasManager> ().disabledColorBlock;
+				menuButtonsList[i].GetComponentInChildren<Text>().color = new Color(0, 0, 0);
+			}
 		}
 	}
 }
